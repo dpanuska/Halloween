@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.dpanuska.halloween.permissions.PermissionHelper
 import com.dpanuska.halloween.service.print.PrintService
 import com.dpanuska.halloween.service.speech.SpeechService
+import com.dpanuska.halloween.service.voice.VoiceRecognitionService
 
 class MainActivity : AppCompatActivity() {
 
     var printService: PrintService = PrintService()
     var speechService: SpeechService = SpeechService()
+    var voiceService = VoiceRecognitionService()
     lateinit var tts: TextToSpeech
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         printService.start(this)
         speechService.start(this)
+        voiceService.start(this)
 
 
         // TODO check if bluetooth supported
@@ -33,6 +36,8 @@ class MainActivity : AppCompatActivity() {
             speechService.sayText("hello world")
         }
     }
+
+    // TODO start and shutDown on Camera movement detection for voice etc service
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         PermissionHelper.onRequestPermissionsResult(this, requestCode, permissions, grantResults)

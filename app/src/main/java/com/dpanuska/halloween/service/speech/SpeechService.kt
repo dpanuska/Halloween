@@ -7,10 +7,10 @@ import java.util.*
 import kotlin.collections.HashMap
 
 enum class TaskProgress {
-    TASK_QUEUED,
-    TASK_STARTED,
-    TASK_COMPLETED,
-    TASK_FAILED,
+    QUEUED,
+    STARTED,
+    COMPLETED,
+    FAILED,
 }
 
 class SpeechService : UtteranceProgressListener() {
@@ -21,7 +21,7 @@ class SpeechService : UtteranceProgressListener() {
     fun start(context: Context) {
         shutDown()
         tts = TextToSpeech(context, TextToSpeech.OnInitListener { status ->
-            if (status != TextToSpeech.ERROR){
+            if (status != TextToSpeech.ERROR) {
                 //if there is no error then set language
                 tts!!.language = Locale.US
                 tts!!.setOnUtteranceProgressListener(this)
@@ -43,7 +43,7 @@ class SpeechService : UtteranceProgressListener() {
         }
 
         val uuid = UUID.randomUUID().toString()
-        tasks[uuid] = TaskProgress.TASK_QUEUED
+        tasks[uuid] = TaskProgress.QUEUED
         tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, uuid)
 
         return uuid
@@ -83,19 +83,19 @@ class SpeechService : UtteranceProgressListener() {
 
     override fun onStart(utteranceId: String?) {
         if (utteranceId != null) {
-            tasks[utteranceId] = TaskProgress.TASK_STARTED
+            tasks[utteranceId] = TaskProgress.STARTED
         }
     }
 
     override fun onDone(utteranceId: String?) {
         if (utteranceId != null) {
-            tasks[utteranceId] = TaskProgress.TASK_COMPLETED
+            tasks[utteranceId] = TaskProgress.COMPLETED
         }
     }
 
     override fun onError(utteranceId: String?) {
         if (utteranceId != null) {
-            tasks[utteranceId] = TaskProgress.TASK_FAILED
+            tasks[utteranceId] = TaskProgress.FAILED
         }
     }
 

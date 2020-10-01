@@ -15,8 +15,8 @@ import androidx.core.content.ContextCompat
 object PermissionHelper {
 
     enum class PermissionKey(val value: Int) {
-        CameraPermission(0),
-        RecordPermission(1),
+        Camera(0),
+        Record(1),
         Bluetooth(2);
 
         companion object {
@@ -25,8 +25,8 @@ object PermissionHelper {
     }
 
     // Map Keys to manifest permissions
-    private val permissionKeys = mapOf(PermissionKey.CameraPermission to Manifest.permission.CAMERA,
-        PermissionKey.RecordPermission to Manifest.permission.RECORD_AUDIO,
+    private val permissionKeys = mapOf(PermissionKey.Camera to Manifest.permission.CAMERA,
+        PermissionKey.Record to Manifest.permission.RECORD_AUDIO,
         PermissionKey.Bluetooth to Manifest.permission.BLUETOOTH)
 
     private fun hasPermission(context: Context, key: PermissionKey): Boolean {
@@ -46,29 +46,21 @@ object PermissionHelper {
 
     // Camera
     fun hasCameraPermission(context: Context): Boolean {
-        return hasPermission(context, PermissionKey.CameraPermission)
+        return hasPermission(context, PermissionKey.Camera)
     }
 
-    fun shouldShowCameraRequestPermissionRationale(activity: Activity): Boolean {
-        return shouldShowRequestPermissionRationale(activity, PermissionKey.CameraPermission)
-    }
-
-    fun requestCameraPermission(activity: Activity) {
-        ActivityCompat.requestPermissions(activity, arrayOf(permissionKeys[PermissionKey.CameraPermission]), PermissionKey.CameraPermission.ordinal)
+    private fun requestCameraPermission(activity: Activity) {
+        requestPermission(activity, PermissionKey.Camera)
     }
 
 
     // Record Audio
     fun hasRecordPermission(context: Context): Boolean {
-        return hasPermission(context, PermissionKey.RecordPermission)
+        return hasPermission(context, PermissionKey.Record)
     }
 
-    fun shouldShowRecordRequestPermissionRationale(activity: Activity): Boolean {
-        return shouldShowRequestPermissionRationale(activity, PermissionKey.RecordPermission)
-    }
-
-    fun requestRecordPermission(activity: Activity) {
-        ActivityCompat.requestPermissions(activity, arrayOf(permissionKeys[PermissionKey.RecordPermission]), PermissionKey.RecordPermission.ordinal)
+    private fun requestRecordPermission(activity: Activity) {
+        requestPermission(activity, PermissionKey.Record)
     }
 
     // Bluetooth
@@ -77,12 +69,8 @@ object PermissionHelper {
         return hasPermission(context, PermissionKey.Bluetooth)
     }
 
-    fun shouldShowBluetoothPermissionRationale(activity: Activity): Boolean {
-        return shouldShowRequestPermissionRationale(activity, PermissionKey.Bluetooth)
-    }
-
-    fun requestBluetoothPermission(activity: Activity) {
-        ActivityCompat.requestPermissions(activity, arrayOf(permissionKeys[PermissionKey.Bluetooth]), PermissionKey.Bluetooth.ordinal)
+    private fun requestBluetoothPermission(activity: Activity) {
+        requestPermission(activity, PermissionKey.Bluetooth)
     }
 
 
@@ -99,6 +87,7 @@ object PermissionHelper {
         }
     }
 
+    // Good Enough for this app - should do more checking around termination
     fun onRequestPermissionsResult(activity: Activity, requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         val permission = PermissionKey.fromInt(requestCode)
         if (permission != null) {
@@ -116,7 +105,7 @@ object PermissionHelper {
         }
     }
 
-    fun launchPermissionSettings(activity: Activity) {
+    private fun launchPermissionSettings(activity: Activity) {
         val intent = Intent()
         intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
         intent.data = Uri.fromParts("package", activity.packageName, null)
