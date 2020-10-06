@@ -34,16 +34,29 @@ class MainActivity : AppCompatActivity() {
 
         val button = findViewById<Button>(R.id.button)
         button?.setOnClickListener() {
-            val taskList = ArrayList<BaseTask>()
-            val task = SpeechTask.createSayTextTask(speechService, "hello world", true)
-            val task2 = BaseTask(
-                SpeechTask.sayTextTaskBlock(speechService, "I' waited!"), false
+
+            val tasks = arrayListOf<BaseTask>(
+                SpeechTask.createSayTextTask(speechService, "3"),
+                SpeechTask.createSayTextTask(speechService, "2"),
+                SpeechTask.createSayTextTask(speechService, "1"),
+                SpeechTask.createSayTextTask(speechService, "1", 1.0f, 1.5f),
+                SpeechTask.createSayTextTask(speechService, "1", 2.0f, 2.0f),
+                SpeechTask.createSayTextTask(speechService, "1", 3.0f, 3.0f),
+                SpeechTask.createSayTextTask(speechService, "1", 4.0f, 3.0f),
+                SpeechTask.createSayTextTask(speechService, "1"),
+                SpeechTask.createSayTextTask(speechService, "1"),
+
+                SpeechTask.createSayTextTask(speechService, "   Ahem", 1.0f, 0.6f),
+                SpeechTask.createResetDefaultsTask(speechService),
+                SpeechTask.createSayTextTask(speechService, "Sorry about that, there must be something wrong with my programming"),
+
             )
-            taskList.add(task)
-            taskList.add(task2)
-            val parentTask = TaskList(taskList)
+            val parentTask = TaskList(tasks)
 
             scheduler.queueTask(parentTask)
+
+            val newTask = SpeechTask.createSayTextTask(speechService, "Hey, I started a second task!")
+            scheduler.queueTask(newTask)
         }
     }
 

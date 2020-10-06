@@ -1,27 +1,23 @@
 package com.dpanuska.halloween.task
 
-import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.*
 
 typealias TaskBlock = () -> Deferred<TaskResult>
 
-
-open class BaseTask(taskBlock: TaskBlock, suspend: Boolean = false) {
+// TODO Should throw / handle exception for task failure
+open class BaseTask(taskBlock: TaskBlock?, suspend: Boolean = false) {
 
     val executionBlock = taskBlock
     val waitForCompletion = suspend
     var job: Deferred<TaskResult>? = null
 
     open suspend fun execute(): TaskResult = coroutineScope {
-//        job = async {
-//            executionBlock()
-//        }
-        job = executionBlock()
+        if (executionBlock != null) {
+            job = executionBlock!!()
 
-        if (waitForCompletion) {
-            job?.await()
+            if (waitForCompletion) {
+                job?.await()
+            }
         }
 
         Success(1)
@@ -32,13 +28,7 @@ open class BaseTask(taskBlock: TaskBlock, suspend: Boolean = false) {
     }
 }
 
-fun completeBlockAsync(): Deferred<TaskResult> {
-    val result = CompletableDeferred<TaskResult>()
-    result.complete(Success(1))
-    return result
-}
-
-class TaskList(tasks: ArrayList<BaseTask>): BaseTask({ completeBlockAsync() }) {
+class TaskList(tasks: ArrayList<BaseTask>, suspend: Boolean = false): BaseTask(null, suspend) {
 
     var taskList = tasks;
     var jobs = ArrayList<Deferred<TaskResult>>()
@@ -51,8 +41,7 @@ class TaskList(tasks: ArrayList<BaseTask>): BaseTask({ completeBlockAsync() }) {
              }
 
              jobs.add(job)
-
-             if (task.waitForCompletion) {
+             if(task.waitForCompletion) {
                  job.await()
              }
          }

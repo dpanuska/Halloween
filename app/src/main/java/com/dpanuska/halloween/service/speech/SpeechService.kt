@@ -1,6 +1,7 @@
 package com.dpanuska.halloween.service.speech
 
 import android.content.Context
+import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import com.dpanuska.halloween.task.Failure
@@ -11,27 +12,21 @@ import kotlinx.coroutines.Deferred
 import java.util.*
 import kotlin.collections.HashMap
 
-enum class TaskProgress {
-    QUEUED,
-    STARTED,
-    COMPLETED,
-    FAILED,
-}
-
-typealias CompletionHandler = (TaskResult) -> Nothing
-
 class SpeechService : UtteranceProgressListener() {
 
     private var tts: TextToSpeech? = null
+    private var defaultPitch = 1f
+    private var defaultRate = 1f
     private var sayTextResults = HashMap<String, CompletableDeferred<TaskResult>>() // Could also try promise / deferred
 
     fun start(context: Context) {
         shutDown()
+
         tts = TextToSpeech(context, TextToSpeech.OnInitListener { status ->
             if (status != TextToSpeech.ERROR) {
                 //if there is no error then set language
-                tts!!.language = Locale.US
                 tts!!.setOnUtteranceProgressListener(this)
+                resetDefaultValues()
             }
         })
     }
@@ -42,6 +37,12 @@ class SpeechService : UtteranceProgressListener() {
             tts!!.shutdown()
             tts = null
         }
+    }
+
+    fun resetDefaultValues() {
+        setLocale(Locale.US)
+        setPitch(defaultPitch)
+        setSpeechRate(defaultRate)
     }
 
     fun sayTextAsync(text: String): Deferred<TaskResult> {
@@ -77,7 +78,7 @@ class SpeechService : UtteranceProgressListener() {
         return result == TextToSpeech.SUCCESS
     }
 
-    fun setFrequency(freq: Float): Boolean {
+    fun setSpeechRate(freq: Float): Boolean {
         if (tts == null) {
             throw Exception("TextToSpeech not initialized")
         }
@@ -114,25 +115,3 @@ class SpeechService : UtteranceProgressListener() {
     }
 
 }
-
-
-// TASK
-/*
-Completion listener - success - failure
-task list - wait for previous option
-
-UUID
-Type (TTS, Print, Image, etc)
-
-TaskFactory - Create task of type
-
-Task Queue - add tasks and execute
-global completion handler
-
-tasks[]
-for (task in tasks) {
-result = async { task.doWork() }
-}
-
-
- */
