@@ -3,6 +3,11 @@ package com.dpanuska.halloween.service.speech
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
+import com.dpanuska.halloween.task.Failure
+import com.dpanuska.halloween.task.Success
+import com.dpanuska.halloween.task.TaskResult
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -13,10 +18,12 @@ enum class TaskProgress {
     FAILED,
 }
 
+typealias CompletionHandler = (TaskResult) -> Nothing
+
 class SpeechService : UtteranceProgressListener() {
 
     private var tts: TextToSpeech? = null
-    private var tasks = HashMap<String, TaskProgress>()
+    private var sayTextResults = HashMap<String, CompletableDeferred<TaskResult>>() // Could also try promise / deferred
 
     fun start(context: Context) {
         shutDown()
@@ -37,16 +44,17 @@ class SpeechService : UtteranceProgressListener() {
         }
     }
 
-    fun sayText(text: String): String {
+    fun sayTextAsync(text: String): Deferred<TaskResult> {
         if (tts == null) {
             throw Exception("TextToSpeech not initialized")
         }
 
         val uuid = UUID.randomUUID().toString()
-        tasks[uuid] = TaskProgress.QUEUED
+        val result = CompletableDeferred<TaskResult>()
+        sayTextResults[uuid] = result
         tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, uuid)
 
-        return uuid
+        return result
     }
 
     fun setLocale(locale: Locale): Boolean {
@@ -82,20 +90,26 @@ class SpeechService : UtteranceProgressListener() {
     // UtteranceProgressListener
 
     override fun onStart(utteranceId: String?) {
-        if (utteranceId != null) {
-            tasks[utteranceId] = TaskProgress.STARTED
-        }
+
     }
 
     override fun onDone(utteranceId: String?) {
-        if (utteranceId != null) {
-            tasks[utteranceId] = TaskProgress.COMPLETED
+        utteranceId.let { id ->
+            val result = sayTextResults[id]
+            if (result != null) {
+                sayTextResults.remove(id)
+                result.complete(Success(1))
+            }
         }
     }
 
     override fun onError(utteranceId: String?) {
-        if (utteranceId != null) {
-            tasks[utteranceId] = TaskProgress.FAILED
+        utteranceId.let { id ->
+            val result = sayTextResults[id]
+            if (result != null) {
+                sayTextResults.remove(id)
+                result.complete(Failure(Exception("Failed to say text")))
+            }
         }
     }
 
@@ -114,5 +128,11 @@ TaskFactory - Create task of type
 
 Task Queue - add tasks and execute
 global completion handler
+
+tasks[]
+for (task in tasks) {
+result = async { task.doWork() }
+}
+
 
  */
