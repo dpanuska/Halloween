@@ -18,6 +18,7 @@ class CameraService {
             return
         }
         //https://medium.com/@gauravpandey_34933/how-to-camera2-api-in-android-576fd23650ea
+        // https://github.com/googlearchive/android-Camera2Basic/tree/master/kotlinApp/Application/src/main/java/com/example/android/camera2basic
         val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         if (cameraManager.cameraIdList.isEmpty()) {
             // no cameras

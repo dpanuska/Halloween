@@ -42,6 +42,12 @@ object SpeechTask {
         )
     }
 
+    fun createSetLocaleTask(service: SpeechService, locale: Locale): BaseTask {
+        return BaseTask(
+            setLocaleTaskBlock(service, locale)
+        )
+    }
+
     // Reset
     fun resetDefaultsTaskBlock(service: SpeechService): TaskBlock {
         return {
