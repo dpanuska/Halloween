@@ -10,7 +10,7 @@ class TaskScope : CoroutineScope {
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Main
+        get() = job + Dispatchers.IO
 }
 
 // TODO should actually queue and not just execute
