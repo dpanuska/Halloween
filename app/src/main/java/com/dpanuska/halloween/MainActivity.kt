@@ -77,11 +77,11 @@ class MainActivity : AppCompatActivity(), SpeechHandler {
             )
             scheduler.queueTask(newTask)
 
-            val image = BitmapFactory.decodeResource(
-                this.resources,
-                R.drawable.hal_9000
-            )
-            printService.printImage(image)
+//            val image = BitmapFactory.decodeResource(
+//                this.resources,
+//                R.drawable.hal_9000
+//            )
+//            printService.printImage(image)
 
         }
     }

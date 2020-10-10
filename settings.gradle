@@ -1,2 +1,4 @@
 include ':app'
+include 'utils'
+
 rootProject.name = "Halloween"
