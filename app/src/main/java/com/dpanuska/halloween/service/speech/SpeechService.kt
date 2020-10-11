@@ -1,7 +1,6 @@
 package com.dpanuska.halloween.service.speech
 
 import android.content.Context
-import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import com.dpanuska.halloween.task.Failure

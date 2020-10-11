@@ -1,6 +1,5 @@
 package com.dpanuska.halloween.service.voice
 
-import android.R
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -25,18 +24,15 @@ class VoiceRecognitionService {
     fun start(context: Context, handler: SpeechHandler) {
        shutDown()
         // TODO error checks
+        val avail = SpeechRecognizer.isRecognitionAvailable(context)
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
 
         val speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        speechRecognizerIntent.putExtra(
-            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-        )
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
         //Specify the calling package to identify your application
-        //peechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
-        //Given an hint to the recognizer about what the user is going to say
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, this.javaClass.getPackage().getName());
+
         //specify the max number of results
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,5);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
