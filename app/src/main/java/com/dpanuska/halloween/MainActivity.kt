@@ -10,11 +10,13 @@ import com.dpanuska.halloween.service.camera.CameraService
 import com.dpanuska.halloween.service.file.FileService
 import com.dpanuska.halloween.service.print.PrintService
 import com.dpanuska.halloween.service.speech.SpeechService
+import com.dpanuska.halloween.service.visual.VisualService
 import com.dpanuska.halloween.service.voice.SpeechHandler
 import com.dpanuska.halloween.service.voice.VoiceRecognitionService
 import com.dpanuska.halloween.task.*
 import com.mazenrashed.printooth.ui.ScanningActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
@@ -31,8 +33,11 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     var voiceService = VoiceRecognitionService()
     var cameraService = CameraService()
     var fileService = FileService()
+    var visualService = VisualService()
     var luminosityListener = LuminosityListener(this)
-    var scheduler = TaskScheduler()
+
+    var scheduler = TaskScheduler(Dispatchers.Default)
+    var mainScheduler = TaskScheduler(Dispatchers.Main)
 
     var currentState = AppState.IDLE
 
@@ -53,6 +58,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         speechService.start(this)
         voiceService.start(applicationContext, this)
         fileService.start(this)
+        visualService.start(this, overlayLayout)
 
         cameraService.start(this, this, viewFinder.createSurfaceProvider(), luminosityListener.analyzer)
 
@@ -174,7 +180,11 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             Log.e("Going Active from luminosity", "Average: $averageLuminosity Current: $currentLuminosity")
             currentState = AppState.ACTIVE
 
-            scheduler.queueTask(SpeechTask.createSayTextTask(speechService, "Hello there!"))
+            val tasks = arrayListOf<BaseTask>(
+                VisualTask.createSetBackgroundTask(visualService, R.drawable.hal_9000),
+                SpeechTask.createSayTextTask(speechService, "Hello there!")
+            )
+            mainScheduler.queueTask(TaskList(tasks), true)
         }
     }
 
@@ -183,7 +193,11 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             Log.e("Going Idle from luminosity", "Luminosity: $averageLuminosity")
             currentState = AppState.IDLE
 
-            scheduler.queueTask(SpeechTask.createSayTextTask(speechService, "Goodbye!"))
+            val tasks = arrayListOf<BaseTask>(
+                VisualTask.createHideOverlayTask(visualService),
+                SpeechTask.createSayTextTask(speechService, "Goodbye!")
+            )
+            mainScheduler.queueTask(TaskList(tasks), true)
         }
     }
 

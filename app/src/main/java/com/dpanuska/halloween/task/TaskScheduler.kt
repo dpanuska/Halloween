@@ -5,18 +5,19 @@ import java.lang.Exception
 import java.util.concurrent.ConcurrentLinkedQueue
 import kotlin.coroutines.CoroutineContext
 
-class TaskScope : CoroutineScope {
+class TaskScope(disatcher: CoroutineDispatcher = Dispatchers.Default) : CoroutineScope {
 
     private var job: Job = Job()
+    private var dispatch = disatcher
 
     override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.IO
+        get() = job + dispatch
 }
 
 // TODO should actually queue and not just execute
 // TODO noting here too.. I hate this result shit.. FIXME
-class TaskScheduler {
-    private val taskScope = TaskScope()
+class TaskScheduler(disatcher: CoroutineDispatcher) {
+    private val taskScope = TaskScope(disatcher)
     private var currentJob: Job? = null // TODO atomic and/or list of active jobs?
     private val queue = ConcurrentLinkedQueue<BaseTask>()
 
