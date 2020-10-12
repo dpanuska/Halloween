@@ -1,5 +1,6 @@
 package com.dpanuska.halloween.task
 
+import android.graphics.Bitmap
 import com.dpanuska.halloween.service.visual.VisualService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -26,6 +27,7 @@ object VisualTask {
     }
 
 
+
     fun createSetBackgroundTask(service: VisualService, resId: Int): BaseTask {
         return BaseTask(
             setBackgroundBlock(service, resId)
@@ -40,6 +42,24 @@ object VisualTask {
 
     fun setBackgroundBlockAsync(service: VisualService, resId: Int): Deferred<TaskResult> {
         service.showBackgroundImage(resId)
+        return TaskHelper.syncSuccessResultAsync()
+    }
+
+    // Bitmap
+    fun createSetBackgroundTask(service: VisualService, bitmap: Bitmap): BaseTask {
+        return BaseTask(
+            setBackgroundBlock(service, bitmap)
+        )
+    }
+
+    fun setBackgroundBlock(service: VisualService, bitmap: Bitmap): TaskBlock {
+        return {
+            setBackgroundBlockAsync(service, bitmap)
+        }
+    }
+
+    fun setBackgroundBlockAsync(service: VisualService, bitmap: Bitmap): Deferred<TaskResult> {
+        service.showBackgroundImage(bitmap)
         return TaskHelper.syncSuccessResultAsync()
     }
 }

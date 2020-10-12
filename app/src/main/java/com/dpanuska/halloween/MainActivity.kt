@@ -2,6 +2,8 @@ package com.dpanuska.halloween
 
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -14,12 +16,12 @@ import com.dpanuska.halloween.service.visual.VisualService
 import com.dpanuska.halloween.service.voice.SpeechHandler
 import com.dpanuska.halloween.service.voice.VoiceRecognitionService
 import com.dpanuska.halloween.task.*
-import com.mazenrashed.printooth.ui.ScanningActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
+
 
 enum class AppState {
     IDLE,
@@ -49,6 +51,16 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        window.setDecorFitsSystemWindows(false)
+        val controller = window.insetsController
+        if (controller != null) {
+            controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+            controller.systemBarsBehavior =
+                WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+
+
         PermissionHelper.checkAllPermissions(this)
 
         // CAMERA
@@ -60,7 +72,12 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         fileService.start(this)
         visualService.start(this, overlayLayout)
 
-        cameraService.start(this, this, viewFinder.createSurfaceProvider(), luminosityListener.analyzer)
+        cameraService.start(
+            this,
+            this,
+            viewFinder.createSurfaceProvider(),
+            luminosityListener.analyzer
+        )
 
         // TODO check if bluetooth supported
         //startActivityForResult(Intent(this, ScanningActivity::class.java), ScanningActivity.SCANNING_FOR_PRINTER)
@@ -71,8 +88,23 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             lifecycleScope.launch {
                 val result = cameraService.takePhotoAsync()
                 val bitmap = result.await()
-                
-                scheduler.queueTask(FileTask.createSaveImageTask(fileService, bitmap, outputDirectory))
+
+                scheduler.queueTask(
+                    FileTask.createSaveImageTask(
+                        fileService,
+                        bitmap,
+                        outputDirectory
+                    )
+                )
+
+                // TODO bitmap is presented flipped horizontally
+                val tasks = arrayListOf<BaseTask>(
+                    VisualTask.createSetBackgroundTask(visualService, bitmap),
+                    TaskHelper.createDelayTask(3000),
+                    VisualTask.createHideOverlayTask(visualService)
+                )
+
+                mainScheduler.queueTask(TaskList(tasks))
             }
 
 
@@ -177,7 +209,10 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
     override fun onLuminosityChange(averageLuminosity: Double, currentLuminosity: Double) {
         if (currentState == AppState.IDLE) {
-            Log.e("Going Active from luminosity", "Average: $averageLuminosity Current: $currentLuminosity")
+            Log.e(
+                "Going Active from luminosity",
+                "Average: $averageLuminosity Current: $currentLuminosity"
+            )
             currentState = AppState.ACTIVE
 
             val tasks = arrayListOf<BaseTask>(

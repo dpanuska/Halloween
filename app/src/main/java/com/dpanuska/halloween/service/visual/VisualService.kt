@@ -1,6 +1,7 @@
 package com.dpanuska.halloween.service.visual
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.Image
@@ -22,8 +23,10 @@ class VisualService {
         view = View(context)
         view.background = ColorDrawable(Color.BLACK)
         view.id = View.generateViewId()
+
         imageView = ImageView(context)
         imageView.id = View.generateViewId()
+        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
 
         layout.addView(view)
         layout.addView(imageView)
@@ -47,7 +50,12 @@ class VisualService {
         layout.visibility = View.VISIBLE
 
         imageView.setImageResource(resId)
+    }
 
+    fun showBackgroundImage(bitmap: Bitmap) {
+        layout.visibility = View.VISIBLE
+
+        imageView.setImageBitmap(bitmap)
     }
 
 }

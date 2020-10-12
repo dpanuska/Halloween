@@ -31,6 +31,7 @@ class LuminosityListener(handler: LuminosityCallbackHandler) {
     }
 
     private fun handleLuminosityChange(luminosity: Double) {
+        // TODO better initial value
         if (luminStartDate == null) {
             luminStartDate = Date()
             luminCallbackCount++
