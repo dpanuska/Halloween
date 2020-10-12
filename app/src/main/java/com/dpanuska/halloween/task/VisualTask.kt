@@ -60,4 +60,22 @@ object VisualTask {
         service.showBackgroundImage(bitmap)
         return TaskHelper.syncSuccessResultAsync()
     }
+
+    // Gif
+    fun createSetBackgroundGifTask(service: VisualService, resId: Int): BaseTask {
+        return BaseTask(
+            setBackgroundGifBlock(service, resId)
+        )
+    }
+
+    fun setBackgroundGifBlock(service: VisualService, resId: Int): TaskBlock {
+        return {
+            setBackgroundGifBlockAsync(service, resId)
+        }
+    }
+
+    fun setBackgroundGifBlockAsync(service: VisualService, resId: Int): Deferred<TaskResult> {
+        service.showBackgroundGif(resId)
+        return TaskHelper.syncSuccessResultAsync()
+    }
 }

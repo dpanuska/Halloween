@@ -7,9 +7,12 @@ import android.graphics.drawable.ColorDrawable
 import android.media.Image
 
 import android.view.View
+import android.webkit.WebView
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 
 class VisualService {
 
@@ -17,7 +20,11 @@ class VisualService {
     lateinit var view: View
     lateinit var imageView: ImageView
 
+    lateinit var glide: RequestManager
+
     fun start(context: Context, overlayLayout: ConstraintLayout) {
+
+        glide = Glide.with(context)
         layout = overlayLayout
 
         view = View(context)
@@ -26,7 +33,7 @@ class VisualService {
 
         imageView = ImageView(context)
         imageView.id = View.generateViewId()
-        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+        //imageView.scaleType = ImageView.ScaleType.CENTER_CROP
 
         layout.addView(view)
         layout.addView(imageView)
@@ -46,16 +53,23 @@ class VisualService {
         layout.visibility = View.INVISIBLE
     }
 
-    fun showBackgroundImage(resId: Int) {
+    fun show() {
         layout.visibility = View.VISIBLE
+    }
 
+    fun showBackgroundImage(resId: Int) {
+        show()
         imageView.setImageResource(resId)
     }
 
     fun showBackgroundImage(bitmap: Bitmap) {
-        layout.visibility = View.VISIBLE
-
+        show()
         imageView.setImageBitmap(bitmap)
+    }
+
+    fun showBackgroundGif(resId: Int) {
+        show()
+        glide.load(resId).into(imageView)
     }
 
 }

@@ -1,4 +1,29 @@
 {
+    "taskDefinitions": [{
+        "task": {
+            "type": "GREETING",
+            "subtasks": [
+                {
+                    "type": "VISUAL_BACKGROUND",
+                    "resId": "hal_9000"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Hello There!",
+                    "suspend": true
+                }
+            ]
+        },
+        "task": {
+            "type": "GOODBYE",
+            "subtasks": [
+                {
+                    "type": "VISUAL_BACKGROUND",
+                    "resId": ""
+                }
+            ]
+        }
+    }],
     "tasks": [
         {
             "name": "hello_there",

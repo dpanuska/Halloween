@@ -4,7 +4,6 @@ import com.dpanuska.halloween.service.SpeechService
 import kotlinx.coroutines.Deferred
 import java.util.*
 
-
 object SpeechTask {
 
     // Complex

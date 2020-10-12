@@ -216,7 +216,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             currentState = AppState.ACTIVE
 
             val tasks = arrayListOf<BaseTask>(
-                VisualTask.createSetBackgroundTask(visualService, R.drawable.hal_9000),
+                VisualTask.createSetBackgroundGifTask(visualService, R.raw.hello_there),
                 SpeechTask.createSayTextTask(speechService, "Hello there!")
             )
             mainScheduler.queueTask(TaskList(tasks), true)
@@ -229,8 +229,10 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             currentState = AppState.IDLE
 
             val tasks = arrayListOf<BaseTask>(
-                VisualTask.createHideOverlayTask(visualService),
-                SpeechTask.createSayTextTask(speechService, "Goodbye!")
+                VisualTask.createSetBackgroundGifTask(visualService, R.raw.goodbye_kid),
+                SpeechTask.createSayTextTask(speechService, "Goodbye!"),
+                TaskHelper.createDelayTask(2000),
+                VisualTask.createHideOverlayTask(visualService)
             )
             mainScheduler.queueTask(TaskList(tasks), true)
         }
