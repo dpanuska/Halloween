@@ -1,4 +1,4 @@
-package com.dpanuska.halloween.service.camera
+package com.dpanuska.halloween.service
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -1,4 +1,4 @@
-package com.dpanuska.halloween.service.voice
+package com.dpanuska.halloween.service
 
 import android.content.Context
 import android.content.Intent

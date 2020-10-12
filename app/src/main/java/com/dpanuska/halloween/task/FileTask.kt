@@ -1,10 +1,11 @@
 package com.dpanuska.halloween.task
 
 import android.graphics.Bitmap
-import com.dpanuska.halloween.service.file.FileService
+import com.dpanuska.halloween.service.FileService
 import kotlinx.coroutines.Deferred
 import java.io.File
 
+// TODO make this shit easier. 3 functions.. comeon man
 object FileTask {
 
     fun createSaveImageTask(service: FileService, image: Bitmap, outDir: File): BaseTask {

@@ -1,4 +1,4 @@
-package com.dpanuska.halloween.service.speech
+package com.dpanuska.halloween.service
 
 import android.content.Context
 import android.speech.tts.TextToSpeech

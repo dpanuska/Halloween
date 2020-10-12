@@ -1,7 +1,7 @@
 package com.dpanuska.halloween.task
 
 import android.graphics.Bitmap
-import com.dpanuska.halloween.service.print.PrintService
+import com.dpanuska.halloween.service.PrintService
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 

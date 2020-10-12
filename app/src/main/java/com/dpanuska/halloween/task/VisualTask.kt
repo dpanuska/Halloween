@@ -1,10 +1,8 @@
 package com.dpanuska.halloween.task
 
 import android.graphics.Bitmap
-import com.dpanuska.halloween.service.visual.VisualService
-import kotlinx.coroutines.CoroutineScope
+import com.dpanuska.halloween.service.VisualService
 import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.withContext
 
 
 object VisualTask {

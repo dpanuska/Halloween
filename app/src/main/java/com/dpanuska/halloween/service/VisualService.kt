@@ -1,4 +1,4 @@
-package com.dpanuska.halloween.service.visual
+package com.dpanuska.halloween.service
 
 import android.content.Context
 import android.graphics.Bitmap

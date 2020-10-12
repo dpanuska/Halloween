@@ -1,19 +1,14 @@
-package com.dpanuska.halloween.service.print
+package com.dpanuska.halloween.service
 
 import android.content.Context
 import android.graphics.Bitmap
 import com.mazenrashed.printooth.Printooth
-import com.mazenrashed.printooth.data.DefaultPrintingImagesHelper
 import com.mazenrashed.printooth.data.PrintingImagesHelper
 import com.mazenrashed.printooth.data.converter.Converter
 import com.mazenrashed.printooth.data.converter.DefaultConverter
-import com.mazenrashed.printooth.data.printable.ImagePrintable
 import com.mazenrashed.printooth.data.printable.Printable
 import com.mazenrashed.printooth.data.printable.TextPrintable
 import com.mazenrashed.printooth.data.printer.Printer
-import com.mazenrashed.printooth.utilities.Printing
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 
 class MyPrintingImagesHelper : PrintingImagesHelper {

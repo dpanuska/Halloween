@@ -1,6 +1,6 @@
 package com.dpanuska.halloween.task
 
-import com.dpanuska.halloween.service.speech.SpeechService
+import com.dpanuska.halloween.service.SpeechService
 import kotlinx.coroutines.Deferred
 import java.util.*
 
