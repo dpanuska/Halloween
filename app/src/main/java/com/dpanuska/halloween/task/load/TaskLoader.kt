@@ -2,7 +2,9 @@ package com.dpanuska.halloween.task.load
 
 import android.content.res.Resources
 import com.dpanuska.halloween.task.BaseTask
+import com.dpanuska.halloween.task.SpeechTask
 import com.dpanuska.halloween.task.TaskList
+import kotlinx.coroutines.Dispatchers
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.collections.ArrayList
@@ -20,6 +22,7 @@ class TaskLoader {
         registerTaskParser(SpeechTaskParser())
         registerTaskParser(VisualTaskParser())
         registerTaskParser(GenericTaskParser())
+        registerTaskParser(NamedTaskParser())
     }
 
     fun getRandomTaskOfType(type: String): BaseTask? {
@@ -42,7 +45,7 @@ class TaskLoader {
 
         for (type in allTypes) {
             for (task in type) {
-                result.add(task)
+                result.add(task.clone() as BaseTask)
             }
         }
 
@@ -122,7 +125,7 @@ class TaskLoader {
             }
         }
 
-       return TaskList(subTaskList, suspend, taskName)
+       return TaskList(subTaskList, Dispatchers.Default, suspend, taskName)
     }
 
     companion object {
@@ -131,7 +134,65 @@ class TaskLoader {
         const val SUB_TASKS_KEY = "subTasks"
         const val SUSPEND_KEY = "suspend"
         const val NAME_KEY = "name"
+    }
 
+    enum class NamedTaskType {
+        NAMED,
+        TYPED
+    }
+
+    inner class NamedTaskParser: TaskParser() {
+        override val supportedTypes: ArrayList<String>
+            get() = arrayListOf(
+                NamedTaskType.NAMED.toString(),
+                NamedTaskType.TYPED.toString()
+            )
+
+        override fun createFromJSON(
+            taskJSON: JSONObject,
+            suspend: Boolean,
+            taskName: String?
+        ): BaseTask? {
+            val taskType = taskJSON.getString(TYPE_KEY)
+
+            val type = NamedTaskType.valueOf(taskType)
+            val task = when(type) {
+                NamedTaskType.NAMED -> createNamedFromJSON(taskJSON, suspend)
+                NamedTaskType.TYPED -> createTypedFromJSON(taskJSON, suspend)
+            }
+
+            task?.taskName = taskName
+
+            return task
+        }
+
+        private fun createNamedFromJSON(taskJSON: JSONObject, suspend: Boolean): BaseTask {
+            val name = taskJSON.getString(NAME_KEY)
+            return NamedTask(name, suspend)
+        }
+
+        private fun createTypedFromJSON(taskJSON: JSONObject, suspend: Boolean): BaseTask {
+            val type = taskJSON.getString(TYPE_KEY)
+            return TypeTask(type, suspend)
+        }
+    }
+
+    inner class NamedTask(name: String, suspend: Boolean = false): BaseTask(null, Dispatchers.Default, suspend, null) {
+        override fun clone(): Any {
+            val task = getTaskByName(taskName!!) as BaseTask
+            task.waitForCompletion = waitForCompletion
+            return task
+        }
+    }
+
+    inner class TypeTask(type: String, suspend: Boolean = false): BaseTask(null, Dispatchers.Default, suspend, null) {
+        val taskType = type
+
+        override fun clone(): Any {
+            val task = getRandomTaskOfType(taskType) as BaseTask
+            task.waitForCompletion = waitForCompletion
+            return task
+        }
     }
 }
 

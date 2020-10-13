@@ -4,13 +4,14 @@ import android.graphics.Bitmap
 import com.dpanuska.halloween.service.PrintService
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
 
 object PrintTask {
 
+    val dispater = Dispatchers.IO
+
     fun createPrintImageTask(image: Bitmap): BaseTask {
-        return BaseTask(
-            PrintTask.printImageTaskBlock(image)
-        )
+        return BaseTask(printImageTaskBlock(image), dispater)
     }
 
     fun printImageTaskBlock(image: Bitmap): TaskBlock {

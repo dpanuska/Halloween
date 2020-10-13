@@ -5,11 +5,12 @@ import kotlinx.coroutines.*
 typealias TaskBlock = () -> Deferred<TaskResult>
 
 // TODO Should throw / handle exception for task failure
-open class BaseTask(taskBlock: TaskBlock?, suspend: Boolean = false, name: String? = null): Cloneable {
+open class BaseTask(taskBlock: TaskBlock?, dispatch: CoroutineDispatcher = Dispatchers.Main, suspend: Boolean = false, name: String? = null): Cloneable {
 
     val executionBlock = taskBlock
+    val dispatcher = dispatch
     var taskName = name
-    val waitForCompletion = suspend
+    var waitForCompletion = suspend
     var job: Deferred<TaskResult>? = null
 
     open suspend fun execute(): TaskResult = coroutineScope {
@@ -34,7 +35,11 @@ open class BaseTask(taskBlock: TaskBlock?, suspend: Boolean = false, name: Strin
 
 }
 
-class TaskList(tasks: ArrayList<BaseTask>, suspend: Boolean = false, name: String? = null): BaseTask(null, suspend, name), Cloneable {
+class TaskList(
+    tasks: ArrayList<BaseTask>,
+    dispatch: CoroutineDispatcher = Dispatchers.Default,
+    suspend: Boolean = false,
+    name: String? = null): BaseTask(null, dispatch, suspend, name), Cloneable {
 
     var taskList = tasks;
     var jobs = ArrayList<Deferred<TaskResult>>()
@@ -42,7 +47,7 @@ class TaskList(tasks: ArrayList<BaseTask>, suspend: Boolean = false, name: Strin
      override suspend fun execute(): TaskResult = coroutineScope {
 
          for(task in taskList) {
-             val job = async {
+             val job = CoroutineScope(task.dispatcher).async {
                  task.execute()
              }
 
@@ -62,6 +67,9 @@ class TaskList(tasks: ArrayList<BaseTask>, suspend: Boolean = false, name: Strin
     }
 
     public override fun clone(): Any {
-        return super<BaseTask>.clone()
+        val clone = super<BaseTask>.clone() as TaskList
+        val clonedTasks = clone.taskList.map { task -> task.clone() } as List<BaseTask>
+        clone.taskList = ArrayList(clonedTasks)
+        return clone
     }
 }

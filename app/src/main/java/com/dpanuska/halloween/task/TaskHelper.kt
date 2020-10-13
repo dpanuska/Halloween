@@ -2,10 +2,13 @@ package com.dpanuska.halloween.task
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
 import java.util.*
 
 
 object TaskHelper {
+
+    val dispatcher = Dispatchers.Default
 
     fun syncSuccessResultAsync(): Deferred<TaskResult> {
         val result =  CompletableDeferred<TaskResult>()
@@ -16,7 +19,7 @@ object TaskHelper {
     fun createDelayTask(duration: Long): BaseTask {
         return BaseTask({
             delayTaskBlockAsync(duration)
-        }, true)
+        }, dispatcher,true)
     }
 
     // TODO check for cancelled here and in task scheduler

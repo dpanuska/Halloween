@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     var luminosityListener = LuminosityListener(this)
 
     var scheduler = TaskScheduler(Dispatchers.Default)
-    var mainScheduler = TaskScheduler(Dispatchers.Main)
     val taskLoader = TaskLoader()
     val testLoader = TaskLoader()
     var currentState = AppState.IDLE
@@ -88,7 +87,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         handler.postDelayed({
             val tasks = testLoader.getAllTasks()
             for (task in tasks) {
-                mainScheduler.queueTask(task)
+                scheduler.queueTask(task)
             }
         }, 1000)
 
@@ -117,7 +116,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
                     VisualTask.createHideOverlayTask()
                 )
 
-                mainScheduler.queueTask(TaskList(tasks))
+                scheduler.queueTask(TaskList(tasks))
             }
 
 
@@ -146,8 +145,6 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     override fun onDestroy() {
         super.onDestroy()
     }
-
-
 
     // TODO start and shutDown on Camera movement detection for voice etc service
 
@@ -197,7 +194,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             currentState = AppState.ACTIVE
 
             val task = taskLoader.getRandomTaskOfType("GREETING")
-            mainScheduler.queueTask(task!!, true)
+            scheduler.queueTask(task!!, true)
         }
     }
 
@@ -207,7 +204,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             currentState = AppState.IDLE
 
             val task = taskLoader.getRandomTaskOfType("GOODBYE")
-            mainScheduler.queueTask(task!!, true)
+            scheduler.queueTask(task!!, true)
         }
     }
 

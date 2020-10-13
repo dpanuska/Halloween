@@ -2,9 +2,12 @@ package com.dpanuska.halloween.task
 
 import com.dpanuska.halloween.service.SpeechService
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
 import java.util.*
 
 object SpeechTask {
+
+    val dispatcher = Dispatchers.IO
 
     // Complex
     fun createSayTextTask(text: String, pitch: Float, speechRate: Float, suspend: Boolean = true): BaseTask {
@@ -13,38 +16,28 @@ object SpeechTask {
             createSetSpeechRateTask(speechRate),
             createSayTextTask(text, suspend)
         )
-        return TaskList(tasks, true)
+        return TaskList(tasks, dispatcher,true)
     }
 
     // Factory
     fun createResetDefaultsTask(): BaseTask {
-        return BaseTask(
-            resetDefaultsTaskBlock()
-        )
+        return BaseTask(resetDefaultsTaskBlock(), dispatcher)
     }
 
     fun createSayTextTask(text: String, suspend: Boolean = true): BaseTask {
-        return BaseTask(
-            sayTextTaskBlock(text), suspend
-        )
+        return BaseTask(sayTextTaskBlock(text), dispatcher, suspend)
     }
 
     fun createSetPitchTask(pitch: Float): BaseTask {
-        return BaseTask(
-            setPitchTaskBlock(pitch), false
-        )
+        return BaseTask(setPitchTaskBlock(pitch), dispatcher,false)
     }
 
     fun createSetSpeechRateTask(speechRate: Float): BaseTask {
-        return BaseTask(
-            setSpeechRateTaskBlock(speechRate), false
-        )
+        return BaseTask(setSpeechRateTaskBlock(speechRate), dispatcher,false)
     }
 
     fun createSetLocaleTask(locale: Locale): BaseTask {
-        return BaseTask(
-            setLocaleTaskBlock(locale)
-        )
+        return BaseTask(setLocaleTaskBlock(locale), dispatcher)
     }
 
     // Reset

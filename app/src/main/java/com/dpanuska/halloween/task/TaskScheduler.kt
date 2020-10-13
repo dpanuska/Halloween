@@ -42,18 +42,20 @@ class TaskScheduler(dispatcher: CoroutineDispatcher) {
             val task = queue.poll()
             if (task != null) {
                 currentJob = taskScope.launch {
-                    try {
-                        val result = task.execute()
-                        if (result is Success) {
-                            Log.e(TAG,  "task ${task.taskName} completed successfully with result ${ (result as Success).value}")
-                        } else {
-                            Log.e(TAG, "task ${task.taskName} failed with reason ${(result as Failure).reason}")
+                    CoroutineScope(task.dispatcher).launch {
+                        try {
+                            val result = task.execute()
+                            if (result is Success) {
+                                Log.e(TAG,  "task ${task.taskName} completed successfully with result ${ (result as Success).value}")
+                            } else {
+                                Log.e(TAG, "task ${task.taskName} failed with reason ${(result as Failure).reason}")
+                            }
+                        } catch (e: Exception) {
+                            Log.e(TAG, "task ${task.taskName} threw exception", e)
+                        } finally {
+                            currentJob = null
+                            executeTasks()
                         }
-                    } catch (e: Exception) {
-                        Log.e(TAG, "task ${task.taskName} threw exception", e)
-                    } finally {
-                        currentJob = null
-                        executeTasks()
                     }
                 }
             }

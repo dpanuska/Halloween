@@ -3,14 +3,15 @@ package com.dpanuska.halloween.task
 import android.graphics.Bitmap
 import com.dpanuska.halloween.service.VisualService
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
 
 
 object VisualTask {
 
+    val dispatcher = Dispatchers.Main
+
     fun createHideOverlayTask(): BaseTask {
-        return BaseTask(
-            hideOverlayBlock()
-        )
+        return BaseTask(hideOverlayBlock(), dispatcher)
     }
 
     fun hideOverlayBlock(): TaskBlock {
@@ -27,9 +28,7 @@ object VisualTask {
 
 
     fun createSetBackgroundTask(resId: Int): BaseTask {
-        return BaseTask(
-            setBackgroundBlock(resId)
-        )
+        return BaseTask(setBackgroundBlock(resId), dispatcher)
     }
 
     fun setBackgroundBlock(resId: Int): TaskBlock {
@@ -45,9 +44,7 @@ object VisualTask {
 
     // Bitmap
     fun createSetBackgroundTask(bitmap: Bitmap): BaseTask {
-        return BaseTask(
-            setBackgroundBlock(bitmap)
-        )
+        return BaseTask(setBackgroundBlock(bitmap), dispatcher)
     }
 
     fun setBackgroundBlock(bitmap: Bitmap): TaskBlock {
@@ -63,9 +60,7 @@ object VisualTask {
 
     // Gif
     fun createSetBackgroundGifTask(resId: Int): BaseTask {
-        return BaseTask(
-            setBackgroundGifBlock(resId)
-        )
+        return BaseTask(setBackgroundGifBlock(resId), dispatcher)
     }
 
     fun setBackgroundGifBlock(resId: Int): TaskBlock {
@@ -81,9 +76,7 @@ object VisualTask {
 
     // Text
     fun createSetTextTask(text: String): BaseTask {
-        return BaseTask(
-            setTextBlock(text)
-        )
+        return BaseTask(setTextBlock(text), dispatcher)
     }
 
     fun setTextBlock(text: String): TaskBlock {
