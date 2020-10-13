@@ -36,7 +36,6 @@ android {
 }
 
 dependencies {
-    implementation project(':utils')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.work:work-runtime-ktx:2.4.0'
