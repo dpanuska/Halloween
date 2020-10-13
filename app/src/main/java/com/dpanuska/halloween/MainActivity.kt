@@ -1,6 +1,7 @@
 package com.dpanuska.halloween
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     var scheduler = TaskScheduler(Dispatchers.Default)
     var mainScheduler = TaskScheduler(Dispatchers.Main)
     val taskLoader = TaskLoader()
+    val testLoader = TaskLoader()
     var currentState = AppState.IDLE
 
 
@@ -57,7 +59,8 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         }
 
 
-        taskLoader.loadFromJSONResource(resources, R.raw.test)
+        taskLoader.loadFromJSONResource(resources, R.raw.tasks_base)
+        testLoader.loadFromJSONResource(resources, R.raw.tasks_test)
 
 
         PermissionHelper.checkAllPermissions(this)
@@ -77,6 +80,18 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             viewFinder.createSurfaceProvider(),
             luminosityListener.analyzer
         )
+
+
+        // TEST
+        // Use
+        val handler = Handler()
+        handler.postDelayed({
+            val tasks = testLoader.getAllTasks()
+            for (task in tasks) {
+                mainScheduler.queueTask(task)
+            }
+        }, 1000)
+
 
         // TODO check if bluetooth supported
         //startActivityForResult(Intent(this, ScanningActivity::class.java), ScanningActivity.SCANNING_FOR_PRINTER)
@@ -104,6 +119,8 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
                 mainScheduler.queueTask(TaskList(tasks))
             }
+
+
 
 //            val image = BitmapFactory.decodeResource(
 //                this.resources,
@@ -179,15 +196,6 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             )
             currentState = AppState.ACTIVE
 
-//            val tasks = arrayListOf<BaseTask>(
-//                VisualTask.createSetBackgroundGifTask(R.raw.hello_there),
-//                VisualTask.createSetTextTask("Hello There"),
-//                SpeechTask.createSayTextTask("Hello there!"),
-//                VisualTask.createSetTextTask("3"),
-//                TaskHelper.createDelayTask(1000),
-//                VisualTask.createSetTextTask("2"),
-//            )
-
             val task = taskLoader.getRandomTaskOfType("GREETING")
             mainScheduler.queueTask(task!!, true)
         }
@@ -198,12 +206,6 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             Log.e("Going Idle from luminosity", "Luminosity: $averageLuminosity")
             currentState = AppState.IDLE
 
-//            val tasks = arrayListOf<BaseTask>(
-//                VisualTask.createSetBackgroundGifTask(R.raw.goodbye_kid),
-//                SpeechTask.createSayTextTask("Goodbye!"),
-//                TaskHelper.createDelayTask(2000),
-//                VisualTask.createHideOverlayTask()
-//            )
             val task = taskLoader.getRandomTaskOfType("GOODBYE")
             mainScheduler.queueTask(task!!, true)
         }

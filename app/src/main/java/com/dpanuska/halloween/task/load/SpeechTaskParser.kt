@@ -22,6 +22,10 @@ class SpeechTaskParser: TaskParser() {
         val type = SpeechTaskType.valueOf(taskType)
         val task = when(type) {
             SpeechTaskType.SPEECH_TEXT -> createSayTextFromJSON(taskJSON, suspend)
+            SpeechTaskType.SPEECH_LOCALE -> createSetLocaleFromJSON(taskJSON, suspend)
+            SpeechTaskType.SPEECH_PITCH -> createSetPitchFromJSON(taskJSON, suspend)
+            SpeechTaskType.SPEECH_RATE -> createSetRateFromJSON(taskJSON, suspend)
+            SpeechTaskType.SPEECH_RESET -> createResetFromJSON(taskJSON, suspend)
             else -> null
         }
 
@@ -54,6 +58,10 @@ class SpeechTaskParser: TaskParser() {
     private fun createSetRateFromJSON(taskJSON: JSONObject, suspend: Boolean): BaseTask {
         val rate = taskJSON.getDouble(RATE_KEY)
         return SpeechTask.createSetSpeechRateTask(rate.toFloat())
+    }
+
+    private fun createResetFromJSON(taskJSON: JSONObject, suspend: Boolean): BaseTask {
+        return SpeechTask.createResetDefaultsTask()
     }
 
     companion object {

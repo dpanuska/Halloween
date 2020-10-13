@@ -50,8 +50,20 @@
                     "suspend": true
                 },
                 {
+                    "type": "SPEECH_RATE",
+                    "rate": 0.6
+                },
+                {
                     "type": "SPEECH_TEXT",
-                    "text": "Ahem, Sorry about that... Hello and happy Halloween!"
+                    "text": "Ahem",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_RESET"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Sorry about that... Hello and happy Halloween!"
                 }
             ]
         },

@@ -26,13 +26,30 @@ class TaskLoader {
         val tasks = taskTypeMap[type]
         if (tasks != null) {
             val rand = Random.nextInt(0, tasks.size)
-            return tasks[rand]?.clone() as BaseTask
+            return tasks[rand]?.clone() as BaseTask?
         }
 
         return null
     }
 
-    fun registerTaskParser(parser: TaskParser) {
+    fun getTaskByName(name: String): BaseTask? {
+        return taskNameMap[name]?.clone() as BaseTask?
+    }
+
+    fun getAllTasks(): Collection<BaseTask> {
+        val result = ArrayList<BaseTask>()
+        val allTypes = taskTypeMap.values
+
+        for (type in allTypes) {
+            for (task in type) {
+                result.add(task)
+            }
+        }
+
+        return result
+    }
+
+    private fun registerTaskParser(parser: TaskParser) {
         for (type in parser.supportedTypes) {
             parsers[type] = parser
         }
