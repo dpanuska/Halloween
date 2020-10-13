@@ -7,20 +7,20 @@ import kotlinx.coroutines.Deferred
 
 object PrintTask {
 
-    fun createPrintImageTask(service: PrintService, image: Bitmap): BaseTask {
+    fun createPrintImageTask(image: Bitmap): BaseTask {
         return BaseTask(
-            PrintTask.printImageTaskBlock(service, image)
+            PrintTask.printImageTaskBlock(image)
         )
     }
 
-    fun printImageTaskBlock(service: PrintService, image: Bitmap): TaskBlock {
+    fun printImageTaskBlock(image: Bitmap): TaskBlock {
         return {
-            PrintTask.printImageTaskBlockAsync(service, image)
+            PrintTask.printImageTaskBlockAsync(image)
         }
     }
 
-    fun printImageTaskBlockAsync(service: PrintService, image: Bitmap): Deferred<TaskResult> {
-        service.printImage(image);
+    fun printImageTaskBlockAsync(image: Bitmap): Deferred<TaskResult> {
+        PrintService.printImage(image);
         val result = CompletableDeferred<TaskResult>()
         return result
     }

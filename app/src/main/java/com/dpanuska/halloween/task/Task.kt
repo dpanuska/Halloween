@@ -5,9 +5,10 @@ import kotlinx.coroutines.*
 typealias TaskBlock = () -> Deferred<TaskResult>
 
 // TODO Should throw / handle exception for task failure
-open class BaseTask(taskBlock: TaskBlock?, suspend: Boolean = false) {
+open class BaseTask(taskBlock: TaskBlock?, suspend: Boolean = false, name: String? = null): Cloneable {
 
     val executionBlock = taskBlock
+    var taskName = name
     val waitForCompletion = suspend
     var job: Deferred<TaskResult>? = null
 
@@ -26,9 +27,14 @@ open class BaseTask(taskBlock: TaskBlock?, suspend: Boolean = false) {
     open fun cancel() {
         job?.cancel()
     }
+
+    public override fun clone(): Any {
+        return super.clone()
+    }
+
 }
 
-class TaskList(tasks: ArrayList<BaseTask>, suspend: Boolean = false): BaseTask(null, suspend) {
+class TaskList(tasks: ArrayList<BaseTask>, suspend: Boolean = false, name: String? = null): BaseTask(null, suspend, name), Cloneable {
 
     var taskList = tasks;
     var jobs = ArrayList<Deferred<TaskResult>>()
@@ -53,5 +59,9 @@ class TaskList(tasks: ArrayList<BaseTask>, suspend: Boolean = false): BaseTask(n
         for (job in jobs) {
             job.cancel()
         }
+    }
+
+    public override fun clone(): Any {
+        return super<BaseTask>.clone()
     }
 }

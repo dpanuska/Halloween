@@ -11,7 +11,7 @@ import kotlinx.coroutines.Deferred
 import java.util.*
 import kotlin.collections.HashMap
 
-class SpeechService : UtteranceProgressListener() {
+object SpeechService : UtteranceProgressListener() {
 
     private var tts: TextToSpeech? = null
     private var defaultPitch = 1f

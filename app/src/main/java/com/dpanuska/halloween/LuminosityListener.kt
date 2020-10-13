@@ -53,7 +53,7 @@ class LuminosityListener(handler: LuminosityCallbackHandler) {
 
     companion object {
         private const val LUMINOSITY_SCALAR = 1 / 100.0
-        private const val MINIMUM_LUMINOSITY_DIFF = 20
+        private const val MINIMUM_LUMINOSITY_DIFF = 30
         private const val LUMINOSITY_INIT_TIME = 1.0 * 1000
     }
 

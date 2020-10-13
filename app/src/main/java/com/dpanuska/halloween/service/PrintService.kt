@@ -83,7 +83,7 @@ open class MyPrinter : Printer() {
 //when using printooth
 
 
-class PrintService {
+object PrintService {
 
     //lateinit var printing: Printing
     fun start(context: Context) {

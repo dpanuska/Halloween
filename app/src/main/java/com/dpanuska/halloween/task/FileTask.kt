@@ -8,20 +8,20 @@ import java.io.File
 // TODO make this shit easier. 3 functions.. comeon man
 object FileTask {
 
-    fun createSaveImageTask(service: FileService, image: Bitmap, outDir: File): BaseTask {
+    fun createSaveImageTask(image: Bitmap, outDir: File): BaseTask {
         return BaseTask(
-            saveImageBlock(service, image, outDir)
+            saveImageBlock(image, outDir)
         )
     }
 
-    fun saveImageBlock(service: FileService, image: Bitmap, outDir: File): TaskBlock {
+    fun saveImageBlock(image: Bitmap, outDir: File): TaskBlock {
         return {
-            saveImageBlockAsync(service, image, outDir)
+            saveImageBlockAsync(image, outDir)
         }
     }
 
-    fun saveImageBlockAsync(service: FileService, image: Bitmap, outDir: File): Deferred<TaskResult> {
-        service.saveBitmap(image, outDir)
+    fun saveImageBlockAsync(image: Bitmap, outDir: File): Deferred<TaskResult> {
+        FileService.saveBitmap(image, outDir)
         return TaskHelper.syncSuccessResultAsync()
     }
 }

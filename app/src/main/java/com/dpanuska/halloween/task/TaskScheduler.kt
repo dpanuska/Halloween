@@ -1,14 +1,15 @@
 package com.dpanuska.halloween.task
 
+import android.util.Log
 import kotlinx.coroutines.*
 import java.lang.Exception
 import java.util.concurrent.ConcurrentLinkedQueue
 import kotlin.coroutines.CoroutineContext
 
-class TaskScope(disatcher: CoroutineDispatcher = Dispatchers.Default) : CoroutineScope {
+class TaskScope(dispatcher: CoroutineDispatcher = Dispatchers.Default) : CoroutineScope {
 
     private var job: Job = Job()
-    private var dispatch = disatcher
+    private var dispatch = dispatcher
 
     override val coroutineContext: CoroutineContext
         get() = job + dispatch
@@ -16,8 +17,8 @@ class TaskScope(disatcher: CoroutineDispatcher = Dispatchers.Default) : Coroutin
 
 // TODO should actually queue and not just execute
 // TODO noting here too.. I hate this result shit.. FIXME
-class TaskScheduler(disatcher: CoroutineDispatcher) {
-    private val taskScope = TaskScope(disatcher)
+class TaskScheduler(dispatcher: CoroutineDispatcher) {
+    private val taskScope = TaskScope(dispatcher)
     private var currentJob: Job? = null // TODO atomic and/or list of active jobs?
     private val queue = ConcurrentLinkedQueue<BaseTask>()
 
@@ -44,12 +45,12 @@ class TaskScheduler(disatcher: CoroutineDispatcher) {
                     try {
                         val result = task.execute()
                         if (result is Success) {
-                            println("TaskScheduler task completed successfully with result" + (result as Success).value)
+                            Log.e(TAG,  "task ${task.taskName} completed successfully with result ${ (result as Success).value}")
                         } else {
-                            println("TaskScheduler task failed with exception message" + (result as Failure).reason)
+                            Log.e(TAG, "task ${task.taskName} failed with reason ${(result as Failure).reason}")
                         }
                     } catch (e: Exception) {
-                        println("TaskScheduler task threw exception with message " + e.message)
+                        Log.e(TAG, "task ${task.taskName} threw exception", e)
                     } finally {
                         currentJob = null
                         executeTasks()
@@ -57,5 +58,9 @@ class TaskScheduler(disatcher: CoroutineDispatcher) {
                 }
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "TaskScheduler"
     }
 }

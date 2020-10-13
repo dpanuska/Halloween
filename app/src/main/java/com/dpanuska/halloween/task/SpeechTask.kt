@@ -7,103 +7,103 @@ import java.util.*
 object SpeechTask {
 
     // Complex
-    fun createSayTextTask(service: SpeechService, text: String, pitch: Float, speechRate: Float, suspend: Boolean = true): BaseTask {
+    fun createSayTextTask(text: String, pitch: Float, speechRate: Float, suspend: Boolean = true): BaseTask {
         val tasks = arrayListOf<BaseTask>(
-            createSetPitchTask(service, pitch),
-            createSetSpeechRateTask(service, speechRate),
-            createSayTextTask(service, text, suspend)
+            createSetPitchTask(pitch),
+            createSetSpeechRateTask(speechRate),
+            createSayTextTask(text, suspend)
         )
         return TaskList(tasks, true)
     }
 
     // Factory
-    fun createResetDefaultsTask(service: SpeechService): BaseTask {
+    fun createResetDefaultsTask(): BaseTask {
         return BaseTask(
-            resetDefaultsTaskBlock(service)
+            resetDefaultsTaskBlock()
         )
     }
 
-    fun createSayTextTask(service: SpeechService, text: String, suspend: Boolean = true): BaseTask {
+    fun createSayTextTask(text: String, suspend: Boolean = true): BaseTask {
         return BaseTask(
-            sayTextTaskBlock(service, text), suspend
+            sayTextTaskBlock(text), suspend
         )
     }
 
-    fun createSetPitchTask(service: SpeechService, pitch: Float): BaseTask {
+    fun createSetPitchTask(pitch: Float): BaseTask {
         return BaseTask(
-            setPitchTaskBlock(service, pitch), false
+            setPitchTaskBlock(pitch), false
         )
     }
 
-    fun createSetSpeechRateTask(service: SpeechService, speechRate: Float): BaseTask {
+    fun createSetSpeechRateTask(speechRate: Float): BaseTask {
         return BaseTask(
-            setSpeechRateTaskBlock(service, speechRate), false
+            setSpeechRateTaskBlock(speechRate), false
         )
     }
 
-    fun createSetLocaleTask(service: SpeechService, locale: Locale): BaseTask {
+    fun createSetLocaleTask(locale: Locale): BaseTask {
         return BaseTask(
-            setLocaleTaskBlock(service, locale)
+            setLocaleTaskBlock(locale)
         )
     }
 
     // Reset
-    fun resetDefaultsTaskBlock(service: SpeechService): TaskBlock {
+    fun resetDefaultsTaskBlock(): TaskBlock {
         return {
-            resetDefaultsTaskBlockAsync(service)
+            resetDefaultsTaskBlockAsync()
         }
     }
 
-    private fun resetDefaultsTaskBlockAsync(service: SpeechService): Deferred<TaskResult> {
-        service.resetDefaultValues()
+    private fun resetDefaultsTaskBlockAsync(): Deferred<TaskResult> {
+        SpeechService.resetDefaultValues()
         return TaskHelper.syncSuccessResultAsync()
     }
 
     // Say Text
-    fun sayTextTaskBlock(service: SpeechService, text: String): TaskBlock {
+    fun sayTextTaskBlock(text: String): TaskBlock {
         return {
-            sayTextTaskBlockAsync(service, text)
+            sayTextTaskBlockAsync(text)
         }
     }
 
-    private fun sayTextTaskBlockAsync(service: SpeechService, text: String): Deferred<TaskResult> {
-       return service.sayTextAsync(text)
+    private fun sayTextTaskBlockAsync(text: String): Deferred<TaskResult> {
+       return SpeechService.sayTextAsync(text)
     }
 
 
     // Locale
-    fun setLocaleTaskBlock(service: SpeechService, locale: Locale): TaskBlock {
+    fun setLocaleTaskBlock(locale: Locale): TaskBlock {
         return {
-            setLocaleTaskBlockAsync(service, locale)
+            setLocaleTaskBlockAsync(locale)
         }
     }
 
-    private fun setLocaleTaskBlockAsync(service: SpeechService, locale: Locale): Deferred<TaskResult> {
-        service.setLocale(locale)
+    private fun setLocaleTaskBlockAsync(locale: Locale): Deferred<TaskResult> {
+        SpeechService.setLocale(locale)
         return TaskHelper.syncSuccessResultAsync()
     }
 
     // Pitch
-    fun setPitchTaskBlock(service: SpeechService, pitch: Float): TaskBlock {
+    fun setPitchTaskBlock(pitch: Float): TaskBlock {
         return {
-            setPitchTaskBlockAsync(service, pitch)
+            setPitchTaskBlockAsync(pitch)
         }
     }
 
-    private fun setPitchTaskBlockAsync(service: SpeechService, pitch: Float): Deferred<TaskResult> {
-        service.setPitch(pitch)
+    private fun setPitchTaskBlockAsync(pitch: Float): Deferred<TaskResult> {
+        SpeechService.setPitch(pitch)
         return TaskHelper.syncSuccessResultAsync()
     }
 
     // Speech Rate
-    fun setSpeechRateTaskBlock(service: SpeechService, speechRate: Float): TaskBlock {
+    fun setSpeechRateTaskBlock(speechRate: Float): TaskBlock {
         return {
-            setSpeechRateTaskBlockAsync(service, speechRate)
+            setSpeechRateTaskBlockAsync(speechRate)
         }
     }
 
-    private fun setSpeechRateTaskBlockAsync(service: SpeechService, speechRate: Float): Deferred<TaskResult> {
-        service.setSpeechRate(speechRate)
+    private fun setSpeechRateTaskBlockAsync(speechRate: Float): Deferred<TaskResult> {
+        SpeechService.setSpeechRate(speechRate)
         return TaskHelper.syncSuccessResultAsync()
     }
 

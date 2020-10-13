@@ -1,11 +1,11 @@
 {
-    "taskDefinitions": [{
-        "task": {
+    "taskDefinitions": [
+        {
             "type": "GREETING",
-            "subtasks": [
+            "subTasks": [
                 {
-                    "type": "VISUAL_BACKGROUND",
-                    "resId": "hal_9000"
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "hello_there"
                 },
                 {
                     "type": "SPEECH_TEXT",
@@ -14,38 +14,104 @@
                 }
             ]
         },
-        "task": {
-            "type": "GOODBYE",
-            "subtasks": [
+        {
+            "type": "GREETING",
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "hal"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "I'm afraid I can't do that Dave",
+                    "suspend": true
+                }
+            ]
+        },
+        {
+            "type": "GREETING",
+            "subTasks": [
                 {
                     "type": "VISUAL_BACKGROUND",
-                    "resId": ""
+                    "resource": "anime"
+                },
+                {
+                    "type": "SPEECH_LOCALE",
+                    "locale": "JAPAN",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "こんにちは、幸せなハロウィーン",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_RESET",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Ahem, Sorry about that... Hello and happy Halloween!"
+                }
+            ]
+        },
+        {
+            "type": "GOODBYE",
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "bye_kid"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Goodbye!",
+                    "suspend": true
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 2
+                },
+                {
+                    "type": "VISUAL_RESET"
+                }
+            ]
+        },
+        {
+            "type": "CAMERA_START",
+            "subTasks": [
+                {
+                    "type": "VISUAL_TEXT",
+                    "text": "3"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "3",
+                    "suspend": true
+                },
+                {
+                    "type": "VISUAL_TEXT",
+                    "text": "2"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "2",
+                    "suspend": true
+                },
+                {
+                    "type": "VISUAL_TEXT",
+                    "text": "1"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "1",
+                    "suspend": true
+                },
+                {
+                    "type": "VISUAL_RESET"
                 }
             ]
         }
-    }],
-    "tasks": [
-        {
-            "name": "hello_there",
-            "type": "SAY_TEXT",
-            "text": "Hello there!"
-        },
-        {
-            "name": "goodbye",
-            "type": "SAY_TEXT",
-            "text": "Goodbye!"
-        }
-
     ]
 }
 
 
-// Task in groups -> Greeting, blah blah
-// Reference tasks from other tasks
-
-// Need base task definitions - one file per type - merge results in code to generate complex tasks
-
-// Task list definitions after base tasks read - create complex tasks
-// separate task lists by usage ie greetings.json, camera.json
-// sub tasks can be lists
-// create overall way to loop all files in order needed

@@ -7,75 +7,93 @@ import kotlinx.coroutines.Deferred
 
 object VisualTask {
 
-    fun createHideOverlayTask(service: VisualService): BaseTask {
+    fun createHideOverlayTask(): BaseTask {
         return BaseTask(
-            hideOverlayBlock(service)
+            hideOverlayBlock()
         )
     }
 
-    fun hideOverlayBlock(service: VisualService): TaskBlock {
+    fun hideOverlayBlock(): TaskBlock {
         return {
-            hideOverlayBlockAsync(service)
+            hideOverlayBlockAsync()
         }
     }
 
-    fun hideOverlayBlockAsync(service: VisualService): Deferred<TaskResult> {
-        service.hide()
+    fun hideOverlayBlockAsync(): Deferred<TaskResult> {
+        VisualService.hide()
         return TaskHelper.syncSuccessResultAsync()
     }
 
 
 
-    fun createSetBackgroundTask(service: VisualService, resId: Int): BaseTask {
+    fun createSetBackgroundTask(resId: Int): BaseTask {
         return BaseTask(
-            setBackgroundBlock(service, resId)
+            setBackgroundBlock(resId)
         )
     }
 
-    fun setBackgroundBlock(service: VisualService, resId: Int): TaskBlock {
+    fun setBackgroundBlock(resId: Int): TaskBlock {
         return {
-            setBackgroundBlockAsync(service, resId)
+            setBackgroundBlockAsync(resId)
         }
     }
 
-    fun setBackgroundBlockAsync(service: VisualService, resId: Int): Deferred<TaskResult> {
-        service.showBackgroundImage(resId)
+    fun setBackgroundBlockAsync(resId: Int): Deferred<TaskResult> {
+        VisualService.showBackgroundImage(resId)
         return TaskHelper.syncSuccessResultAsync()
     }
 
     // Bitmap
-    fun createSetBackgroundTask(service: VisualService, bitmap: Bitmap): BaseTask {
+    fun createSetBackgroundTask(bitmap: Bitmap): BaseTask {
         return BaseTask(
-            setBackgroundBlock(service, bitmap)
+            setBackgroundBlock(bitmap)
         )
     }
 
-    fun setBackgroundBlock(service: VisualService, bitmap: Bitmap): TaskBlock {
+    fun setBackgroundBlock(bitmap: Bitmap): TaskBlock {
         return {
-            setBackgroundBlockAsync(service, bitmap)
+            setBackgroundBlockAsync(bitmap)
         }
     }
 
-    fun setBackgroundBlockAsync(service: VisualService, bitmap: Bitmap): Deferred<TaskResult> {
-        service.showBackgroundImage(bitmap)
+    fun setBackgroundBlockAsync(bitmap: Bitmap): Deferred<TaskResult> {
+        VisualService.showBackgroundImage(bitmap)
         return TaskHelper.syncSuccessResultAsync()
     }
 
     // Gif
-    fun createSetBackgroundGifTask(service: VisualService, resId: Int): BaseTask {
+    fun createSetBackgroundGifTask(resId: Int): BaseTask {
         return BaseTask(
-            setBackgroundGifBlock(service, resId)
+            setBackgroundGifBlock(resId)
         )
     }
 
-    fun setBackgroundGifBlock(service: VisualService, resId: Int): TaskBlock {
+    fun setBackgroundGifBlock(resId: Int): TaskBlock {
         return {
-            setBackgroundGifBlockAsync(service, resId)
+            setBackgroundGifBlockAsync(resId)
         }
     }
 
-    fun setBackgroundGifBlockAsync(service: VisualService, resId: Int): Deferred<TaskResult> {
-        service.showBackgroundGif(resId)
+    fun setBackgroundGifBlockAsync(resId: Int): Deferred<TaskResult> {
+        VisualService.showBackgroundGif(resId)
+        return TaskHelper.syncSuccessResultAsync()
+    }
+
+    // Text
+    fun createSetTextTask(text: String): BaseTask {
+        return BaseTask(
+            setTextBlock(text)
+        )
+    }
+
+    fun setTextBlock(text: String): TaskBlock {
+        return {
+            setTextBlockAsync(text)
+        }
+    }
+
+    fun setTextBlockAsync(text: String): Deferred<TaskResult> {
+        VisualService.setText(text)
         return TaskHelper.syncSuccessResultAsync()
     }
 }

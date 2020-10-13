@@ -16,11 +16,13 @@ import com.dpanuska.halloween.service.VisualService
 import com.dpanuska.halloween.service.SpeechHandler
 import com.dpanuska.halloween.service.VoiceRecognitionService
 import com.dpanuska.halloween.task.*
+import com.dpanuska.halloween.task.load.TaskLoader
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 enum class AppState {
@@ -30,17 +32,11 @@ enum class AppState {
 
 class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandler {
 
-    var printService: PrintService = PrintService()
-    var speechService: SpeechService = SpeechService()
-    var voiceService = VoiceRecognitionService()
-    var cameraService = CameraService()
-    var fileService = FileService()
-    var visualService = VisualService()
     var luminosityListener = LuminosityListener(this)
 
     var scheduler = TaskScheduler(Dispatchers.Default)
     var mainScheduler = TaskScheduler(Dispatchers.Main)
-
+    val taskLoader = TaskLoader()
     var currentState = AppState.IDLE
 
 
@@ -61,18 +57,21 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         }
 
 
+        taskLoader.loadFromJSONResource(resources, R.raw.test)
+
+
         PermissionHelper.checkAllPermissions(this)
 
         // CAMERA
         outputDirectory = getOutputDirectory()
 
-        printService.start(this)
-        speechService.start(this)
-        voiceService.start(applicationContext, this)
-        fileService.start(this)
-        visualService.start(this, overlayLayout)
+        PrintService.start(this)
+        SpeechService.start(this)
+        VoiceRecognitionService.start(applicationContext, this)
+        FileService.start(this)
+        VisualService.start(this, overlayLayout)
 
-        cameraService.start(
+        CameraService.start(
             this,
             this,
             viewFinder.createSurfaceProvider(),
@@ -86,12 +85,11 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         button?.setOnClickListener() {
 
             lifecycleScope.launch {
-                val result = cameraService.takePhotoAsync()
+                val result = CameraService.takePhotoAsync()
                 val bitmap = result.await()
 
                 scheduler.queueTask(
                     FileTask.createSaveImageTask(
-                        fileService,
                         bitmap,
                         outputDirectory
                     )
@@ -99,47 +97,13 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
                 // TODO bitmap is presented flipped horizontally
                 val tasks = arrayListOf<BaseTask>(
-                    VisualTask.createSetBackgroundTask(visualService, bitmap),
+                    VisualTask.createSetBackgroundTask(bitmap),
                     TaskHelper.createDelayTask(3000),
-                    VisualTask.createHideOverlayTask(visualService)
+                    VisualTask.createHideOverlayTask()
                 )
 
                 mainScheduler.queueTask(TaskList(tasks))
             }
-
-
-            //            val tasks = arrayListOf<BaseTask>(
-//                SpeechTask.createSayTextTask(speechService, "3"),
-//                SpeechTask.createSayTextTask(speechService, "2"),
-//                SpeechTask.createSayTextTask(speechService, "1"),
-//                SpeechTask.createSayTextTask(speechService, "1", 1.0f, 1.5f),
-//                SpeechTask.createSayTextTask(speechService, "1", 2.0f, 2.0f),
-//                SpeechTask.createSayTextTask(speechService, "1", 3.0f, 3.0f),
-//                SpeechTask.createSayTextTask(speechService, "1", 4.0f, 3.0f),
-//                SpeechTask.createSayTextTask(speechService, "1"),
-//                SpeechTask.createSayTextTask(speechService, "1"),
-//
-//                SpeechTask.createSayTextTask(speechService, "   Ahem", 1.0f, 0.6f),
-//                SpeechTask.createResetDefaultsTask(speechService),
-//                SpeechTask.createSayTextTask(speechService, "Sorry about that, there must be something wrong with my programming"),
-//
-//            )
-//
-            val tasks = arrayListOf<BaseTask>(
-                SpeechTask.createSetLocaleTask(speechService, Locale.JAPAN),
-                SpeechTask.createSayTextTask(
-                    speechService,
-                    "こんにちは、幸せなハロウィーン"
-                ), // Hello and happy halloween
-                SpeechTask.createResetDefaultsTask(speechService)
-            )
-            val taskList = TaskList(tasks)
-            scheduler.queueTask(taskList)
-            val newTask = SpeechTask.createSayTextTask(
-                speechService,
-                "Hey, I started a second task!"
-            )
-            scheduler.queueTask(newTask)
 
 //            val image = BitmapFactory.decodeResource(
 //                this.resources,
@@ -215,11 +179,17 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             )
             currentState = AppState.ACTIVE
 
-            val tasks = arrayListOf<BaseTask>(
-                VisualTask.createSetBackgroundGifTask(visualService, R.raw.hello_there),
-                SpeechTask.createSayTextTask(speechService, "Hello there!")
-            )
-            mainScheduler.queueTask(TaskList(tasks), true)
+//            val tasks = arrayListOf<BaseTask>(
+//                VisualTask.createSetBackgroundGifTask(R.raw.hello_there),
+//                VisualTask.createSetTextTask("Hello There"),
+//                SpeechTask.createSayTextTask("Hello there!"),
+//                VisualTask.createSetTextTask("3"),
+//                TaskHelper.createDelayTask(1000),
+//                VisualTask.createSetTextTask("2"),
+//            )
+
+            val task = taskLoader.getRandomTaskOfType("GREETING")
+            mainScheduler.queueTask(task!!, true)
         }
     }
 
@@ -228,13 +198,14 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             Log.e("Going Idle from luminosity", "Luminosity: $averageLuminosity")
             currentState = AppState.IDLE
 
-            val tasks = arrayListOf<BaseTask>(
-                VisualTask.createSetBackgroundGifTask(visualService, R.raw.goodbye_kid),
-                SpeechTask.createSayTextTask(speechService, "Goodbye!"),
-                TaskHelper.createDelayTask(2000),
-                VisualTask.createHideOverlayTask(visualService)
-            )
-            mainScheduler.queueTask(TaskList(tasks), true)
+//            val tasks = arrayListOf<BaseTask>(
+//                VisualTask.createSetBackgroundGifTask(R.raw.goodbye_kid),
+//                SpeechTask.createSayTextTask("Goodbye!"),
+//                TaskHelper.createDelayTask(2000),
+//                VisualTask.createHideOverlayTask()
+//            )
+            val task = taskLoader.getRandomTaskOfType("GOODBYE")
+            mainScheduler.queueTask(task!!, true)
         }
     }
 

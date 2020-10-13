@@ -17,7 +17,7 @@ interface SpeechHandler {
 
 
 // TODO Start and End callback or action dispatch
-class VoiceRecognitionService {
+object VoiceRecognitionService {
 
     private var speechRecognizer: SpeechRecognizer? = null
 

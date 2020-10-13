@@ -7,7 +7,9 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FileService {
+object FileService {
+
+    private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
 
     fun start(context: Context) {
 
@@ -32,7 +34,4 @@ class FileService {
         fOut.close()
     }
 
-    companion object {
-        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
-    }
 }

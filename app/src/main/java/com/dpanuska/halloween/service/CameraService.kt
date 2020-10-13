@@ -17,8 +17,9 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 
-class CameraService {
+object CameraService {
 
+    private val TAG = CameraService::class.java.simpleName
     private var imageCapture: ImageCapture? = null
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var mainExecutor: Executor
@@ -96,10 +97,6 @@ class CameraService {
         })
 
         return result
-    }
-
-    companion object {
-        private val TAG = CameraService::class.java.simpleName
     }
 
 }
