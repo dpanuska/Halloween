@@ -92,7 +92,8 @@ object CameraService {
             override fun onCaptureSuccess(image: ImageProxy) {
                 Log.e(TAG, "Photo capture success")
                 val bitmap = image.image?.toBitmap()
-                 result.complete(bitmap!!)
+                image.close()
+                result.complete(bitmap!!)
             }
         })
 

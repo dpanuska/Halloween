@@ -1,13 +1,11 @@
 package com.dpanuska.halloween
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.dpanuska.halloween.permissions.PermissionHelper
 import com.dpanuska.halloween.service.CameraService
 import com.dpanuska.halloween.service.FileService
@@ -20,7 +18,6 @@ import com.dpanuska.halloween.task.*
 import com.dpanuska.halloween.task.load.TaskLoader
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
@@ -40,6 +37,8 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     val testLoader = TaskLoader()
     var currentState = AppState.IDLE
 
+    var stateSwitchTask: TimerTask? = null
+
 
     // CAMERA
     private lateinit var outputDirectory: File
@@ -49,6 +48,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         setContentView(R.layout.activity_main)
 
 
+        // Hide bars
         window.setDecorFitsSystemWindows(false)
         val controller = window.insetsController
         if (controller != null) {
@@ -57,16 +57,18 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
                 WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
 
-
+        // Load Tasks
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_base)
         testLoader.loadFromJSONResource(resources, R.raw.tasks_test)
 
 
+        // Check permissions
         PermissionHelper.checkAllPermissions(this)
 
         // CAMERA
         outputDirectory = getOutputDirectory()
 
+        // Start services
         PrintService.start(this)
         SpeechService.start(this)
         VoiceRecognitionService.start(applicationContext, this)
@@ -80,16 +82,15 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             luminosityListener.analyzer
         )
 
-
-        // TEST
-        // Use
-        val handler = Handler()
-        handler.postDelayed({
-            val tasks = testLoader.getAllTasks()
-            for (task in tasks) {
-                scheduler.queueTask(task)
+        val runTestTask = object: TimerTask() {
+            override fun run() {
+                val tasks = testLoader.getAllTasks()
+                for (task in tasks) {
+                    scheduler.queueTask(task)
+                }
             }
-        }, 1000)
+        }
+        Timer().schedule(runTestTask, 1000)
 
 
         // TODO check if bluetooth supported
@@ -98,26 +99,17 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         val button = findViewById<Button>(R.id.button)
         button?.setOnClickListener() {
 
-            lifecycleScope.launch {
-                val result = CameraService.takePhotoAsync()
-                val bitmap = result.await()
-
-                scheduler.queueTask(
-                    FileTask.createSaveImageTask(
-                        bitmap,
-                        outputDirectory
-                    )
-                )
-
-                // TODO bitmap is presented flipped horizontally
-                val tasks = arrayListOf<BaseTask>(
-                    VisualTask.createSetBackgroundTask(bitmap),
-                    TaskHelper.createDelayTask(3000),
-                    VisualTask.createHideOverlayTask()
-                )
-
-                scheduler.queueTask(TaskList(tasks))
+            val cameraTask = TaskList(arrayListOf<BaseTask>(
+                CameraTask.createTakePhotoTask(),
+                FileTask.createSaveImageTask(outputDirectory),
+                VisualTask.createSetBackgroundTask(),
+                TaskHelper.createDelayTask(3000),
+                VisualTask.createHideOverlayTask()
+            ))
+            cameraTask.completionHandler = {
+                Log.e("Testing", "HEllo There")
             }
+           scheduler.queueTask(cameraTask)
 
 
 
@@ -187,24 +179,31 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
     override fun onLuminosityChange(averageLuminosity: Double, currentLuminosity: Double) {
         if (currentState == AppState.IDLE) {
-            Log.e(
-                "Going Active from luminosity",
-                "Average: $averageLuminosity Current: $currentLuminosity"
-            )
-            currentState = AppState.ACTIVE
+            stateSwitchTask?.cancel()
+            stateSwitchTask = object: TimerTask() {
+                override fun run() {
+                    Log.e(
+                        "Going Active from luminosity",
+                        "Average: $averageLuminosity Current: $currentLuminosity"
+                    )
+                    currentState = AppState.ACTIVE
 
-            val task = taskLoader.getRandomTaskOfType("GREETING")
-            scheduler.queueTask(task!!, true)
+                    val task = taskLoader.getRandomTaskOfType("GREETING")
+                    //scheduler.queueTask(task!!, true)
+                }
+            }
+            Timer().schedule(stateSwitchTask!!, 1000)
         }
     }
 
     override fun onLuminosityNormal(averageLuminosity: Double) {
+        stateSwitchTask?.cancel()
         if (currentState == AppState.ACTIVE) {
             Log.e("Going Idle from luminosity", "Luminosity: $averageLuminosity")
             currentState = AppState.IDLE
 
             val task = taskLoader.getRandomTaskOfType("GOODBYE")
-            scheduler.queueTask(task!!, true)
+            //scheduler.queueTask(task!!, true)
         }
     }
 

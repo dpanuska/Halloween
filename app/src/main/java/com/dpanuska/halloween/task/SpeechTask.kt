@@ -1,5 +1,6 @@
 package com.dpanuska.halloween.task
 
+import android.util.Log
 import com.dpanuska.halloween.service.SpeechService
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -7,7 +8,8 @@ import java.util.*
 
 object SpeechTask {
 
-    val dispatcher = Dispatchers.IO
+    val dispatcher = Dispatchers.Main
+    const val TAG = "SpeechTask"
 
     // Complex
     fun createSayTextTask(text: String, pitch: Float, speechRate: Float, suspend: Boolean = true): BaseTask {
@@ -43,6 +45,7 @@ object SpeechTask {
     // Reset
     fun resetDefaultsTaskBlock(): TaskBlock {
         return {
+            Log.e(TAG, "Starting reset defaults task")
             resetDefaultsTaskBlockAsync()
         }
     }
@@ -55,6 +58,7 @@ object SpeechTask {
     // Say Text
     fun sayTextTaskBlock(text: String): TaskBlock {
         return {
+            Log.e(FileTask.TAG, "Starting Say Text task")
             sayTextTaskBlockAsync(text)
         }
     }
@@ -67,6 +71,7 @@ object SpeechTask {
     // Locale
     fun setLocaleTaskBlock(locale: Locale): TaskBlock {
         return {
+            Log.e(FileTask.TAG, "Starting Set Locale task")
             setLocaleTaskBlockAsync(locale)
         }
     }
@@ -79,6 +84,7 @@ object SpeechTask {
     // Pitch
     fun setPitchTaskBlock(pitch: Float): TaskBlock {
         return {
+            Log.e(FileTask.TAG, "Starting Set Pitch task")
             setPitchTaskBlockAsync(pitch)
         }
     }
@@ -91,6 +97,7 @@ object SpeechTask {
     // Speech Rate
     fun setSpeechRateTaskBlock(speechRate: Float): TaskBlock {
         return {
+            Log.e(FileTask.TAG, "Starting Speech Rate task")
             setSpeechRateTaskBlockAsync(speechRate)
         }
     }

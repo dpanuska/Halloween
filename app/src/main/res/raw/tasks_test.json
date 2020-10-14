@@ -3,6 +3,7 @@
         {
             "type": "GREETING",
             "name": "HELLO_HAL",
+            "suspend": true,
             "subTasks": [
                 {
                     "type": "VISUAL_BACKGROUND_GIF",

@@ -1,14 +1,17 @@
 package com.dpanuska.halloween.task
 
 import android.graphics.Bitmap
+import android.util.Log
 import com.dpanuska.halloween.service.VisualService
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import java.lang.Exception
 
 
 object VisualTask {
 
     val dispatcher = Dispatchers.Main
+    const val TAG = "VisualTask"
 
     fun createHideOverlayTask(): BaseTask {
         return BaseTask(hideOverlayBlock(), dispatcher)
@@ -16,6 +19,7 @@ object VisualTask {
 
     fun hideOverlayBlock(): TaskBlock {
         return {
+            Log.e(TAG, "Starting Hide Overlay task")
             hideOverlayBlockAsync()
         }
     }
@@ -26,13 +30,13 @@ object VisualTask {
     }
 
 
-
     fun createSetBackgroundTask(resId: Int): BaseTask {
         return BaseTask(setBackgroundBlock(resId), dispatcher)
     }
 
     fun setBackgroundBlock(resId: Int): TaskBlock {
         return {
+            Log.e(TAG, "Starting Set Image task")
             setBackgroundBlockAsync(resId)
         }
     }
@@ -47,15 +51,28 @@ object VisualTask {
         return BaseTask(setBackgroundBlock(bitmap), dispatcher)
     }
 
+    fun createSetBackgroundTask(): BaseTask {
+        return BaseTask(setBackgroundBlock(), dispatcher)
+    }
+
+    fun setBackgroundBlock(): TaskBlock {
+        return {
+            val bitmap = it as? Bitmap ?: throw(Exception("Bitmap not passed to set background block"))
+            Log.e(TAG, "Starting Set Image task")
+            setBackgroundBlockAsync(bitmap)
+        }
+    }
+
     fun setBackgroundBlock(bitmap: Bitmap): TaskBlock {
         return {
+            Log.e(TAG, "Starting Set Image task")
             setBackgroundBlockAsync(bitmap)
         }
     }
 
     fun setBackgroundBlockAsync(bitmap: Bitmap): Deferred<TaskResult> {
         VisualService.showBackgroundImage(bitmap)
-        return TaskHelper.syncSuccessResultAsync()
+        return TaskHelper.syncSuccessResultAsync(bitmap)
     }
 
     // Gif
@@ -65,6 +82,7 @@ object VisualTask {
 
     fun setBackgroundGifBlock(resId: Int): TaskBlock {
         return {
+            Log.e(TAG, "Starting Set GIF task")
             setBackgroundGifBlockAsync(resId)
         }
     }
@@ -81,6 +99,7 @@ object VisualTask {
 
     fun setTextBlock(text: String): TaskBlock {
         return {
+            Log.e(TAG, "Starting Set Text task")
             setTextBlockAsync(text)
         }
     }

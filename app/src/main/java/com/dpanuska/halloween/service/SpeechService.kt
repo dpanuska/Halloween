@@ -3,8 +3,6 @@ package com.dpanuska.halloween.service
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
-import com.dpanuska.halloween.task.Failure
-import com.dpanuska.halloween.task.Success
 import com.dpanuska.halloween.task.TaskResult
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
@@ -98,7 +96,7 @@ object SpeechService : UtteranceProgressListener() {
             val result = sayTextResults[id]
             if (result != null) {
                 sayTextResults.remove(id)
-                result.complete(Success(1))
+                result.complete(null)
             }
         }
     }
@@ -108,7 +106,7 @@ object SpeechService : UtteranceProgressListener() {
             val result = sayTextResults[id]
             if (result != null) {
                 sayTextResults.remove(id)
-                result.complete(Failure(Exception("Failed to say text")))
+                result.complete(Exception("Failed to say text"))
             }
         }
     }
