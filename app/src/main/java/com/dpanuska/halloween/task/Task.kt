@@ -75,7 +75,7 @@ class TaskList(
         }
     }
 
-    public override fun clone(): Any {
+    override fun clone(): Any {
         val clone = super<BaseTask>.clone() as TaskList
         val clonedTasks = clone.taskList.map { task -> task.clone() } as List<BaseTask>
         clone.taskList = ArrayList(clonedTasks)
