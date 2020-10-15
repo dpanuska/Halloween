@@ -1,14 +1,13 @@
 package com.dpanuska.halloween.task.load
 
 import com.dpanuska.halloween.task.BaseTask
-import com.dpanuska.halloween.task.FileTask
+import com.dpanuska.halloween.task.CameraTask
 import org.json.JSONObject
 
-
-class FileTaskParser: TaskParser() {
+class CameraTaskParser: TaskParser() {
     override val supportedTypes: ArrayList<String>
         get() = arrayListOf(
-            FileTaskType.SAVE_PICTURE.toString(),
+            CameraTaskType.TAKE_PICTURE.toString(),
         )
 
     override fun createFromJSON(
@@ -18,9 +17,9 @@ class FileTaskParser: TaskParser() {
     ): BaseTask? {
         val taskType = taskJSON.getString(TaskLoader.TYPE_KEY)
 
-        val type = FileTaskType.valueOf(taskType)
+        val type = CameraTaskType.valueOf(taskType)
         val task = when(type) {
-            FileTaskType.SAVE_PICTURE -> FileTask.createSaveImageTask(suspend)
+            CameraTaskType.TAKE_PICTURE -> CameraTask.createTakePhotoTask(suspend)
         }
 
         task?.taskName = taskName
@@ -28,8 +27,7 @@ class FileTaskParser: TaskParser() {
         return task
     }
 
-
-    enum class FileTaskType{
-        SAVE_PICTURE,
+    enum class CameraTaskType{
+        TAKE_PICTURE,
     }
 }

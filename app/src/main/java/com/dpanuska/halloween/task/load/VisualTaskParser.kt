@@ -26,12 +26,7 @@ class VisualTaskParser: TaskParser() {
     )
 
     override val supportedTypes: ArrayList<String>
-        get() = arrayListOf(
-            VisualTaskType.VISUAL_BACKGROUND.toString(),
-            VisualTaskType.VISUAL_BACKGROUND_GIF.toString(),
-            VisualTaskType.VISUAL_TEXT.toString(),
-            VisualTaskType.VISUAL_RESET.toString(),
-        )
+        get() = ArrayList<String>(VisualTaskType.values().map { type -> type.toString() })
 
     override fun createFromJSON(
         taskJSON: JSONObject,
@@ -43,6 +38,7 @@ class VisualTaskParser: TaskParser() {
         val type =VisualTaskType.valueOf(taskType)
         val task = when(type) {
             VisualTaskType.VISUAL_BACKGROUND -> createDisplayBGFromJSON(taskJSON, suspend)
+            VisualTaskType.VISUAL_BACKGROUND_CHAINED -> createChainedDisplayBGFromJSON(taskJSON, suspend)
             VisualTaskType.VISUAL_BACKGROUND_GIF -> createDisplayGifFromJSON(taskJSON, suspend)
             VisualTaskType.VISUAL_TEXT -> createShowTextFromJSON(taskJSON, suspend)
             VisualTaskType.VISUAL_RESET -> createResetFromJSON(taskJSON, suspend)
@@ -62,6 +58,10 @@ class VisualTaskParser: TaskParser() {
        }
 
         return null
+    }
+
+    private fun createChainedDisplayBGFromJSON(taskJSON: JSONObject, suspend: Boolean): BaseTask {
+        return VisualTask.createSetBackgroundTask()
     }
 
     private fun createDisplayGifFromJSON(taskJSON: JSONObject, suspend: Boolean): BaseTask? {
@@ -85,6 +85,7 @@ class VisualTaskParser: TaskParser() {
 
     enum class VisualTaskType{
         VISUAL_BACKGROUND,
+        VISUAL_BACKGROUND_CHAINED,
         VISUAL_BACKGROUND_GIF,
         VISUAL_TEXT,
         VISUAL_RESET,

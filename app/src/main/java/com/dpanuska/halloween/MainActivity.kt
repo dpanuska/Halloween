@@ -30,6 +30,8 @@ enum class AppState {
 
 class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandler {
 
+    val runTestTasks = false
+
     var luminosityListener = LuminosityListener(this)
 
     var scheduler = TaskScheduler(Dispatchers.Default)
@@ -39,9 +41,6 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
     var stateSwitchTask: TimerTask? = null
 
-
-    // CAMERA
-    private lateinit var outputDirectory: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,12 +60,8 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_base)
         testLoader.loadFromJSONResource(resources, R.raw.tasks_test)
 
-
         // Check permissions
         PermissionHelper.checkAllPermissions(this)
-
-        // CAMERA
-        outputDirectory = getOutputDirectory()
 
         // Start services
         PrintService.start(this)
@@ -82,15 +77,17 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             luminosityListener.analyzer
         )
 
-        val runTestTask = object: TimerTask() {
-            override fun run() {
-                val tasks = testLoader.getAllTasks()
-                for (task in tasks) {
-                    scheduler.queueTask(task)
+        if (runTestTasks) {
+            val runTestTask = object : TimerTask() {
+                override fun run() {
+                    val tasks = testLoader.getAllTasks()
+                    for (task in tasks) {
+                        scheduler.queueTask(task)
+                    }
                 }
             }
+            Timer().schedule(runTestTask, 1000)
         }
-        Timer().schedule(runTestTask, 1000)
 
 
         // TODO check if bluetooth supported
@@ -99,43 +96,13 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         val button = findViewById<Button>(R.id.button)
         button?.setOnClickListener() {
 
-            val cameraTask = TaskList(arrayListOf<BaseTask>(
-                CameraTask.createTakePhotoTask(),
-                FileTask.createSaveImageTask(outputDirectory),
-                VisualTask.createSetBackgroundTask(),
-                TaskHelper.createDelayTask(3000),
-                VisualTask.createHideOverlayTask()
-            ))
-            cameraTask.completionHandler = {
+            val cameraTask = taskLoader.getRandomTaskOfType("CAMERA_START")
+            cameraTask?.completionHandler = {
                 Log.e("Testing", "HEllo There")
             }
-           scheduler.queueTask(cameraTask)
-
-
-
-//            val image = BitmapFactory.decodeResource(
-//                this.resources,
-//                R.drawable.hal_9000
-//            )
-//            printService.printImage(image)
+           scheduler.queueTask(cameraTask!!)
 
         }
-    }
-
-//    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-//        ContextCompat.checkSelfPermission(
-//            baseContext, it) == PackageManager.PERMISSION_GRANTED
-//    }
-
-    private fun getOutputDirectory(): File {
-        val mediaDir = externalMediaDirs.firstOrNull()?.let {
-            File(it, resources.getString(R.string.app_name)).apply { mkdirs() } }
-        return if (mediaDir != null && mediaDir.exists())
-            mediaDir else filesDir
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     // TODO start and shutDown on Camera movement detection for voice etc service
@@ -144,8 +111,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+        grantResults: IntArray) {
         PermissionHelper.onRequestPermissionsResult(this, requestCode, permissions, grantResults)
     }
 
@@ -178,8 +144,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     // Activity Detection
 
     override fun onLuminosityChange(averageLuminosity: Double, currentLuminosity: Double) {
-        if (currentState == AppState.IDLE) {
-            stateSwitchTask?.cancel()
+        if (currentState == AppState.IDLE && stateSwitchTask == null) {
             stateSwitchTask = object: TimerTask() {
                 override fun run() {
                     Log.e(
@@ -189,7 +154,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
                     currentState = AppState.ACTIVE
 
                     val task = taskLoader.getRandomTaskOfType("GREETING")
-                    //scheduler.queueTask(task!!, true)
+                    scheduler.queueTask(task!!, true)
                 }
             }
             Timer().schedule(stateSwitchTask!!, 1000)
@@ -198,12 +163,13 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
     override fun onLuminosityNormal(averageLuminosity: Double) {
         stateSwitchTask?.cancel()
+        stateSwitchTask = null
         if (currentState == AppState.ACTIVE) {
             Log.e("Going Idle from luminosity", "Luminosity: $averageLuminosity")
             currentState = AppState.IDLE
 
             val task = taskLoader.getRandomTaskOfType("GOODBYE")
-            //scheduler.queueTask(task!!, true)
+            scheduler.queueTask(task!!, true)
         }
     }
 

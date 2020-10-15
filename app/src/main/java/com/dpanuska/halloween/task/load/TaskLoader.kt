@@ -22,6 +22,8 @@ class TaskLoader {
         registerTaskParser(SpeechTaskParser())
         registerTaskParser(VisualTaskParser())
         registerTaskParser(GenericTaskParser())
+        registerTaskParser(CameraTaskParser())
+        registerTaskParser(FileTaskParser())
         registerTaskParser(NamedTaskParser())
     }
 
@@ -131,6 +133,7 @@ class TaskLoader {
     companion object {
         const val TASK_DEFINITIONS_KEY = "taskDefinitions"
         const val TYPE_KEY = "type"
+        const val TASK_TYPE_KEY = "taskType"
         const val SUB_TASKS_KEY = "subTasks"
         const val SUSPEND_KEY = "suspend"
         const val NAME_KEY = "name"
@@ -172,7 +175,7 @@ class TaskLoader {
         }
 
         private fun createTypedFromJSON(taskJSON: JSONObject, suspend: Boolean): BaseTask {
-            val type = taskJSON.getString(TYPE_KEY)
+            val type = taskJSON.getString(TASK_TYPE_KEY)
             return TypeTask(type, suspend)
         }
     }

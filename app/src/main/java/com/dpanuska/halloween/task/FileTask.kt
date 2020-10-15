@@ -14,31 +14,32 @@ object FileTask {
     val dispatcher = Dispatchers.IO
     const val TAG = "FileTask"
 
-    fun createSaveImageTask(outDir: File): BaseTask {
-        return BaseTask(saveImageBlock(outDir))
+
+    fun createSaveImageTask(suspend: Boolean = false): BaseTask {
+        return BaseTask(saveImageBlock(), dispatcher, suspend)
     }
 
-    fun saveImageBlock(outDir: File): TaskBlock {
+    fun saveImageBlock(): TaskBlock {
         return {
             val bitmap = it as? Bitmap ?: throw Exception("Image not passed from previous task")
             Log.e(TAG, "Starting Save Image task")
-            saveImageBlockAsync(bitmap, outDir)
+            saveImageBlockAsync(bitmap)
         }
     }
 
-    fun createSaveImageTask(image: Bitmap, outDir: File): BaseTask {
-        return BaseTask(saveImageBlock(image, outDir), dispatcher)
+    fun createSaveImageTask(image: Bitmap, suspend: Boolean = false): BaseTask {
+        return BaseTask(saveImageBlock(image), dispatcher, suspend)
     }
 
-    fun saveImageBlock(image: Bitmap, outDir: File): TaskBlock {
+    fun saveImageBlock(image: Bitmap): TaskBlock {
         return {
             Log.e(TAG, "Starting Save Image task")
-            saveImageBlockAsync(image, outDir)
+            saveImageBlockAsync(image)
         }
     }
 
-    fun saveImageBlockAsync(image: Bitmap, outDir: File): Deferred<TaskResult> {
-        FileService.saveBitmap(image, outDir)
+    fun saveImageBlockAsync(image: Bitmap): Deferred<TaskResult> {
+        FileService.saveBitmap(image)
         return TaskHelper.syncSuccessResultAsync()
     }
 }

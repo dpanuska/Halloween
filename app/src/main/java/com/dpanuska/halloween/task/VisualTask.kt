@@ -13,8 +13,8 @@ object VisualTask {
     val dispatcher = Dispatchers.Main
     const val TAG = "VisualTask"
 
-    fun createHideOverlayTask(): BaseTask {
-        return BaseTask(hideOverlayBlock(), dispatcher)
+    fun createHideOverlayTask(suspend: Boolean = false): BaseTask {
+        return BaseTask(hideOverlayBlock(), dispatcher, suspend)
     }
 
     fun hideOverlayBlock(): TaskBlock {
@@ -30,8 +30,8 @@ object VisualTask {
     }
 
 
-    fun createSetBackgroundTask(resId: Int): BaseTask {
-        return BaseTask(setBackgroundBlock(resId), dispatcher)
+    fun createSetBackgroundTask(resId: Int, suspend: Boolean = false): BaseTask {
+        return BaseTask(setBackgroundBlock(resId), dispatcher, suspend)
     }
 
     fun setBackgroundBlock(resId: Int): TaskBlock {
@@ -51,8 +51,8 @@ object VisualTask {
         return BaseTask(setBackgroundBlock(bitmap), dispatcher)
     }
 
-    fun createSetBackgroundTask(): BaseTask {
-        return BaseTask(setBackgroundBlock(), dispatcher)
+    fun createSetBackgroundTask(suspend: Boolean = false): BaseTask {
+        return BaseTask(setBackgroundBlock(), dispatcher, suspend)
     }
 
     fun setBackgroundBlock(): TaskBlock {
@@ -76,8 +76,8 @@ object VisualTask {
     }
 
     // Gif
-    fun createSetBackgroundGifTask(resId: Int): BaseTask {
-        return BaseTask(setBackgroundGifBlock(resId), dispatcher)
+    fun createSetBackgroundGifTask(resId: Int, suspend: Boolean = false): BaseTask {
+        return BaseTask(setBackgroundGifBlock(resId), dispatcher, suspend)
     }
 
     fun setBackgroundGifBlock(resId: Int): TaskBlock {
@@ -93,8 +93,8 @@ object VisualTask {
     }
 
     // Text
-    fun createSetTextTask(text: String): BaseTask {
-        return BaseTask(setTextBlock(text), dispatcher)
+    fun createSetTextTask(text: String, suspend: Boolean = false): BaseTask {
+        return BaseTask(setTextBlock(text), dispatcher, suspend)
     }
 
     fun setTextBlock(text: String): TaskBlock {

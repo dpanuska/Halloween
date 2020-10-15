@@ -18,20 +18,6 @@
             "type": "GREETING",
             "subTasks": [
                 {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "hal"
-                },
-                {
-                    "type": "SPEECH_TEXT",
-                    "text": "I'm afraid I can't do that Dave",
-                    "suspend": true
-                }
-            ]
-        },
-        {
-            "type": "GREETING",
-            "subTasks": [
-                {
                     "type": "VISUAL_BACKGROUND",
                     "resource": "anime"
                 },
@@ -89,8 +75,42 @@
             ]
         },
         {
-            "type": "CAMERA_START",
+            "type": "CAMERA_TAKE_PICTURE",
+            "name": "CAMERA_PICTURE",
             "subTasks": [
+                {
+                    "type": "TAKE_PICTURE",
+                    "suspend": true
+                },
+                {
+                    "type": "SAVE_PICTURE"
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_CHAINED",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Does this look okay to you?",
+                    "suspend": true
+                }
+            ]
+        },
+        {
+            "type": "CAMERA_COUNT_DOWN",
+            "name": "CAMERA_COUNT_DOWN",
+            "subTasks": [
+                {
+                    "type": "VISUAL_RESET"
+                },
+                {
+                    "type": "SPEECH_RESET"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Taking a picture in...",
+                    "suspend": true
+                },
                 {
                     "type": "VISUAL_TEXT",
                     "text": "3"
@@ -117,9 +137,166 @@
                     "type": "SPEECH_TEXT",
                     "text": "1",
                     "suspend": true
+                }
+            ]
+        },
+        {
+            "type": "CAMERA_START",
+            "name": "CAMERA_HAL",
+            "suspend": true,
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "static"
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 2
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "hal"
+                },
+                {
+                    "type": "SPEECH_PITCH",
+                    "pitch": 0.8
+                },
+                {
+                    "type": "SPEECH_RATE",
+                    "rate": 0.5
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "I'm sorry Dave... I'm afraid I can't do that",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_RESET"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Just Kidding!",
+                    "suspend": true
+                },
+                {
+                    "type": "NAMED",
+                    "name": "CAMERA_START_DEFAULT",
+                    "suspend": true
+                }
+            ]
+        },
+        {
+            "type": "CAMERA_START",
+            "name": "CAMERA_MALFUNCTION",
+            "suspend": true,
+            "subTasks": [
+                {
+                    "type": "NAMED",
+                    "name": "CAMERA_COUNT_DOWN",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_RATE",
+                    "rate": 1.2
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "1",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_RATE",
+                    "rate": 1.5
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "1",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_RATE",
+                    "rate": 2.0
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "1",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_RATE",
+                    "rate": 3.0
+                },
+                {
+                    "type": "SPEECH_PITCH",
+                    "pitch": 2.0
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "1",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "1",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "1",
+                    "suspend": true
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "SORRY",
+                    "suspend": true
+                },
+                {
+                    "type": "NAMED",
+                    "name": "CAMERA_START_DEFAULT"
+                }
+            ]
+        },
+        {
+            "type": "CAMERA_START_DEFAULT",
+            "name": "CAMERA_START_DEFAULT",
+            "subTasks": [
+                {
+                    "type": "VISUAL_RESET"
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "CAMERA_COUNT_DOWN",
+                    "suspend": true
+
                 },
                 {
                     "type": "VISUAL_RESET"
+                },
+                {
+                    "type": "NAMED",
+                    "name": "CAMERA_PICTURE"
+                }
+            ]
+        },
+
+        {
+            "type": "SORRY",
+            "subTasks": [
+                {
+                    "type": "SPEECH_RESET"
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "sorry_patrick"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Sorry!",
+                    "suspend": true
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 1.0
                 }
             ]
         }

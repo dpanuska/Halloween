@@ -9,8 +9,8 @@ object CameraTask {
     val dispatcher = Dispatchers.IO
     const val TAG = "CameraTask"
 
-    fun createTakePhotoTask(): BaseTask {
-        return BaseTask(takePhotoBlock(), dispatcher, true)
+    fun createTakePhotoTask(suspend: Boolean = true): BaseTask {
+        return BaseTask(takePhotoBlock(), dispatcher, suspend)
     }
 
     fun takePhotoBlock(): TaskBlock {

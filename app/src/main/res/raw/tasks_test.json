@@ -34,22 +34,6 @@
                     "type": "SPEECH_RESET"
                 }
             ]
-        },
-        {
-            "type": "GREETING",
-            "name": "TEST_NAMED",
-            "subTasks": [
-                {
-                    "type": "NAMED",
-                    "name": "HELLO_HAL",
-                    "suspend": true
-                },
-                {
-                    "type": "NAMED",
-                    "name": "HELLO_HAL",
-                    "suspend": true
-                }
-            ]
         }
     ]
 }

@@ -30,12 +30,12 @@ object SpeechTask {
         return BaseTask(sayTextTaskBlock(text), dispatcher, suspend)
     }
 
-    fun createSetPitchTask(pitch: Float): BaseTask {
-        return BaseTask(setPitchTaskBlock(pitch), dispatcher,false)
+    fun createSetPitchTask(pitch: Float, suspend: Boolean = false): BaseTask {
+        return BaseTask(setPitchTaskBlock(pitch), dispatcher,suspend)
     }
 
-    fun createSetSpeechRateTask(speechRate: Float): BaseTask {
-        return BaseTask(setSpeechRateTaskBlock(speechRate), dispatcher,false)
+    fun createSetSpeechRateTask(speechRate: Float, suspend: Boolean = false): BaseTask {
+        return BaseTask(setSpeechRateTaskBlock(speechRate), dispatcher, suspend)
     }
 
     fun createSetLocaleTask(locale: Locale): BaseTask {
