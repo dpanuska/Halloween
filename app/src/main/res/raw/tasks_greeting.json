@@ -1,0 +1,57 @@
+{
+  "taskDefinitions": [
+    {
+      "type": "GREETING",
+      "subTasks": [
+        {
+          "type": "VISUAL_BACKGROUND_GIF",
+          "resource": "hello_there"
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Hello There!",
+          "suspend": true
+        }
+      ]
+    },
+    {
+      "type": "GREETING",
+      "subTasks": [
+        {
+          "type": "VISUAL_BACKGROUND",
+          "resource": "anime"
+        },
+        {
+          "type": "SPEECH_LOCALE",
+          "locale": "JAPAN",
+          "suspend": true
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "こんにちは、幸せなハロウィーン",
+          "suspend": true
+        },
+        {
+          "type": "SPEECH_RESET",
+          "suspend": true
+        },
+        {
+          "type": "SPEECH_RATE",
+          "rate": 0.6
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Ahem",
+          "suspend": true
+        },
+        {
+          "type": "SPEECH_RESET"
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Sorry about that... Hello and happy Halloween!"
+        }
+      ]
+    }
+  ]
+}
