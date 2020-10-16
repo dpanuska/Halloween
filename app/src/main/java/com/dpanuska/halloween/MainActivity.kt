@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
         // Load Tasks
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_base)
+        taskLoader.loadFromJSONResource(resources, R.raw.tasks_intro)
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_greeting)
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_bye)
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_camera)

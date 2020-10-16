@@ -198,16 +198,3 @@ class TaskLoader {
         }
     }
 }
-
-// Task in groups -> Greeting, blah blah
-// Reference tasks from other tasks
-
-// Need base task definitions - one file per type - merge results in code to generate complex tasks
-
-// Task list definitions after base tasks read - create complex tasks
-// separate task lists by usage ie greetings.json, camera.json
-// sub tasks can be lists
-// create overall way to loop all files in order needed
-
-
-// TODO TASKS SHOULD BE ABLE TO PASS RESULTS!!!

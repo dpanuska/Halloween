@@ -35,8 +35,7 @@ class VisualTaskParser: TaskParser() {
     ): BaseTask? {
         val taskType = taskJSON.getString(TaskLoader.TYPE_KEY)
 
-        val type =VisualTaskType.valueOf(taskType)
-        val task = when(type) {
+        val task = when(VisualTaskType.valueOf(taskType)) {
             VisualTaskType.VISUAL_BACKGROUND -> createDisplayBGFromJSON(taskJSON, suspend)
             VisualTaskType.VISUAL_BACKGROUND_CHAINED -> createChainedDisplayBGFromJSON(taskJSON, suspend)
             VisualTaskType.VISUAL_BACKGROUND_GIF -> createDisplayGifFromJSON(taskJSON, suspend)

@@ -8,8 +8,10 @@
           "type": "SPEECH_TEXT",
           "text": "Hello There!",
           "suspend": true
-        }
-      ]
+        }, {
+        "type": "TYPED",
+        "taskType": "INTRO"
+      }]
     }, {
       "type": "GREETING",
       "subTasks": [
@@ -38,7 +40,10 @@
           "type": "SPEECH_RESET"
         }, {
           "type": "SPEECH_TEXT",
-          "text": "Sorry about that... Hello and happy Halloween!"
+          "text": "Sorry about that..."
+        },{
+          "type": "TYPED",
+          "taskType": "INTRO"
         }]
     }
   ]
