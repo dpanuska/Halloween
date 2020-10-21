@@ -1,5 +1,30 @@
 {
   "taskDefinitions": [{
+      "type": "INTRO",
+      "subTasks": [{
+          "type": "TYPED",
+          "taskType": "INTRO_IMAGE"
+        }, {
+          "type": "SPEECH_TEXT",
+          "text": "Happy Halloween!",
+          "suspend": true
+        }, {
+          "type": "TYPED",
+          "taskType": "HANDS",
+          "suspend": true
+        }, {
+          "type": "TYPED",
+          "taskType": "GRAB_CANDY",
+          "suspend": true
+        }, {
+         "type": "SPEECH_TEXT",
+          "text": "I can take a picture and print it out for you. Say Picture, Photo, or Camera to get started!",
+          "suspend": true
+        },{
+         "type": "SET_RECOGNITION",
+          "recognition": "MAIN"
+      }]
+    }, {
     "type": "INTRO_IMAGE",
     "subTasks": [
       {
@@ -48,34 +73,14 @@
     "type": "GRAB_CANDY",
     "subTasks": [
       {
+        "type": "VISUAL_BACKGROUND_GIF",
+        "resource": "grab_candy"
+      },
+      {
         "type": "SPEECH_TEXT",
         "text": "Pull on a bag of candy to remove it from the board.  Enjoy!",
         "suspend": true
       }
     ]
-  },
-    {
-      "type": "INTRO",
-      "subTasks": [
-        {
-          "type": "TYPED",
-          "taskType": "INTRO_IMAGE"
-        },
-        {
-          "type": "SPEECH_TEXT",
-          "text": "Happy Halloween!",
-          "suspend": true
-        },
-        {
-          "type": "TYPED",
-          "taskType": "HANDS",
-          "suspend": true
-        },
-        {
-          "type": "TYPED",
-          "taskType": "GRAB_CANDY"
-        }
-      ]
-    }
-  ]
+  }]
 }

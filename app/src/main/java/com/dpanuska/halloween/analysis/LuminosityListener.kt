@@ -1,9 +1,7 @@
-package com.dpanuska.halloween
+package com.dpanuska.halloween.analysis
 
-import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
-import com.dpanuska.halloween.task.SpeechTask
 import java.nio.ByteBuffer
 import java.util.*
 import kotlin.math.abs
@@ -11,6 +9,7 @@ import kotlin.math.abs
 typealias LumaListener = (luma: Double) -> Unit
 
 interface LuminosityCallbackHandler {
+    open fun onRawLuminosity(averageLuminosity: Double, currentLuminosity: Double)
     open fun onLuminosityChange(averageLuminosity: Double, currentLuminosity: Double)
     open fun onLuminosityNormal(averageLuminosity: Double)
 }
@@ -48,12 +47,14 @@ class LuminosityListener(handler: LuminosityCallbackHandler) {
                 averageLuminosity = averageLuminosity!! + diff * LUMINOSITY_SCALAR
                 changeHandler.onLuminosityNormal(averageLuminosity)
             }
+
+            changeHandler.onRawLuminosity(averageLuminosity, luminosity)
         }
     }
 
     companion object {
         private const val LUMINOSITY_SCALAR = 1 / 100.0
-        private const val MINIMUM_LUMINOSITY_DIFF = 16
+        private const val MINIMUM_LUMINOSITY_DIFF = 8
         private const val LUMINOSITY_INIT_TIME = 1.0 * 1000
     }
 

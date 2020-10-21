@@ -12,8 +12,11 @@
           "suspend": true
         }, {
           "type": "SPEECH_TEXT",
-          "text": "Does this look okay to you?",
+          "text": "Does this look okay to you?  Say Yes to print the picture, To try again say No or Retry. To Cancel, say Cancel or Abort",
           "suspend": true
+        }, {
+          "type": "SET_RECOGNITION",
+          "recognition": "CAMERA"
         }]
     }, {
       "type": "CAMERA_COUNT_DOWN",

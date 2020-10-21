@@ -22,7 +22,8 @@ class VisualTaskParser: TaskParser() {
         "happy_house" to R.raw.happy_house,
         "happy_house2" to R.raw.happy_house2,
         "sorry_kevin" to R.raw.kevin_sorry,
-        "sorry_patrick" to R.raw.patrick_sorry
+        "sorry_patrick" to R.raw.patrick_sorry,
+        "grab_candy" to R.raw.grab_candy
     )
 
     override val supportedTypes: ArrayList<String>

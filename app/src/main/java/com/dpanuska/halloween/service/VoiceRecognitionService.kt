@@ -45,8 +45,6 @@ object VoiceRecognitionService: RecognitionListener {
 
         val cameraGrammar: File = File(assetDir, "camera.gram")
         recognizer?.addKeywordSearch(RecognitionType.CAMERA.typeName, cameraGrammar)
-
-        recognizer?.startListening(RecognitionType.MAIN.typeName)
     }
 
     fun shutDown() {

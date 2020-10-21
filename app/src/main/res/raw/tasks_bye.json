@@ -2,6 +2,11 @@
   "taskDefinitions": [{
       "type": "GOODBYE",
       "subTasks": [{
+          "type": "SPEECH_RESET"
+        }, {
+          "type": "STOP_RECOGNITION"
+        },
+        {
           "type": "VISUAL_BACKGROUND_GIF",
           "resource": "bye_kid"
         }, {

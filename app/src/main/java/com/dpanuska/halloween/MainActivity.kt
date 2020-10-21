@@ -1,11 +1,11 @@
 package com.dpanuska.halloween
 
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.dpanuska.halloween.analysis.*
 import com.dpanuska.halloween.permissions.PermissionHelper
 import com.dpanuska.halloween.service.CameraService
 import com.dpanuska.halloween.service.FileService
@@ -18,9 +18,9 @@ import com.dpanuska.halloween.task.*
 import com.dpanuska.halloween.task.load.TaskLoader
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
-import java.io.File
+import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 
 enum class AppState {
@@ -34,11 +34,15 @@ val camCancelCommands = arrayListOf<String>("cancel", "abort")
 val camRetryCommands = arrayListOf<String>("retry", "no")
 
 
-class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandler {
+class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandler,
+    DetectionCallbackHandler {
 
     val runTestTasks = false
 
-    var luminosityListener = LuminosityListener(this)
+//    var luminosityListener = LuminosityListener(this)
+//    var faceAnalyzer = FaceAnalyzer(this)
+//    var objectAnalyzer = ObjectAnalyzer(this)
+    var poseAnalyzer = PoseAnalyzer(this)
 
     var scheduler = TaskScheduler(Dispatchers.Default)
     val taskLoader = TaskLoader()
@@ -85,7 +89,10 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             this,
             this,
             viewFinder.surfaceProvider,
-            luminosityListener.analyzer
+            poseAnalyzer
+            //objectAnalyzer
+            //faceAnalyzer
+            //luminosityListener.analyzer
         )
 
         if (runTestTasks) {
@@ -134,7 +141,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
             val cameraTask = taskLoader.getRandomTaskOfType("CAMERA_START")
             cameraTask?.completionHandler = {
-                VoiceRecognitionService.setRecognitionType(VoiceRecognitionService.RecognitionType.CAMERA)
+                //VoiceRecognitionService.setRecognitionType(VoiceRecognitionService.RecognitionType.CAMERA)
             }
             scheduler.queueTask(cameraTask!!, true)
         } else if (camConfirmCommands.contains(result)) {
@@ -148,7 +155,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             // Retry
             val cameraTask = taskLoader.getTaskByName("CAMERA_START_DEFAULT")
             cameraTask?.completionHandler = {
-                VoiceRecognitionService.setRecognitionType(VoiceRecognitionService.RecognitionType.CAMERA)
+                //VoiceRecognitionService.setRecognitionType(VoiceRecognitionService.RecognitionType.CAMERA)
             }
             scheduler.queueTask(cameraTask!!, true)
         }
@@ -157,43 +164,63 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
     // Activity Detection
 
+    // Faces
 
-    override fun onLuminosityChange(averageLuminosity: Double, currentLuminosity: Double) {
+    override fun onObjectDetected() {
+        handleActivation()
+    }
+
+    override fun onNoObjectDetected() {
+        handleDeactivation()
+    }
+
+    // Luminosity
+
+    override fun onRawLuminosity(averageLuminosity: Double, currentLuminosity: Double) {
+        lifecycleScope.launch(Dispatchers.Main) {
+            debugTextView.text = "Avg: $averageLuminosity \n Curr: $currentLuminosity \n Diff: ${averageLuminosity - currentLuminosity}"
+        }
+    }
+
+    private fun handleActivation() {
         goodbyeTask?.cancel()
         goodbyeTask = null
         if (currentState == AppState.IDLE && stateSwitchTask == null) {
             stateSwitchTask = object: TimerTask() {
                 override fun run() {
-                    Log.e(
-                        "Going Active from luminosity",
-                        "Average: $averageLuminosity Current: $currentLuminosity"
-                    )
                     currentState = AppState.ACTIVE
 
                     val task = taskLoader.getRandomTaskOfType("GREETING")
                     scheduler.queueTask(task!!, true)
                 }
             }
-            Timer().schedule(stateSwitchTask!!, 500)
+            Timer().schedule(stateSwitchTask!!, 200)
         }
     }
 
-    override fun onLuminosityNormal(averageLuminosity: Double) {
+    private fun handleDeactivation() {
         stateSwitchTask?.cancel()
         stateSwitchTask = null
         if (currentState == AppState.ACTIVE && goodbyeTask == null) {
             goodbyeTask = object: TimerTask() {
                 override fun run() {
-                    Log.e("Going Idle from luminosity", "Luminosity: $averageLuminosity")
                     currentState = AppState.IDLE
 
                     val task = taskLoader.getRandomTaskOfType("GOODBYE")
                     scheduler.queueTask(task!!, true)
                 }
             }
-            Timer().schedule(goodbyeTask, 500)
+            Timer().schedule(goodbyeTask, 2000)
 
         }
+    }
+
+    override fun onLuminosityChange(averageLuminosity: Double, currentLuminosity: Double) {
+        handleActivation()
+    }
+
+    override fun onLuminosityNormal(averageLuminosity: Double) {
+        handleDeactivation()
     }
 
 }

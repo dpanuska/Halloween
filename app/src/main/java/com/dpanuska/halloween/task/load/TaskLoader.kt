@@ -24,6 +24,7 @@ class TaskLoader {
         registerTaskParser(GenericTaskParser())
         registerTaskParser(CameraTaskParser())
         registerTaskParser(FileTaskParser())
+        registerTaskParser(VoiceTaskParser())
         registerTaskParser(NamedTaskParser())
     }
 
