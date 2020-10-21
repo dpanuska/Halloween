@@ -28,6 +28,12 @@ enum class AppState {
     ACTIVE
 }
 
+val cameraCommands = arrayListOf<String>("camera", "picture", "photo")
+val camConfirmCommands = arrayListOf<String>("yes")
+val camCancelCommands = arrayListOf<String>("cancel", "abort")
+val camRetryCommands = arrayListOf<String>("retry", "no")
+
+
 class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandler {
 
     val runTestTasks = false
@@ -40,6 +46,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     var currentState = AppState.IDLE
 
     var stateSwitchTask: TimerTask? = null
+    var goodbyeTask: TimerTask? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +84,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         CameraService.start(
             this,
             this,
-            viewFinder.createSurfaceProvider(),
+            viewFinder.surfaceProvider,
             luminosityListener.analyzer
         )
 
@@ -93,24 +100,9 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             Timer().schedule(runTestTask, 1000)
         }
 
-
         // TODO check if bluetooth supported
         //startActivityForResult(Intent(this, ScanningActivity::class.java), ScanningActivity.SCANNING_FOR_PRINTER)
-
-        val button = findViewById<Button>(R.id.button)
-        button?.setOnClickListener() {
-
-            val cameraTask = taskLoader.getRandomTaskOfType("CAMERA_START")
-            cameraTask?.completionHandler = {
-                Log.e("Testing", "HEllo There")
-            }
-           scheduler.queueTask(cameraTask!!)
-
-        }
     }
-
-    // TODO start and shutDown on Camera movement detection for voice etc service
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -120,8 +112,8 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     }
 
     // SpeechHandler
-    override fun onPartialResults(results: ArrayList<String>) {
-        parseSpeechResults(results)
+    override fun onPartialResults(result: String) {
+        parseSpeechResults(result)
     }
 
     override fun onStartOfSpeech() {
@@ -132,22 +124,43 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         TODO("Not yet implemented")
     }
 
-    override fun onResults(results: ArrayList<String>) {
-        parseSpeechResults(results)
+    override fun onResults(result: String) {
+//        parseSpeechResults(result)
     }
 
-    private fun parseSpeechResults(results: ArrayList<String>) {
-        for (command in results) {
-            if (command == "camera") {
-                // Do task
+    private fun parseSpeechResults(result: String) {
+        if (cameraCommands.contains(result)) {
+            VoiceRecognitionService.stopListening()
+
+            val cameraTask = taskLoader.getRandomTaskOfType("CAMERA_START")
+            cameraTask?.completionHandler = {
+                VoiceRecognitionService.setRecognitionType(VoiceRecognitionService.RecognitionType.CAMERA)
             }
+            scheduler.queueTask(cameraTask!!, true)
+        } else if (camConfirmCommands.contains(result)) {
+            VoiceRecognitionService.stopListening()
+            // TODO Print!
+        } else if (camCancelCommands.contains(result)) {
+            VoiceRecognitionService.stopListening()
+            // TODO Cancel camera
+        } else if (camRetryCommands.contains(result)) {
+            VoiceRecognitionService.stopListening()
+            // Retry
+            val cameraTask = taskLoader.getTaskByName("CAMERA_START_DEFAULT")
+            cameraTask?.completionHandler = {
+                VoiceRecognitionService.setRecognitionType(VoiceRecognitionService.RecognitionType.CAMERA)
+            }
+            scheduler.queueTask(cameraTask!!, true)
         }
     }
 
 
     // Activity Detection
 
+
     override fun onLuminosityChange(averageLuminosity: Double, currentLuminosity: Double) {
+        goodbyeTask?.cancel()
+        goodbyeTask = null
         if (currentState == AppState.IDLE && stateSwitchTask == null) {
             stateSwitchTask = object: TimerTask() {
                 override fun run() {
@@ -161,19 +174,25 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
                     scheduler.queueTask(task!!, true)
                 }
             }
-            Timer().schedule(stateSwitchTask!!, 1000)
+            Timer().schedule(stateSwitchTask!!, 500)
         }
     }
 
     override fun onLuminosityNormal(averageLuminosity: Double) {
         stateSwitchTask?.cancel()
         stateSwitchTask = null
-        if (currentState == AppState.ACTIVE) {
-            Log.e("Going Idle from luminosity", "Luminosity: $averageLuminosity")
-            currentState = AppState.IDLE
+        if (currentState == AppState.ACTIVE && goodbyeTask == null) {
+            goodbyeTask = object: TimerTask() {
+                override fun run() {
+                    Log.e("Going Idle from luminosity", "Luminosity: $averageLuminosity")
+                    currentState = AppState.IDLE
 
-            val task = taskLoader.getRandomTaskOfType("GOODBYE")
-            scheduler.queueTask(task!!, true)
+                    val task = taskLoader.getRandomTaskOfType("GOODBYE")
+                    scheduler.queueTask(task!!, true)
+                }
+            }
+            Timer().schedule(goodbyeTask, 500)
+
         }
     }
 

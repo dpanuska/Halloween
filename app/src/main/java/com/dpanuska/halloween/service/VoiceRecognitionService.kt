@@ -1,87 +1,97 @@
 package com.dpanuska.halloween.service
 
 import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import android.speech.RecognitionListener
-import android.speech.RecognizerIntent
-import android.speech.SpeechRecognizer
-import java.util.*
+import edu.cmu.pocketsphinx.*
+import java.io.File
 
 interface SpeechHandler {
-    fun onPartialResults(results: ArrayList<String>)
+    fun onPartialResults(result: String)
     fun onStartOfSpeech()
     fun onEndOfSpeech()
-    fun onResults(results: ArrayList<String>)
+    fun onResults(result: String)
 }
 
 
-// TODO Start and End callback or action dispatch
-object VoiceRecognitionService {
 
-    private var speechRecognizer: SpeechRecognizer? = null
+// TODO Start and End callback or action dispatch
+object VoiceRecognitionService: RecognitionListener {
+
+    enum class RecognitionType(val typeName: String) {
+        MAIN("main"),
+        CAMERA("camera")
+    }
+
+    private var recognizer: SpeechRecognizer? = null
+    private var speechHandler: SpeechHandler? = null
 
     fun start(context: Context, handler: SpeechHandler) {
-       shutDown()
-        // TODO error checks
-        val avail = SpeechRecognizer.isRecognitionAvailable(context)
-        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
 
-        val speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-        //Specify the calling package to identify your application
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, this.javaClass.getPackage().getName());
+        speechHandler = handler
+        val assets = Assets(context)
+        val assetDir = assets.syncAssets()
 
-        //specify the max number of results
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,5);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
 
-        speechRecognizer!!.setRecognitionListener(object : RecognitionListener {
-            override fun onReadyForSpeech(bundle: Bundle) {}
-            override fun onBeginningOfSpeech() {
-                handler.onStartOfSpeech()
-//                editText.setText("")
-//                editText.setHint("Listening...")
-            }
+        // The recognizer can be configured to perform multiple searches
+        // of different kind and switch between them
+        recognizer = SpeechRecognizerSetup.defaultSetup()
+            .setAcousticModel(File(assetDir, "en-us-ptm"))
+            .setDictionary(File(assetDir, "cmudict-en-us.dict"))
+            .setKeywordThreshold(0.01f)
+            .recognizer
+        recognizer?.addListener(this)
 
-            override fun onRmsChanged(v: Float) {}
-            override fun onBufferReceived(bytes: ByteArray) {}
-            override fun onEndOfSpeech() {
-                handler.onEndOfSpeech()
-            }
-            override fun onError(i: Int) {}
-            override fun onResults(bundle: Bundle) {
-                bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)?.let {
-                    handler.onResults(
-                        it
-                    )
-                }
-//                micButton.setImageResource(R.drawable.ic_mic_black_off)
-//                val data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-//                editText.setText(data!![0])
-            }
+        val menuGrammar: File = File(assetDir, "main.gram")
+        recognizer?.addKeywordSearch(RecognitionType.MAIN.typeName, menuGrammar)
 
-            override fun onPartialResults(bundle: Bundle) {
-                bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)?.let {
-                    handler.onPartialResults(
-                        it
-                    )
-                }
-            }
-            override fun onEvent(i: Int, bundle: Bundle) {}
-        })
+        val cameraGrammar: File = File(assetDir, "camera.gram")
+        recognizer?.addKeywordSearch(RecognitionType.CAMERA.typeName, cameraGrammar)
 
-        speechRecognizer!!.startListening(speechRecognizerIntent)
-
+        recognizer?.startListening(RecognitionType.MAIN.typeName)
     }
 
     fun shutDown() {
-        if (speechRecognizer != null) {
-            speechRecognizer!!.stopListening()
-            speechRecognizer!!.destroy()
-            speechRecognizer = null
+        recognizer?.cancel()
+        recognizer?.shutdown()
+        recognizer = null
+    }
+
+    fun stopListening() {
+        recognizer?.stop()
+    }
+
+    fun setRecognitionType(type: RecognitionType) {
+        recognizer?.stop()
+        recognizer?.startListening(type.typeName)
+    }
+
+    override fun onBeginningOfSpeech() {
+       //TODO("Not yet implemented")
+    }
+
+    override fun onEndOfSpeech() {
+        //TODO("Not yet implemented")
+    }
+
+    override fun onPartialResult(hypothesis: Hypothesis?) {
+        if (hypothesis != null) {
+            val text = hypothesis.hypstr
+            speechHandler?.onPartialResults(text)
         }
+    }
+
+    override fun onResult(hypothesis: Hypothesis?) {
+        if (hypothesis != null) {
+            val text = hypothesis.hypstr
+            speechHandler?.onResults(text)
+        }
+    }
+
+    override fun onError(e: Exception?) {
+        //TODO("Not yet implemented")
+    }
+
+    override fun onTimeout() {
+        //TODO("Not yet implemented")
     }
 
     // Something/callback should be able to create task in response

@@ -12,7 +12,7 @@ open class BaseTask(taskBlock: TaskBlock?, dispatch: CoroutineDispatcher = Dispa
     val dispatcher = dispatch
     var taskName = name
     var waitForCompletion = suspend
-    var completionHandler: ((TaskResult) -> Int)? = null
+    var completionHandler: ((TaskResult) -> Unit)? = null
 
     open suspend fun executeAsync(previousResult: Any? = null): Deferred<TaskResult> {
         if (executionBlock == null) {

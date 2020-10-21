@@ -4,8 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.media.Image
 import android.util.Log
+import android.view.OrientationEventListener
+import android.view.Surface
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
@@ -40,14 +43,13 @@ object CameraService {
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
             // Preview
-            val preview = Preview.Builder()
-                .build()
+            val preview = Preview.Builder().build()
                 .also {
                     it.setSurfaceProvider(surfaceProvider)
                 }
 
-            imageCapture = ImageCapture.Builder()
-                .build()
+            imageCapture = ImageCapture.Builder().build()
+
 
             val imageAnalyzer = ImageAnalysis.Builder()
                 .build()
@@ -74,6 +76,7 @@ object CameraService {
     fun shutDown() {
         cameraExecutor.shutdown()
     }
+
 
     fun takePhotoAsync(): Deferred<Bitmap> {
         val result = CompletableDeferred<Bitmap>();
@@ -107,5 +110,12 @@ fun Image.toBitmap(): Bitmap {
     buffer.rewind()
     val bytes = ByteArray(buffer.capacity())
     buffer.get(bytes)
-    return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+    return bitmap.flip()
+
+}
+
+fun Bitmap.flip(): Bitmap {
+    val matrix = Matrix().apply { postScale(-1f, 1f, width/2f, width/2f) }
+    return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
 }
