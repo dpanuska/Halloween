@@ -24,7 +24,7 @@ object PrintTask {
     }
 
     fun printImageTaskBlockAsync(image: Bitmap): Deferred<TaskResult> {
-        PrintService.printImage(image);
+        //PrintService.printImage(image);
         val result = CompletableDeferred<TaskResult>()
         return result
     }

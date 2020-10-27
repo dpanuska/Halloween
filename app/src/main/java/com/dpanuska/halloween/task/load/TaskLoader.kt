@@ -2,7 +2,6 @@ package com.dpanuska.halloween.task.load
 
 import android.content.res.Resources
 import com.dpanuska.halloween.task.BaseTask
-import com.dpanuska.halloween.task.SpeechTask
 import com.dpanuska.halloween.task.TaskList
 import kotlinx.coroutines.Dispatchers
 import org.json.JSONArray

@@ -12,6 +12,7 @@ object FileService {
 
     private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
     lateinit var outputDirectory: File
+    var lastSavedFile: File? = null
 
     fun start(context: Context) {
         val mediaDir = context.externalMediaDirs.firstOrNull()?.let {
@@ -37,6 +38,8 @@ object FileService {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut)
         fOut.flush()
         fOut.close()
+
+        lastSavedFile = photoFile
     }
 
 }

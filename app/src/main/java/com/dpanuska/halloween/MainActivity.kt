@@ -1,9 +1,13 @@
 package com.dpanuska.halloween
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import com.dpanuska.halloween.analysis.*
 import com.dpanuska.halloween.permissions.PermissionHelper
@@ -79,7 +83,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         PermissionHelper.checkAllPermissions(this)
 
         // Start services
-        PrintService.start(this)
+        //PrintService.start(this)
         SpeechService.start(this)
         VoiceRecognitionService.start(applicationContext, this)
         FileService.start(this)
@@ -147,6 +151,12 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         } else if (camConfirmCommands.contains(result)) {
             VoiceRecognitionService.stopListening()
             // TODO Print!
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.type = "image/jpg"
+            shareIntent.setPackage("com.android.bluetooth");
+            shareIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+            shareIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(this, applicationContext.getPackageName() + ".provider", FileService.lastSavedFile!!))
+            startActivity(Intent.createChooser(shareIntent, "Share image using"))
         } else if (camCancelCommands.contains(result)) {
             VoiceRecognitionService.stopListening()
             // TODO Cancel camera

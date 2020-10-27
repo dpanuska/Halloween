@@ -2,7 +2,6 @@ package com.dpanuska.halloween.task.load
 
 import com.dpanuska.halloween.service.VoiceRecognitionService
 import com.dpanuska.halloween.task.BaseTask
-import com.dpanuska.halloween.task.SpeechTask
 import com.dpanuska.halloween.task.VoiceTask
 import org.json.JSONObject
 
