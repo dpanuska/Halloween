@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         PermissionHelper.checkAllPermissions(this)
 
         // Start services
-        //PrintService.start(this)
+        PrintService.start(this)
         SpeechService.start(this)
         VoiceRecognitionService.start(applicationContext, this)
         FileService.start(this)

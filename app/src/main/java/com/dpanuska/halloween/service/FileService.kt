@@ -2,6 +2,7 @@ package com.dpanuska.halloween.service
 
 import android.content.Context
 import android.graphics.Bitmap
+import androidx.core.graphics.scale
 import com.dpanuska.halloween.R
 import java.io.File
 import java.io.FileOutputStream
@@ -9,6 +10,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object FileService {
+
+    private const val SAVE_WIDTH = 900
+    private const val SAVE_HEIGHT = 600
 
     private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
     lateinit var outputDirectory: File
@@ -34,8 +38,8 @@ object FileService {
         )
 
         val fOut = FileOutputStream(photoFile)
-
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut)
+        val new = bitmap.scale(SAVE_WIDTH, SAVE_HEIGHT)
+        new.compress(Bitmap.CompressFormat.JPEG, 100, fOut)
         fOut.flush()
         fOut.close()
 
