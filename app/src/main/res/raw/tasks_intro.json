@@ -16,14 +16,7 @@
           "type": "TYPED",
           "taskType": "GRAB_CANDY",
           "suspend": true
-        }, {
-         "type": "SPEECH_TEXT",
-          "text": "I can take a picture and print it out for you. Say Picture, Photo, or Camera to get started!",
-          "suspend": true
-        },{
-         "type": "SET_RECOGNITION",
-          "recognition": "MAIN"
-      }]
+        }]
     }, {
     "type": "INTRO_IMAGE",
     "subTasks": [
