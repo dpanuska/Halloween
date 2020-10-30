@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
     var stateSwitchTask: TimerTask? = null
     var goodbyeTask: TimerTask? = null
+    var activeIdleTask: TimerTask? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,16 +75,19 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         // Load Tasks
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_base)
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_intro)
+        taskLoader.loadFromJSONResource(resources, R.raw.tasks_idle)
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_greeting)
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_bye)
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_camera)
+
+
         testLoader.loadFromJSONResource(resources, R.raw.tasks_test)
 
         // Check permissions
         PermissionHelper.checkAllPermissions(this)
 
         // Start services
-        PrintService.start(this)
+        //PrintService.start(this)
         SpeechService.start(this)
         VoiceRecognitionService.start(applicationContext, this)
         FileService.start(this)
@@ -99,17 +103,20 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             //luminosityListener.analyzer
         )
 
-        if (runTestTasks) {
-            val runTestTask = object : TimerTask() {
-                override fun run() {
+
+        val runTestTask = object : TimerTask() {
+            override fun run() {
+                //taskLoader.getRandomTaskOfType("IDLE")?.let { scheduler.queueTask(it) }
+
+                if (runTestTasks) {
                     val tasks = testLoader.getAllTasks()
                     for (task in tasks) {
                         scheduler.queueTask(task)
                     }
                 }
             }
-            Timer().schedule(runTestTask, 1000)
         }
+        Timer().schedule(runTestTask, 1000)
 
         // TODO check if bluetooth supported
         //startActivityForResult(Intent(this, ScanningActivity::class.java), ScanningActivity.SCANNING_FOR_PRINTER)
@@ -192,6 +199,20 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         }
     }
 
+    private fun createActiveIdleTask() {
+        activeIdleTask?.cancel()
+        activeIdleTask = object : TimerTask() {
+            override fun run() {
+                val task = taskLoader.getRandomTaskOfType("ACTIVE_IDLE")
+                task?.completionHandler = {
+                    createActiveIdleTask()
+                }
+                scheduler.queueTask(task!!)
+            }
+        }
+        Timer().schedule(activeIdleTask!!, 5000)
+    }
+
     private fun handleActivation() {
         goodbyeTask?.cancel()
         goodbyeTask = null
@@ -201,6 +222,11 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
                     currentState = AppState.ACTIVE
 
                     val task = taskLoader.getRandomTaskOfType("GREETING")
+                    task?.completionHandler = {
+                        if (currentState == AppState.ACTIVE) {
+                            createActiveIdleTask()
+                        }
+                    }
                     scheduler.queueTask(task!!, true)
                 }
             }
@@ -215,6 +241,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             goodbyeTask = object: TimerTask() {
                 override fun run() {
                     currentState = AppState.IDLE
+                    activeIdleTask?.cancel()
 
                     val task = taskLoader.getRandomTaskOfType("GOODBYE")
                     scheduler.queueTask(task!!, true)

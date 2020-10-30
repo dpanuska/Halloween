@@ -1,32 +1,47 @@
 {
-    "taskDefinitions": [{
-            "type": "GREETING",
-            "name": "HELLO_HAL",
-            "suspend": true,
-            "subTasks": [{
+    "taskDefinitions": [
+
+        {
+            "type": "IDLE_RAND",
+            "subTasks": [
+                {
+                    "type": "DELAY",
+                    "duration": 1.5
+                },
+                {
                     "type": "VISUAL_BACKGROUND_GIF",
                     "resource": "static"
-                }, {
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 1
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "horror"
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 0.5
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "static"
+                },                
+                {
+                    "type": "DELAY",
+                    "duration": 1
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "horror"
+                },
+                {
                     "type": "DELAY",
                     "duration": 2
-                }, {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "hal"
-                }, {
-                    "type": "SPEECH_PITCH",
-                    "pitch": 0.8
-                }, {
-                    "type": "SPEECH_RATE",
-                    "rate": 0.5
-                }, {
-                    "type": "SPEECH_TEXT",
-                    "text": "I'm sorry Dave... I'm afraid I can't do that",
-                    "suspend": true
-                }, {
-                    "type": "SPEECH_RESET"
-                }]
+                }
+            ]
         }
+        
     ]
 }
-
-

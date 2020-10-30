@@ -44,7 +44,7 @@ object VisualService {
 
     fun hide() {
         layout.visibility = View.INVISIBLE
-        view.visibility = View.INVISIBLE
+        //view.visibility = View.INVISIBLE
         imageView.visibility = View.INVISIBLE
         textView.visibility = View.INVISIBLE
     }
@@ -52,9 +52,9 @@ object VisualService {
     fun show(showBG: Boolean = true, showImage: Boolean = true, showText: Boolean = true) {
         layout.visibility = View.VISIBLE
 
-        if (showBG) {
-            view.visibility = View.VISIBLE
-        }
+//        if (showBG) {
+//            view.visibility = View.VISIBLE
+//        }
         if (showImage) {
             imageView.visibility = View.VISIBLE
         }

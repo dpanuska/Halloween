@@ -1,59 +1,149 @@
 {
-  "taskDefinitions": [{
+  "taskDefinitions": [
+    {
       "type": "GREETING",
-      "subTasks": [{
+      "subTasks": [
+        {
           "type": "SPEECH_RESET"
-      }, {
-        "type": "VISUAL_RESET"
-      }, {
-        "type": "TYPED",
-        "taskType": "GREETING_SUB",
-        "suspend": true
-      },{
-        "type": "TYPED",
-        "taskType": "INTRO"
-      }]
-    }, {
+        },
+        {
+          "type": "VISUAL_RESET"
+        },
+        {
+          "type": "TYPED",
+          "taskType": "GREETING_SUB",
+          "suspend": true
+        },
+        {
+          "type": "TYPED",
+          "taskType": "INTRO",
+          "suspend": true
+        }
+      ]
+    },
+    {
       "type": "GREETING_SUB",
-      "subTasks": [{
+      "subTasks": [
+        {
           "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "hello_there"
-        }, {
+          "resource": "hello_obi"
+        },
+        {
+          "type": "DELAY",
+          "duration": 1.5
+        },
+        {
           "type": "SPEECH_TEXT",
           "text": "Hello There!",
           "suspend": true
-        }]
-    }, {
+        }
+      ]
+    },
+    {
+      "type": "GREETING_SUB",
+      "subTasks":[
+        {
+          "type": "VISUAL_BACKGROUND_GIF",
+          "resource": "static"
+        },
+        {
+          "type": "DELAY",
+          "duration": 1
+        },
+        {
+          "type": "VISUAL_BACKGROUND_GIF",
+          "resource": "hal"
+        },
+        {
+          "type": "SPEECH_PITCH",
+          "pitch": 0.8
+        },
+        {
+          "type": "SPEECH_RATE",
+          "rate": 0.5
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Hello Dave, You're looking well today",
+          "suspend": true
+        },
+        {
+          "type": "SPEECH_RESET"
+        }
+      ]
+    },
+    {
       "type": "GREETING_SUB",
       "subTasks": [
         {
           "type": "VISUAL_BACKGROUND",
           "resource": "anime"
-        }, {
+        },
+        {
           "type": "SPEECH_LOCALE",
           "locale": "JAPAN",
           "suspend": true
-        }, {
+        },
+        {
           "type": "SPEECH_TEXT",
           "text": "こんにちは、幸せなハロウィーン",
           "suspend": true
-        }, {
+        },
+        {
           "type": "SPEECH_RESET",
           "suspend": true
-        }, {
+        },
+        {
           "type": "SPEECH_RATE",
           "rate": 0.6
-        }, {
+        },
+        {
           "type": "SPEECH_TEXT",
           "text": "Ahem",
           "suspend": true
-        }, {
+        },
+        {
           "type": "SPEECH_RESET"
-        }, {
-          "type": "SPEECH_TEXT",
-          "text": "Sorry about that...",
+        },
+        {
+          "type": "TYPED",
+          "taskType": "SORRY",
           "suspend": true
-        }]
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "My creator must have launched the wrong program",
+          "suspend": true
+        }
+      ]
+    },
+    {
+      "type": "GREETING_SUB",
+      "subTasks": [
+        {
+          "type": "VISUAL_BACKGROUND_GIF",
+          "resource": "hello_princess"
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Hello!",
+          "suspend": true
+        }
+      ]
+    },
+    {
+      "type": "GREETING_SUB",
+      "subTasks": [
+        {
+          "type": "VISUAL_BACKGROUND_GIF",
+          "resource": "hello_bean"
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Hello",
+          "suspend": true
+        }
+      ]
     }
   ]
 }

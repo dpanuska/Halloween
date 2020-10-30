@@ -2,10 +2,25 @@
     "taskDefinitions": [
         {
             "type": "SORRY",
-            "subTasks": [
+            "subTasks":[
                 {
                     "type": "SPEECH_RESET"
                 },
+                {
+                    "type": "VISUAL_RESET"
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "SORRY_SUB",
+                    "suspend": true
+                    
+                }
+            ]
+        },
+        {
+            "type": "SORRY_SUB",
+            "subTasks": [
+               
                 {
                     "type": "VISUAL_BACKGROUND_GIF",
                     "resource": "sorry_patrick"
@@ -17,11 +32,85 @@
                 },
                 {
                     "type": "DELAY",
-                    "duration": 1.0
+                    "duration": 1
+                }
+            ]
+        },
+        {
+            "type": "SORRY_SUB",
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "sorry_kevin"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "I'm Sorry",
+                    "suspend": true
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 1
+                }
+            ]
+        },
+        {
+            "type": "SORRY_SUB",
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "sorry_office"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Sorry",
+                    "suspend": true
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 1
+                }
+            ]
+        },
+        {
+            "type": "CONFUSED",
+            "subTasks":[
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "confused_mark"
+                    
+                }
+            ]
+        },
+        {
+            "type": "CONFUSED",
+            "subTasks":[
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "calculate"
+                    
+                }
+            ]
+        },
+        {
+            "type": "CONFUSED",
+            "subTasks":[
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "confused_jack"
+                    
+                }
+            ]
+        },
+        {
+            "type": "CONFUSED",
+            "subTasks":[
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "cena"
+                    
                 }
             ]
         }
     ]
 }
-
-

@@ -1,0 +1,247 @@
+{
+    "taskDefinitions": [
+        {
+            "type": "IDLE",
+            "subTasks": [
+                {
+                    "type": "VISUAL_RESET"
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "IDLE_IMAGE"
+                }
+            ]
+        },
+        {
+            "type": "ACTIVE_IDLE",
+            "subTasks": [
+                {
+                    "type": "TYPED",
+                    "taskType": "IDLE_RAND",
+                    "suspend": true
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "IDLE"
+                }
+            ]
+        },
+        {
+            "type": "IDLE_IMAGE",
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "happy_house"
+                }
+            ]
+        },
+        {
+            "type": "IDLE_IMAGE",
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "happy_house2"
+                }
+            ]
+        },
+        {
+            "type": "IDLE_RAND",
+            "name": "IDLE_SPACE",
+            "subTasks": [
+                {
+                    "type": "SPEECH_RESET"
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "idle_stars"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Here are some interesting facts about space!",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Did you know that there is no sound in space because molecules are too far apart to transmit sound?",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "There are and estimated 200 to 400 billion stars in our galaxy, the Milky Way but nobody knows for sure!",
+                    "suspend": true
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "idle_space"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "If two pieces of the same type of metal touch in space, they will bond and be permanently stuck together; this amazing effect is known as cold welding.",
+                    "suspend": true
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "CONFUSED"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "It happens because the atoms of the individual pieces of metal have no way of knowing that they are different pieces of metal, so the lumps join together.",
+                    "suspend": true
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "learn_space"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Hope you learned a lot about space!",
+                    "suspend": true
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 1
+                },
+                {
+                    "type": "VISUAL_RESET"
+                }
+            ]
+        },
+        {
+            "type": "IDLE_RAND",
+            "subTasks": [
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "My creator mentioned having a photo booth option",
+                    "suspend": true
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "CONFUSED"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "But he said something about requiring users to touch the device and bluetooth printer protocol or whatever...",
+                    "suspend": true
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "next_year"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Maybe next year",
+                    "suspend": true
+                }
+            ]
+        },
+        {
+            "type": "IDLE_RAND",
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "dance"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Hey, lets dance to some beats!",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "inst, inst, inst, inst, inst, inst, inst, inst, Badalaa bum badalaa bum Dum-dada-dum Dum-dada-dum",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_RESET"
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "SORRY",
+                    "suspend": true
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "beats"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "I'm not very good at dropping beats!",
+                    "suspend": true
+                }
+            ]
+        },
+        {
+            "type": "IDLE_RAND",
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "donut"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Don't eat too many sweets tonight!",
+                    "suspend": true
+                }, 
+                {
+                    "type": "DELAY",
+                    "duration": 2
+                }
+            ]
+        },
+        {
+            "type": "IDLE_RAND",
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "static"
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 1
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "horror"
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 0.5
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "static"
+                },                
+                {
+                    "type": "DELAY",
+                    "duration": 0.3
+                },
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "horror"
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 2
+                }
+            ]
+        },
+        {
+            "type": "IDLE_RAND",
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "jack"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "BOO!",
+                    "suspend": true
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 1.5
+                }
+            ]
+        }
+    ]
+}

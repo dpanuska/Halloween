@@ -1,24 +1,136 @@
 {
-  "taskDefinitions": [{
+  "taskDefinitions": [
+    {
       "type": "GOODBYE",
-      "subTasks": [{
+      "subTasks": [
+        {
           "type": "SPEECH_RESET"
-        }, {
+        },
+        {
           "type": "STOP_RECOGNITION"
         },
         {
+          "type": "VISUAL_RESET"
+        },
+        {
+          "type": "TYPED",
+          "taskType": "GOODBYE_SUB",
+          "suspend": true
+        },
+        {
+          "type": "TYPED",
+          "taskType": "GOODBYE_END"
+        },
+        {
+          "type": "DELAY",
+          "duration": 2
+        },
+        {
+          "type": "VISUAL_RESET"
+        },
+        {
+          "type": "TYPED",
+          "taskType": "IDLE"
+        }
+      ]
+    },
+    {
+      "type": "GOODBYE_END",
+      "subTasks":[
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Have a safe and happy halloween!",
+          "suspend": true
+        }
+      ]
+    },
+    {
+      "type": "GOODBYE_SUB",
+      "subTasks":[
+        {
           "type": "VISUAL_BACKGROUND_GIF",
           "resource": "bye_kid"
-        }, {
+        },
+        {
           "type": "SPEECH_TEXT",
           "text": "Goodbye!",
           "suspend": true
-        }, {
+        }
+      ]
+    },
+    {
+      "type": "GOODBYE_SUB",
+      "subTasks": [
+        {
+          "type": "SPEECH_TEXT",
+          "text": "",
+          "suspend": true
+        },
+        {
+          "type": "VISUAL_BACKGROUND_GIF",
+          "resource": "bye_dumb"
+        },
+        {
+            "type": "DELAY",
+            "duration": 2
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "I hate goodbyes!",
+          "suspend": true
+        }
+      ]
+    },
+    {
+      "type": "GOODBYE_SUB",
+      "subTasks": [
+        {
+          "type": "VISUAL_BACKGROUND_GIF",
+          "resource": "bye_solo"
+        },
+        {
+            "type": "DELAY",
+            "duration": 1
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Bye",
+          "suspend": true
+        }
+      ]
+    },
+    {
+      "type": "GOODBYE_SUB",
+      "subTasks":[
+        {
+          "type": "VISUAL_BACKGROUND_GIF",
+          "resource": "static"
+        },
+        {
           "type": "DELAY",
-          "duration": 2
-        }, {
-          "type": "VISUAL_RESET"
-        }]
+          "duration": 1
+        },
+        {
+          "type": "VISUAL_BACKGROUND_GIF",
+          "resource": "hal"
+        },
+        {
+          "type": "SPEECH_PITCH",
+          "pitch": 0.8
+        },
+        {
+          "type": "SPEECH_RATE",
+          "rate": 0.5
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "This Conversation can serve no purpose anymore.",
+          "suspend": true
+        },
+        {
+          "type": "SPEECH_RESET"
+        }
+      ]
     }
   ]
 }
