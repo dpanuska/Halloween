@@ -111,7 +111,7 @@ fun Image.toBitmap(): Bitmap {
     val bytes = ByteArray(buffer.capacity())
     buffer.get(bytes)
     val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-    return bitmap.flip()
+    return bitmap.flip() // flip because using front camera
 
 }
 

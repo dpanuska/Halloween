@@ -39,20 +39,11 @@ class ObjectAnalyzer(callbackHandler: DetectionCallbackHandler) : BaseImageAnaly
         results: List<DetectedObject>,
         rect: Rect
     ) {
-        for (detectedObject in results) {
-            val boundingBox = detectedObject.boundingBox
-            val trackingId = detectedObject.trackingId
-            for (label in detectedObject.labels) {
-                val text = label.text
-                val index = label.index
-                val confidence = label.confidence
-            }
+        if (results.isNotEmpty()) {
+            handler.onObjectDetected()
+        } else {
+            handler.onNoObjectDetected()
         }
-//        if (results.isNotEmpty()) {
-//            handler.onFacesDetected()
-//        } else {
-//            handler.onNoFacesDetected()
-//        }
 
     }
 

@@ -15,7 +15,6 @@ class TaskScope(dispatcher: CoroutineDispatcher = Dispatchers.Default) : Corouti
         get() = job + dispatch
 }
 
-// TODO should actually queue and not just execute
 // TODO noting here too.. I hate this result shit.. FIXME
 class TaskScheduler(dispatcher: CoroutineDispatcher) {
     private val taskScope = TaskScope(dispatcher)

@@ -44,14 +44,13 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
     val runTestTasks = false
 
-//    var luminosityListener = LuminosityListener(this)
-//    var faceAnalyzer = FaceAnalyzer(this)
-//    var objectAnalyzer = ObjectAnalyzer(this)
     var poseAnalyzer = PoseAnalyzer(this)
 
     var scheduler = TaskScheduler(Dispatchers.Default)
     val taskLoader = TaskLoader()
     val testLoader = TaskLoader()
+
+
     var currentState = AppState.IDLE
 
     var stateSwitchTask: TimerTask? = null
@@ -99,11 +98,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             this,
             viewFinder.surfaceProvider,
             poseAnalyzer
-            //objectAnalyzer
-            //faceAnalyzer
-            //luminosityListener.analyzer
         )
-
 
         val runTestTask = object : TimerTask() {
             override fun run() {
@@ -118,9 +113,6 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             }
         }
         Timer().schedule(runTestTask, 1000)
-
-        // TODO check if bluetooth supported
-        //startActivityForResult(Intent(this, ScanningActivity::class.java), ScanningActivity.SCANNING_FOR_PRINTER)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -140,6 +132,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     }
 
     // SpeechHandler
+
     override fun onPartialResults(result: String) {
         parseSpeechResults(result)
     }
@@ -191,7 +184,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
     // Activity Detection
 
-    // Faces
+    // DetectionCallbackHandler
 
     override fun onObjectDetected() {
         handleActivation()
@@ -201,14 +194,10 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         handleDeactivation()
     }
 
-    // Luminosity
 
-    override fun onRawLuminosity(averageLuminosity: Double, currentLuminosity: Double) {
-        lifecycleScope.launch(Dispatchers.Main) {
-            debugTextView.text = "Avg: $averageLuminosity \n Curr: $currentLuminosity \n Diff: ${averageLuminosity - currentLuminosity}"
-        }
-    }
-
+    /**
+     * Create an active idle task on timer to display random "ACTIVE_IDLE" task
+     */
     private fun createActiveIdleTask() {
         activeIdleTask?.cancel()
         activeIdleTask = object : TimerTask() {
@@ -223,6 +212,9 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         Timer().schedule(activeIdleTask!!, 5000)
     }
 
+    /**
+     * Call when "objects" detected from analyzer. Waits amount of time in case "object" is just passing by
+     */
     private fun handleActivation() {
         goodbyeTask?.cancel()
         goodbyeTask = null
@@ -244,6 +236,9 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         }
     }
 
+    /**
+     * Call when no "objects" detected from analyzer. Waits amount of time in case "object" is out of view but may still be around
+     */
     private fun handleDeactivation() {
         stateSwitchTask?.cancel()
         stateSwitchTask = null
@@ -259,6 +254,14 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             }
             Timer().schedule(goodbyeTask, 2000)
 
+        }
+    }
+
+    // Luminosity
+
+    override fun onRawLuminosity(averageLuminosity: Double, currentLuminosity: Double) {
+        lifecycleScope.launch(Dispatchers.Main) {
+            debugTextView.text = "Avg: $averageLuminosity \n Curr: $currentLuminosity \n Diff: ${averageLuminosity - currentLuminosity}"
         }
     }
 
