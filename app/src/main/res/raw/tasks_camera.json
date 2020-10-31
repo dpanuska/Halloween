@@ -1,6 +1,19 @@
 {
   "taskDefinitions": [
     {
+      "type": "CAMERA_PICTURE",
+      "name": "CAMERA_PICTURE_BASE",
+      "subTasks": [
+        {
+          "type": "TAKE_PICTURE",
+          "suspend": true
+        },
+        {
+          "type": "SAVE_PICTURE"
+        }
+      ]
+    },
+    {
       "type": "CAMERA_TAKE_PICTURE",
       "name": "CAMERA_PICTURE",
       "subTasks": [

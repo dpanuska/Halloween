@@ -10,6 +10,11 @@
           "type": "VISUAL_RESET"
         },
         {
+          "type": "NAMED",
+          "name": "CAMERA_PICTURE_BASE"
+
+        },
+        {
           "type": "TYPED",
           "taskType": "GREETING_SUB",
           "suspend": true
@@ -136,11 +141,39 @@
       "subTasks": [
         {
           "type": "VISUAL_BACKGROUND_GIF",
+          "resource": "hello_doubtfire"
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Helloooo",
+          "suspend": true
+        }
+      ]
+    },
+    {
+      "type": "GREETING_SUB",
+      "subTasks": [
+        {
+          "type": "VISUAL_BACKGROUND_GIF",
           "resource": "hello_bean"
         },
         {
           "type": "SPEECH_TEXT",
           "text": "Hello",
+          "suspend": true
+        }
+      ]
+    },
+    {
+      "type": "GREETING_SUB",
+      "subTasks": [
+        {
+          "type": "VISUAL_BACKGROUND_GIF",
+          "resource": "hello_woody"
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Howdy howdy howdy",
           "suspend": true
         }
       ]

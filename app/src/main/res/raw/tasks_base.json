@@ -111,6 +111,52 @@
                     
                 }
             ]
+        },
+        {
+            "type": "CONFUSED",
+            "subTasks":[
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "confused_travolta"
+                    
+                }
+            ]
+        },
+        {
+            "type": "DONT_TOUCH",
+            "subTasks":[
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "touch_yoda"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Please don't touch the device!",
+                    "suspend": true
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "IDLE"
+                }
+            ]
+        },
+        {
+            "type": "DONT_TOUCH",
+            "subTasks":[
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "touch_crabs"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Don't... Touch!  Please don't touch the device!",
+                    "suspend": true
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "IDLE"
+                }
+            ]
         }
     ]
 }

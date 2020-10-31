@@ -6,6 +6,7 @@ import com.dpanuska.halloween.task.TaskList
 import kotlinx.coroutines.Dispatchers
 import org.json.JSONArray
 import org.json.JSONObject
+import java.security.SecureRandom
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.random.Random
@@ -17,6 +18,8 @@ class TaskLoader {
     val taskNameMap = HashMap<String, BaseTask>()
     val parsers = HashMap<String, TaskParser>()
 
+    val taskTypeRand = HashMap<String, Int>()
+
     init {
         registerTaskParser(SpeechTaskParser())
         registerTaskParser(VisualTaskParser())
@@ -27,13 +30,24 @@ class TaskLoader {
         registerTaskParser(NamedTaskParser())
     }
 
+    private fun randomizeTaskTypes() {
+        for (typeArray in taskTypeMap.values) {
+            typeArray.shuffle(SecureRandom())
+        }
+    }
+
     fun getRandomTaskOfType(type: String): BaseTask? {
+        var index = taskTypeRand[type] ?: 0
         val tasks = taskTypeMap[type]
         if (tasks != null) {
-            val rand = Random.nextInt(0, tasks.size)
-            return tasks[rand]?.clone() as BaseTask?
-        }
+            if (index >= tasks.size) {
+                index = 0
+                tasks.shuffle()
+            }
+            taskTypeRand[type] = index + 1
 
+            return tasks[index].clone() as BaseTask
+        }
         return null
     }
 
@@ -86,7 +100,10 @@ class TaskLoader {
 
             addTaskOfType(type, taskList)
         }
+
+        randomizeTaskTypes()
     }
+
 
     private fun addTaskOfType(type: String, task: BaseTask) {
         var list = taskTypeMap[type]
@@ -99,6 +116,7 @@ class TaskLoader {
         if (task.taskName != null) {
             taskNameMap[task.taskName!!] = task
         }
+
     }
 
     private fun createTaskListFromSubTaskJSON(subTasksJSON: JSONArray, suspend: Boolean, taskName: String?): TaskList {

@@ -1,47 +1,5 @@
 {
     "taskDefinitions": [
 
-        {
-            "type": "IDLE_RAND",
-            "subTasks": [
-                {
-                    "type": "DELAY",
-                    "duration": 1.5
-                },
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "static"
-                },
-                {
-                    "type": "DELAY",
-                    "duration": 1
-                },
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "horror"
-                },
-                {
-                    "type": "DELAY",
-                    "duration": 0.5
-                },
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "static"
-                },                
-                {
-                    "type": "DELAY",
-                    "duration": 1
-                },
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "horror"
-                },
-                {
-                    "type": "DELAY",
-                    "duration": 2
-                }
-            ]
-        }
-        
     ]
 }

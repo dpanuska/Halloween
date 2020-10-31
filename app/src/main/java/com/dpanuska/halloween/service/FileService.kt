@@ -38,8 +38,8 @@ object FileService {
         )
 
         val fOut = FileOutputStream(photoFile)
-        val new = bitmap.scale(SAVE_WIDTH, SAVE_HEIGHT)
-        new.compress(Bitmap.CompressFormat.JPEG, 100, fOut)
+        //val new = bitmap.scale(SAVE_WIDTH, SAVE_HEIGHT)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut)
         fOut.flush()
         fOut.close()
 

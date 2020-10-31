@@ -17,6 +17,8 @@ class VisualTaskParser: TaskParser() {
         "hello_obi" to R.raw.hello_obi,
         "hello_princess" to R.raw.hello_princess,
         "hello_bean" to R.raw.hello_bean,
+        "hello_woody" to R.raw.hello_woody,
+        "hello_doubtfire" to R.raw.hello_doubtfire,
         "bye_kid" to R.raw.goodbye_kid,
         "bye_dumb" to R.raw.bye_dumb,
         "bye_solo" to R.raw.bye_solo,
@@ -24,6 +26,7 @@ class VisualTaskParser: TaskParser() {
         "dispenser" to R.raw.dispenser,
         "dispenser2" to R.raw.dispenser2,
         "horror" to R.raw.horror,
+        "horror_walk" to R.raw.horror_walk,
         "happy_house" to R.raw.happy_house,
         "happy_house2" to R.raw.happy_house2,
         "pumpkin" to R.raw.pumpkin,
@@ -33,6 +36,7 @@ class VisualTaskParser: TaskParser() {
         "grab_candy" to R.raw.grab_candy,
         "calculate" to R.raw.calculating,
         "confused_mark" to R.raw.confused_mark,
+        "confused_travolta" to R.raw.confused_travolta,
         "confused_jack" to R.raw.confused_jack,
         "cena" to R.raw.cena,
         "donut" to R.raw.donut,
@@ -44,6 +48,9 @@ class VisualTaskParser: TaskParser() {
         "dance" to R.raw.dance,
         "beats" to R.raw.beats,
         "jack" to R.raw.jack,
+        "boo" to R.raw.boo,
+        "touch_yoda" to R.raw.touch_yoda,
+        "touch_crabs" to R.raw.touch_crabs,
     )
 
     override val supportedTypes: ArrayList<String>

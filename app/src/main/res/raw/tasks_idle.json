@@ -242,6 +242,37 @@
                     "duration": 1.5
                 }
             ]
+        },
+        {
+            "type": "IDLE_RAND",
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "boo"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "BOO!",
+                    "suspend": true
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 2
+                }
+            ]
+        },
+        {
+            "type": "IDLE_RAND",
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "horror_walk"
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 8
+                }
+            ]
         }
     ]
 }

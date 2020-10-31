@@ -3,6 +3,7 @@ package com.dpanuska.halloween
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
@@ -106,7 +107,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
         val runTestTask = object : TimerTask() {
             override fun run() {
-                //taskLoader.getRandomTaskOfType("IDLE")?.let { scheduler.queueTask(it) }
+                taskLoader.getRandomTaskOfType("IDLE")?.let { scheduler.queueTask(it) }
 
                 if (runTestTasks) {
                     val tasks = testLoader.getAllTasks()
@@ -120,6 +121,15 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
 
         // TODO check if bluetooth supported
         //startActivityForResult(Intent(this, ScanningActivity::class.java), ScanningActivity.SCANNING_FOR_PRINTER)
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        scheduler.queueTask(taskLoader.getRandomTaskOfType("DONT_TOUCH")!!, true)
+
+        if (currentState == AppState.ACTIVE) {
+            createActiveIdleTask()
+        }
+        return super.onTouchEvent(event)
     }
 
     override fun onRequestPermissionsResult(
