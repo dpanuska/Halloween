@@ -126,6 +126,12 @@
             "type": "DONT_TOUCH",
             "subTasks":[
                 {
+                    "type": "VISUAL_RESET"
+                },
+                {
+                    "type": "SPEECH_RESET"
+                },
+                {
                     "type": "VISUAL_BACKGROUND_GIF",
                     "resource": "touch_yoda"
                 },
@@ -143,6 +149,12 @@
         {
             "type": "DONT_TOUCH",
             "subTasks":[
+                {
+                    "type": "VISUAL_RESET"
+                },
+                {
+                    "type": "SPEECH_RESET"
+                },
                 {
                     "type": "VISUAL_BACKGROUND_GIF",
                     "resource": "touch_crabs"

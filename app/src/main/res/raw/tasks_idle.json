@@ -16,6 +16,12 @@
             "type": "ACTIVE_IDLE",
             "subTasks": [
                 {
+                    "type": "VISUAL_RESET"
+                },
+                {
+                    "type": "SPEECH_RESET"
+                },
+                {
                     "type": "TYPED",
                     "taskType": "IDLE_RAND",
                     "suspend": true
