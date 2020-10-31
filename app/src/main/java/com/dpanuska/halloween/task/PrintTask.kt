@@ -19,7 +19,7 @@ object PrintTask {
     fun printImageTaskBlock(image: Bitmap): TaskBlock {
         return {
             Log.e(TAG, "Starting Print Image task")
-            PrintTask.printImageTaskBlockAsync(image)
+            printImageTaskBlockAsync(image)
         }
     }
 

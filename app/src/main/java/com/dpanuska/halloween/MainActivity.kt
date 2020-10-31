@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             poseAnalyzer
         )
 
-        val runTestTask = object : TimerTask() {
+        val initTask = object : TimerTask() {
             override fun run() {
                 taskLoader.getRandomTaskOfType("IDLE")?.let { scheduler.queueTask(it) }
 
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
                 }
             }
         }
-        Timer().schedule(runTestTask, 1000)
+        Timer().schedule(initTask, 1000)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {

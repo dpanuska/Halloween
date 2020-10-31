@@ -1,8 +1,5 @@
 package com.dpanuska.halloween.task
 
-import android.graphics.Bitmap
-import android.util.Log
-import com.dpanuska.halloween.service.FileService
 import com.dpanuska.halloween.service.VoiceRecognitionService
 import kotlinx.coroutines.Deferred
 

@@ -5,7 +5,6 @@ import android.util.Log
 import com.dpanuska.halloween.service.FileService
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import java.io.File
 import java.lang.Exception
 
 // TODO make this shit easier. 3 functions.. comeon man

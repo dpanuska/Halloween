@@ -9,7 +9,6 @@ import org.json.JSONObject
 import java.security.SecureRandom
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
-import kotlin.random.Random
 
 
 class TaskLoader {
@@ -116,7 +115,6 @@ class TaskLoader {
         if (task.taskName != null) {
             taskNameMap[task.taskName!!] = task
         }
-
     }
 
     private fun createTaskListFromSubTaskJSON(subTasksJSON: JSONArray, suspend: Boolean, taskName: String?): TaskList {

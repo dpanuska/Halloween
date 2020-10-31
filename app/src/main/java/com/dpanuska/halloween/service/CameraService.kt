@@ -7,8 +7,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.Image
 import android.util.Log
-import android.view.OrientationEventListener
-import android.view.Surface
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat

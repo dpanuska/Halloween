@@ -2,21 +2,13 @@ package com.dpanuska.halloween.service
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.media.Image
-
 import android.view.View
-import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
-import com.dpanuska.halloween.MainActivity
 import com.dpanuska.halloween.R
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 object VisualService {
 
