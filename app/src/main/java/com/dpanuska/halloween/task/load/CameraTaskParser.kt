@@ -9,9 +9,7 @@ import org.json.JSONObject
  */
 class CameraTaskParser: TaskParser() {
     override val supportedTypes: ArrayList<String>
-        get() = arrayListOf(
-            CameraTaskType.TAKE_PICTURE.toString(),
-        )
+        get() = ArrayList<String>(CameraTaskType.values().map { type -> type.toString() })
 
     override fun createFromJSON(
         taskJSON: JSONObject,

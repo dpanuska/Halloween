@@ -2,7 +2,6 @@ package com.dpanuska.halloween.service
 
 import android.content.Context
 import android.graphics.Bitmap
-import androidx.core.graphics.scale
 import com.dpanuska.halloween.R
 import java.io.File
 import java.io.FileOutputStream

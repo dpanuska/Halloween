@@ -10,10 +10,7 @@ import org.json.JSONObject
  */
 class VoiceTaskParser: TaskParser() {
     override val supportedTypes: ArrayList<String>
-        get() = arrayListOf(
-            VoiceTaskType.SET_RECOGNITION.toString(),
-            VoiceTaskType.STOP_RECOGNITION.toString()
-        )
+        get() = ArrayList<String>(VoiceTaskType.values().map { type -> type.toString() })
 
     override fun createFromJSON(
         taskJSON: JSONObject,

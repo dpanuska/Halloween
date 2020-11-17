@@ -12,13 +12,7 @@ import kotlin.collections.ArrayList
  */
 class SpeechTaskParser: TaskParser() {
     override val supportedTypes: ArrayList<String>
-        get() = arrayListOf(
-            SpeechTaskType.SPEECH_TEXT.toString(),
-            SpeechTaskType.SPEECH_LOCALE.toString(),
-            SpeechTaskType.SPEECH_PITCH.toString(),
-            SpeechTaskType.SPEECH_RATE.toString(),
-            SpeechTaskType.SPEECH_RESET.toString()
-        )
+        get() = ArrayList<String>(SpeechTaskType.values().map { type -> type.toString() })
 
     override fun createFromJSON(taskJSON: JSONObject, suspend: Boolean, taskName: String?): BaseTask? {
         val taskType = taskJSON.getString(TaskLoader.TYPE_KEY)

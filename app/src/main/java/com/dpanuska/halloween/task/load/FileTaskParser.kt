@@ -9,9 +9,7 @@ import org.json.JSONObject
  */
 class FileTaskParser: TaskParser() {
     override val supportedTypes: ArrayList<String>
-        get() = arrayListOf(
-            FileTaskType.SAVE_PICTURE.toString(),
-        )
+        get() = ArrayList<String>(FileTaskType.values().map { type -> type.toString() })
 
     override fun createFromJSON(
         taskJSON: JSONObject,

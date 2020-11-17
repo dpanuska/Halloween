@@ -9,9 +9,7 @@ import org.json.JSONObject
  */
 class GenericTaskParser: TaskParser() {
     override val supportedTypes: ArrayList<String>
-        get() = arrayListOf(
-            DelayTaskType.DELAY.toString(),
-        )
+        get() = ArrayList<String>(GeneralTaskType.values().map { type -> type.toString() })
 
     override fun createFromJSON(
         taskJSON: JSONObject,
@@ -20,9 +18,9 @@ class GenericTaskParser: TaskParser() {
     ): BaseTask? {
         val taskType = taskJSON.getString(TaskLoader.TYPE_KEY)
 
-        val type = DelayTaskType.valueOf(taskType)
+        val type = GeneralTaskType.valueOf(taskType)
         val task = when(type) {
-            DelayTaskType.DELAY -> createDelayFromJSON(taskJSON, suspend)
+            GeneralTaskType.DELAY -> createDelayFromJSON(taskJSON, suspend)
             else -> null
         }
 
@@ -40,7 +38,7 @@ class GenericTaskParser: TaskParser() {
         private const val DURATION_KEY = "duration"
     }
 
-    enum class DelayTaskType{
+    enum class GeneralTaskType{
         DELAY,
     }
 }
