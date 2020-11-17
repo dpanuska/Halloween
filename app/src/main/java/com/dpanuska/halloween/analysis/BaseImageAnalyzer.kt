@@ -12,6 +12,10 @@ interface DetectionCallbackHandler {
     open fun onNoObjectDetected()
 }
 
+/**
+ * Base class for image analyzer for mlkit image analysis and callback
+ * TODO find where I found this and credit, not bad
+ */
 abstract class BaseImageAnalyzer<T> : ImageAnalysis.Analyzer {
 
     @SuppressLint("UnsafeExperimentalUsageError")

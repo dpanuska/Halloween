@@ -9,6 +9,11 @@ import com.google.mlkit.vision.pose.PoseDetection
 import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions
 import java.io.IOException
 
+/**
+ * Photo analyzer using mlkit to detect poses (body parts) and report using DetectionCallbackHandler
+ * Reports onObjectDetected anytime analysis detects a pose (joint structure) and onNoObjectDetected otherwise
+ * Great for general person detection. Note that it only returns one Pose, but not hindered by multiple bodies
+ */
 class PoseAnalyzer(callbackHandler: DetectionCallbackHandler) : BaseImageAnalyzer<Pose>() {
 
     private val handler = callbackHandler

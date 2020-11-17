@@ -35,6 +35,7 @@ object VisualService {
     }
 
     fun hide() {
+        // TODO: Fix
         //layout.visibility = View.INVISIBLE
         //view.visibility = View.INVISIBLE
         imageView.visibility = View.INVISIBLE

@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             scheduler.queueTask(cameraTask!!, true)
         } else if (camConfirmCommands.contains(result)) {
             VoiceRecognitionService.stopListening()
-            // TODO Print!
+            // Print! Requires user interaction.. not acceptable.  See Bluetooth
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.type = "image/jpg"
             shareIntent.setPackage("com.android.bluetooth");

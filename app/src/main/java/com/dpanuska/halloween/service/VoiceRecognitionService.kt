@@ -11,9 +11,6 @@ interface SpeechHandler {
     fun onResults(result: String)
 }
 
-
-
-// TODO Start and End callback or action dispatch
 object VoiceRecognitionService: RecognitionListener {
 
     enum class RecognitionType(val typeName: String) {

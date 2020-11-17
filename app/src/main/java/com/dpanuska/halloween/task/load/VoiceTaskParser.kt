@@ -5,6 +5,9 @@ import com.dpanuska.halloween.task.BaseTask
 import com.dpanuska.halloween.task.VoiceTask
 import org.json.JSONObject
 
+/**
+ * Load Voice recognition related tasks. See supportedTypes for types loaded
+ */
 class VoiceTaskParser: TaskParser() {
     override val supportedTypes: ArrayList<String>
         get() = arrayListOf(

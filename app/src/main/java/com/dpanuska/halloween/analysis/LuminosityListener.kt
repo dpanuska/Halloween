@@ -14,6 +14,10 @@ interface LuminosityCallbackHandler {
     open fun onLuminosityNormal(averageLuminosity: Double)
 }
 
+/**
+ * Analyze image luminosity and report large changes to average.
+ * Difficult to calibrate based on light sources - not recommended to people detection
+ */
 class LuminosityListener(handler: LuminosityCallbackHandler) {
 
     var luminStartDate: Date? = null
@@ -44,6 +48,8 @@ class LuminosityListener(handler: LuminosityCallbackHandler) {
             if (abs(diff) > MINIMUM_LUMINOSITY_DIFF) {
                 changeHandler.onLuminosityChange(averageLuminosity!!, luminosity)
             } else {
+                // Adjust avg known luminosity over time
+                // Machine Learning!? Right?? Kinda
                 averageLuminosity = averageLuminosity!! + diff * LUMINOSITY_SCALAR
                 changeHandler.onLuminosityNormal(averageLuminosity)
             }

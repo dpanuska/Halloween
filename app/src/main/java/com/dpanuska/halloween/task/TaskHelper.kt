@@ -25,7 +25,7 @@ object TaskHelper {
     }
 
     // TODO check for cancelled here and in task scheduler
-    fun delayTaskBlockAsync(duration: Long): Deferred<TaskResult> {
+    private fun delayTaskBlockAsync(duration: Long): Deferred<TaskResult> {
         Log.e(TAG, "Starting Delay task")
         val result = CompletableDeferred<TaskResult>()
         val timer = Timer()

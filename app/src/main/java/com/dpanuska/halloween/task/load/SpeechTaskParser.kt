@@ -6,6 +6,10 @@ import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
 
+
+/**
+ * Load Text to Speech related tasks. See supportedTypes for types loaded
+ */
 class SpeechTaskParser: TaskParser() {
     override val supportedTypes: ArrayList<String>
         get() = arrayListOf(

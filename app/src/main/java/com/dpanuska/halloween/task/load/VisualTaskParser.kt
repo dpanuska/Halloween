@@ -11,7 +11,7 @@ class VisualTaskParser: TaskParser() {
         "hal" to R.drawable.hal_9000,
         "anime" to R.drawable.anime
     )
-    // Can probably be done automatically if using same names as resources
+    // TODO: Can probably be done automatically if using same names as resources
     val gifResourceMap = hashMapOf<String, Int>(
         "hal" to R.raw.haleye,
         "hello_there" to R.raw.hello_there,

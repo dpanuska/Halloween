@@ -10,6 +10,12 @@ import com.google.mlkit.vision.face.FaceDetectorOptions
 import java.io.IOException
 
 
+/**
+ * Photo analyzer using mlkit to detect faces and report using DetectionCallbackHandler
+ * Reports onObjectDetected anytime analysis detects a face and onNoObjectDetected otherwise
+ * Not good for halloween considering masks. Used the bag on head test, and did not work well.
+ * Note: Do not use bag on head test unless a professional - please don't suffocate
+ */
 class FaceAnalyzer(callbackHandler: DetectionCallbackHandler) : BaseImageAnalyzer<List<Face>>() {
 
     private val handler = callbackHandler

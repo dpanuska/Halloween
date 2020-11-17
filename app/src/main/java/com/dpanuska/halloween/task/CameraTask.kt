@@ -4,6 +4,9 @@ import android.util.Log
 import com.dpanuska.halloween.service.CameraService
 import kotlinx.coroutines.*
 
+/**
+ * Factory to create Camera based tasks.
+ */
 object CameraTask {
 
     val dispatcher = Dispatchers.IO

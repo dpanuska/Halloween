@@ -7,7 +7,9 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
 
-// TODO make this shit easier. 3 functions.. comeon man
+/**
+ * Factory to create File IO based tasks.
+ */
 object FileTask {
 
     val dispatcher = Dispatchers.IO
@@ -18,7 +20,7 @@ object FileTask {
         return BaseTask(saveImageBlock(), dispatcher, suspend)
     }
 
-    fun saveImageBlock(): TaskBlock {
+    private fun saveImageBlock(): TaskBlock {
         return {
             val bitmap = it as? Bitmap ?: throw Exception("Image not passed from previous task")
             Log.e(TAG, "Starting Save Image task")
@@ -30,14 +32,14 @@ object FileTask {
         return BaseTask(saveImageBlock(image), dispatcher, suspend)
     }
 
-    fun saveImageBlock(image: Bitmap): TaskBlock {
+    private fun saveImageBlock(image: Bitmap): TaskBlock {
         return {
             Log.e(TAG, "Starting Save Image task")
             saveImageBlockAsync(image)
         }
     }
 
-    fun saveImageBlockAsync(image: Bitmap): Deferred<TaskResult> {
+    private fun saveImageBlockAsync(image: Bitmap): Deferred<TaskResult> {
         FileService.saveBitmap(image)
         return TaskHelper.syncSuccessResultAsync()
     }

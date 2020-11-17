@@ -6,6 +6,9 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import java.util.*
 
+/**
+ * Factory to create Text To Speech based tasks.
+ */
 object SpeechTask {
 
     val dispatcher = Dispatchers.Main
@@ -43,7 +46,7 @@ object SpeechTask {
     }
 
     // Reset
-    fun resetDefaultsTaskBlock(): TaskBlock {
+    private fun resetDefaultsTaskBlock(): TaskBlock {
         return {
             Log.e(TAG, "Starting reset defaults task")
             resetDefaultsTaskBlockAsync()
@@ -56,7 +59,7 @@ object SpeechTask {
     }
 
     // Say Text
-    fun sayTextTaskBlock(text: String): TaskBlock {
+    private fun sayTextTaskBlock(text: String): TaskBlock {
         return {
             Log.e(FileTask.TAG, "Starting Say Text task")
             sayTextTaskBlockAsync(text)
@@ -69,7 +72,7 @@ object SpeechTask {
 
 
     // Locale
-    fun setLocaleTaskBlock(locale: Locale): TaskBlock {
+    private fun setLocaleTaskBlock(locale: Locale): TaskBlock {
         return {
             Log.e(FileTask.TAG, "Starting Set Locale task")
             setLocaleTaskBlockAsync(locale)
@@ -82,7 +85,7 @@ object SpeechTask {
     }
 
     // Pitch
-    fun setPitchTaskBlock(pitch: Float): TaskBlock {
+    private fun setPitchTaskBlock(pitch: Float): TaskBlock {
         return {
             Log.e(FileTask.TAG, "Starting Set Pitch task")
             setPitchTaskBlockAsync(pitch)

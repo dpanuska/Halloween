@@ -4,6 +4,9 @@ import com.dpanuska.halloween.task.BaseTask
 import com.dpanuska.halloween.task.CameraTask
 import org.json.JSONObject
 
+/**
+ * Load Camera related tasks. See supportedTypes for types loaded
+ */
 class CameraTaskParser: TaskParser() {
     override val supportedTypes: ArrayList<String>
         get() = arrayListOf(

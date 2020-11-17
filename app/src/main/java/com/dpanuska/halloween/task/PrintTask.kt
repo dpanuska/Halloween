@@ -7,6 +7,9 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 
+/**
+ * Factory to create Print based tasks.
+ */
 object PrintTask {
 
     val dispater = Dispatchers.IO
@@ -16,14 +19,14 @@ object PrintTask {
         return BaseTask(printImageTaskBlock(image), dispater)
     }
 
-    fun printImageTaskBlock(image: Bitmap): TaskBlock {
+    private fun printImageTaskBlock(image: Bitmap): TaskBlock {
         return {
             Log.e(TAG, "Starting Print Image task")
             printImageTaskBlockAsync(image)
         }
     }
 
-    fun printImageTaskBlockAsync(image: Bitmap): Deferred<TaskResult> {
+    private fun printImageTaskBlockAsync(image: Bitmap): Deferred<TaskResult> {
         //PrintService.printImage(image);
         val result = CompletableDeferred<TaskResult>()
         return result

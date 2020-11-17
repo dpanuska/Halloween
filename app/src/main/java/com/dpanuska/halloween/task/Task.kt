@@ -5,7 +5,17 @@ import java.lang.Exception
 
 typealias TaskBlock = (Any?) -> Deferred<TaskResult>
 
-// TODO Should throw / handle exception for task failure
+/**
+ * Base Task to execute via coroutine.  Task takes an execution block which must return an async result
+ * This is clonable in order to store named and typed tasks which can be
+ * @param taskBlock Block to execute which can take result of previous task and return a deferred result
+ * @param dispatch CoroutineDispather to use for execution ex. Main, IO, Default, Custom
+ * @param suspend If the task should wait for completion before continuing to other tasks
+ * @param name Optional name for logging and use for linking tasks based on name
+ *
+ * TODO Should improve throw / handle exception for task failure
+ * TODO Should be individually cancellable - TaskList is mainly used..
+ */
 open class BaseTask(taskBlock: TaskBlock?, dispatch: CoroutineDispatcher = Dispatchers.Main, suspend: Boolean = false, name: String? = null): Cloneable {
 
     val executionBlock = taskBlock
@@ -19,6 +29,7 @@ open class BaseTask(taskBlock: TaskBlock?, dispatch: CoroutineDispatcher = Dispa
             throw Exception("Task has no execution block!!!")
         }
         val result = executionBlock!!(previousResult)
+        // If a completion block has been provided, notifty once task is complete
         if (completionHandler != null) {
             completionHandler!!(result.await())
         }
@@ -34,6 +45,14 @@ open class BaseTask(taskBlock: TaskBlock?, dispatch: CoroutineDispatcher = Dispa
 
 }
 
+/**
+ * BaseTasks subclass which executes a list of related tasks. Tasks can wait for others or dispatch
+ * concurrently based on dispatcher and setting provided
+ * @param tasks List of related tasks which define a predefined overall task
+ * @param dispatch CoroutineDispatcher see @BaseTask
+ * @param suspend If the task list should wait for all subtasks to complete before returning result
+ * @param name optional name for logging and use for linking tasks based on name
+ */
 class TaskList(
     tasks: ArrayList<BaseTask>,
     dispatch: CoroutineDispatcher = Dispatchers.Default,
@@ -49,14 +68,17 @@ class TaskList(
          var prevResult = previousResult
          for(i in 0 until taskList.size) {
              val task = taskList[i]
+             // Dispatch on provided CoroutineDispatcher (thread + job)
              val job = CoroutineScope(task.dispatcher).async {
                  val result = task.executeAsync(prevResult)
+                 // If a task is marked as suspend, it can pass it's result to the next task assuming !null
                  if (task.waitForCompletion) {
                      prevResult = result.await() ?: prevResult
                  }
              }
 
              jobs.add(job)
+             // If marked as suspending, wait for completion before moving on
              if (task.waitForCompletion) {
                  job.await()
              }
@@ -75,6 +97,9 @@ class TaskList(
         }
     }
 
+    /**
+     * Clone all subtasks. Used in order to handle special case tasks and reset state
+     */
     override fun clone(): Any {
         val clone = super<BaseTask>.clone() as TaskList
         val clonedTasks = clone.taskList.map { task -> task.clone() } as List<BaseTask>

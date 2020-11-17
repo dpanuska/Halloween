@@ -4,6 +4,9 @@ import com.dpanuska.halloween.task.BaseTask
 import com.dpanuska.halloween.task.TaskHelper
 import org.json.JSONObject
 
+/**
+ * Load generic tasks. See supportedTypes for types loaded. Includes types such as delay.
+ */
 class GenericTaskParser: TaskParser() {
     override val supportedTypes: ArrayList<String>
         get() = arrayListOf(

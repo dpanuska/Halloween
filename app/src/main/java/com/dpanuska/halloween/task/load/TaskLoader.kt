@@ -10,7 +10,9 @@ import java.security.SecureRandom
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-
+/**
+ * Loads tasks from JSON and allows access to randomized types of tasks for execution.
+ */
 class TaskLoader {
 
     val taskTypeMap = HashMap<String, ArrayList<BaseTask>>()

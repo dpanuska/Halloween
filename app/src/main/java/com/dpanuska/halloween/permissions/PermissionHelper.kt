@@ -11,7 +11,10 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-
+/**
+ * Ghetto permissions check.
+ * TODO Should show permissions on access instead of just going to settings
+ */
 object PermissionHelper {
 
     enum class PermissionKey(val value: Int) {

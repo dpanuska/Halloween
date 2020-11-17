@@ -9,6 +9,11 @@ import com.google.mlkit.vision.objects.ObjectDetection
 import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
 import java.io.IOException
 
+/**
+ * Photo analyzer using mlkit to detect objects and report using DetectionCallbackHandler
+ * Reports onObjectDetected anytime analysis detects an object and onNoObjectDetected otherwise
+ * Can use labels here for known types, not good for people detection
+ */
 class ObjectAnalyzer(callbackHandler: DetectionCallbackHandler) : BaseImageAnalyzer<List<DetectedObject>>() {
 
     private val handler = callbackHandler
