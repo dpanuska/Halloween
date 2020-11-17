@@ -5,6 +5,9 @@ Halloween android thing
 I hold no rights to any image or gif used except me grabbing a bag of candy.  I will try updating this with a "clean" version in the future to remove any
 potentially copyright material. Please don't hurt me!
 
+This is the first time I've ever used Kotlin and Android OS 11 features, so do not take this as gospel, and leave critisism of the contructive kind.
+Very willing to take that and improve, time allowing.
+
 
 ## Summary
 This application is for detecting people and greeting trick or treaters for Halloween. 
@@ -39,7 +42,8 @@ It uses mlKit to detect a Pose (human body articulation) which will kick off a G
 While still "active" from a detected pose, it will choose an ACTIVE_IDLE task at random to execute every x seconds.
 
 ## Task Composition
-Tasks are defined using TaskList in code.  Loaded from JSON this looks like the following
+Tasks are defined using TaskList in code. Note: Do not use circular definitions. It will cause a stack overflow...
+Loaded from JSON this looks like the following
 ```
 {
   "taskDefinitions": [
