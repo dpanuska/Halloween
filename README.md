@@ -14,23 +14,23 @@ This application is for detecting people and greeting trick or treaters for Hall
 It is written for Android OS 11 (SDK 30) using a device with the front camera available.
 
 ## Supported Tasks
-TAKE_PICTURE - Takes a picture from current (front) camera
-SAVE_PICTURE - Saves a picture - must be linked to a suspended task that returns a Bitmap (TAK_PICTURE)
-DELAY - Delays execution of next task in a list - automatic suspension
-SPEECH_TEXT - Says something using text to speech
-SPEECH_LOCALE - Set Locale for speech
-SPEECH_PITCH - Set the pitch for TTS
-SPEECH_RATE - Set the speech rate for TTS
-SPEECH_RESET - Reset speech locale, rate, and pitch
-VISUAL_BACKGROUND - Set a backgroung image
-VISUAL_BACKGROUND_CHAINED - Set a background image - must be linked to a suspended task that returns a Bitmap (TAK_PICTURE)
-VISUAL_BACKGROUND_GIF - Set a background gif
-VISUAL_TEXT - Set text displayed over any image displayed
-VISUAL_RESET - Set visuals back to default
-SET_RECOGNITION - Set voice recognition to a defined list of terms (see improvements for further info)
-STOP_RECOGNITION - Stop listening for voice terms
-NAMED - Use a task which has a given name
-TYPED - Use a random task of the given type
+- TAKE_PICTURE - Takes a picture from current (front) camera
+- SAVE_PICTURE - Saves a picture - must be linked to a suspended task that returns a Bitmap (TAK_PICTURE)
+- DELAY - Delays execution of next task in a list - automatic suspension
+- SPEECH_TEXT - Says something using text to speech
+- SPEECH_LOCALE - Set Locale for speech
+- SPEECH_PITCH - Set the pitch for TTS
+- SPEECH_RATE - Set the speech rate for TTS
+- SPEECH_RESET - Reset speech locale, rate, and pitch
+- VISUAL_BACKGROUND - Set a backgroung image
+- VISUAL_BACKGROUND_CHAINED - Set a background image - must be linked to a suspended task that returns a Bitmap (TAK_PICTURE)
+- VISUAL_BACKGROUND_GIF - Set a background gif
+- VISUAL_TEXT - Set text displayed over any image displayed
+- VISUAL_RESET - Set visuals back to default
+- SET_RECOGNITION - Set voice recognition to a defined list of terms (see improvements for further info)
+- STOP_RECOGNITION - Stop listening for voice terms
+- NAMED - Use a task which has a given name
+- TYPED - Use a random task of the given type
 
 
 ## Why JSON?
