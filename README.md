@@ -15,7 +15,7 @@ It is written for Android OS 11 (SDK 30) using a device with the front camera av
 
 ## Supported Tasks
 - TAKE_PICTURE - Takes a picture from current (front) camera
-- SAVE_PICTURE - Saves a picture - must be linked to a suspended task that returns a Bitmap (TAK_PICTURE)
+- SAVE_PICTURE - Saves a picture - must be linked to a suspended task that returns a Bitmap (TAKE_PICTURE)
 - DELAY - Delays execution of next task in a list - automatic suspension
 - SPEECH_TEXT - Says something using text to speech
 - SPEECH_LOCALE - Set Locale for speech
@@ -38,7 +38,7 @@ This could be extended to use a service to provide "packs" of sorts to provide c
 custom text or voice recognition prompts.
 
 ## How it works
-It uses mlKit to detect a Pose (human body articulation) which will kick off a GREETING type task.  Upon body leaving detection it will kick off a BOODBYE task.
+It uses mlKit to detect a Pose (human body articulation) which will kick off a GREETING type task.  Upon body leaving detection it will kick off a GOODBYE task.
 While still "active" from a detected pose, it will choose an ACTIVE_IDLE task at random to execute every x seconds.
 
 ## Task Composition
