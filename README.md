@@ -1,7 +1,7 @@
 # Halloween
 Halloween android thing
 
-##Disclaimer
+## Disclaimer
 I hold no rights to any image or gif used except me grabbing a bag of candy.  I will try updating this with a "clean" version in the future to remove any
 potentially copyright material. Please don't hurt me!
 
