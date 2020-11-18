@@ -97,8 +97,8 @@
           "duration": 2
         },
         {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "hal"
+          "type": "VISUAL_TEXT",
+          "text": "HAL 9000"
         },
         {
           "type": "SPEECH_PITCH",

@@ -9,21 +9,31 @@ import kotlinx.coroutines.*
  */
 object CameraTask {
 
-    val dispatcher = Dispatchers.IO
+    private val dispatcher = Dispatchers.IO
     const val TAG = "CameraTask"
 
+    /**
+     * Create task to take a picture with the camera
+     * This task returns a Bitmap result which can be used by subsequent tasks
+     */
     fun createTakePhotoTask(suspend: Boolean = true): BaseTask {
         return BaseTask(takePhotoBlock(), dispatcher, suspend)
     }
 
-    fun takePhotoBlock(): TaskBlock {
+    /**
+     * Create task execution block for take picture task
+     */
+    private fun takePhotoBlock(): TaskBlock {
         return {
             Log.e(TAG, "Starting Take Photo Task")
             takePhotoBlockAsync()
         }
     }
 
-    fun takePhotoBlockAsync(): Deferred<TaskResult> {
+    /**
+     * Create async result for take picture task execution block
+     */
+    private fun takePhotoBlockAsync(): Deferred<TaskResult> {
         val deferred = CompletableDeferred<TaskResult>()
         CoroutineScope(dispatcher).async {
             val result = CameraService.takePhotoAsync()

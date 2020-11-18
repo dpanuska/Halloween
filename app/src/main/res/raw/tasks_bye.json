@@ -13,6 +13,11 @@
           "type": "VISUAL_RESET"
         },
         {
+          "type": "SPEECH_TEXT",
+          "text": "I no longer see anyone and am starting my goodbye task",
+          "suspend": true
+        },
+        {
           "type": "TYPED",
           "taskType": "GOODBYE_SUB",
           "suspend": true
@@ -48,8 +53,8 @@
       "type": "GOODBYE_SUB",
       "subTasks":[
         {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "bye_kid"
+          "type": "VISUAL_TEXT",
+          "text": "Goodbye!"
         },
         {
           "type": "SPEECH_TEXT",
@@ -62,17 +67,8 @@
       "type": "GOODBYE_SUB",
       "subTasks": [
         {
-          "type": "SPEECH_TEXT",
-          "text": "",
-          "suspend": true
-        },
-        {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "bye_dumb"
-        },
-        {
-            "type": "DELAY",
-            "duration": 2
+          "type": "VISUAL_TEXT",
+          "text": "Bye!"
         },
         {
           "type": "SPEECH_TEXT",
@@ -83,36 +79,14 @@
     },
     {
       "type": "GOODBYE_SUB",
-      "subTasks": [
-        {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "bye_solo"
-        },
-        {
-            "type": "DELAY",
-            "duration": 1
-        },
-        {
-          "type": "SPEECH_TEXT",
-          "text": "Bye",
-          "suspend": true
-        }
-      ]
-    },
-    {
-      "type": "GOODBYE_SUB",
       "subTasks":[
-        {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "static"
-        },
         {
           "type": "DELAY",
           "duration": 1
         },
         {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "hal"
+          "type": "VISUAL_TEXT",
+          "text": "Hal 9000"
         },
         {
           "type": "SPEECH_PITCH",

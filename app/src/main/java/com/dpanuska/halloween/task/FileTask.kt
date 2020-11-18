@@ -12,10 +12,14 @@ import java.lang.Exception
  */
 object FileTask {
 
-    val dispatcher = Dispatchers.IO
+    private val dispatcher = Dispatchers.IO
     const val TAG = "FileTask"
 
 
+    /**
+     * Create a save image task. This is a linked type task and requires a previous task to return
+     * a Bitmap result (such as TAKE_PHOTO)
+     */
     fun createSaveImageTask(suspend: Boolean = false): BaseTask {
         return BaseTask(saveImageBlock(), dispatcher, suspend)
     }

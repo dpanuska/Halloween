@@ -13,17 +13,15 @@
                     "type": "TYPED",
                     "taskType": "SORRY_SUB",
                     "suspend": true
-                    
                 }
             ]
         },
         {
             "type": "SORRY_SUB",
             "subTasks": [
-               
                 {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "sorry_patrick"
+                    "type": "VISUAL_TEXT",
+                    "text": "Sorry!"
                 },
                 {
                     "type": "SPEECH_TEXT",
@@ -40,8 +38,8 @@
             "type": "SORRY_SUB",
             "subTasks": [
                 {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "sorry_kevin"
+                    "type": "VISUAL_TEXT",
+                    "text": "I'm Sorry..."
                 },
                 {
                     "type": "SPEECH_TEXT",
@@ -55,70 +53,16 @@
             ]
         },
         {
-            "type": "SORRY_SUB",
-            "subTasks": [
+            "type": "CONFUSED",
+            "subTasks":[
                 {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "sorry_office"
+                    "type": "VISUAL_TEXT",
+                    "text": "Content Removed"
                 },
                 {
                     "type": "SPEECH_TEXT",
-                    "text": "Sorry",
+                    "text": "This is a confused task.",
                     "suspend": true
-                },
-                {
-                    "type": "DELAY",
-                    "duration": 1
-                }
-            ]
-        },
-        {
-            "type": "CONFUSED",
-            "subTasks":[
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "confused_mark"
-                    
-                }
-            ]
-        },
-        {
-            "type": "CONFUSED",
-            "subTasks":[
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "calculate"
-                    
-                }
-            ]
-        },
-        {
-            "type": "CONFUSED",
-            "subTasks":[
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "confused_jack"
-                    
-                }
-            ]
-        },
-        {
-            "type": "CONFUSED",
-            "subTasks":[
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "cena"
-                    
-                }
-            ]
-        },
-        {
-            "type": "CONFUSED",
-            "subTasks":[
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "confused_travolta"
-                    
                 }
             ]
         },
@@ -132,36 +76,12 @@
                     "type": "SPEECH_RESET"
                 },
                 {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "touch_yoda"
+                    "type": "VISUAL_TEXT",
+                    "text": "Don't Touch!"
                 },
                 {
                     "type": "SPEECH_TEXT",
                     "text": "Please don't touch the device!",
-                    "suspend": true
-                },
-                {
-                    "type": "TYPED",
-                    "taskType": "IDLE"
-                }
-            ]
-        },
-        {
-            "type": "DONT_TOUCH",
-            "subTasks":[
-                {
-                    "type": "VISUAL_RESET"
-                },
-                {
-                    "type": "SPEECH_RESET"
-                },
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "touch_crabs"
-                },
-                {
-                    "type": "SPEECH_TEXT",
-                    "text": "Don't... Touch!  Please don't touch the device!",
                     "suspend": true
                 },
                 {

@@ -32,17 +32,8 @@
       "type": "INTRO_IMAGE",
       "subTasks": [
         {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "happy_house"
-        }
-      ]
-    },
-    {
-      "type": "INTRO_IMAGE",
-      "subTasks": [
-        {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "happy_house2"
+          "type": "VISUAL_TEXT",
+          "text": "INTRO"
         }
       ]
     },
@@ -53,17 +44,13 @@
           "type": "VISUAL_RESET"
         },
         {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "dispenser"
+          "type": "VISUAL_TEXT",
+          "text": "Hands"
         },
         {
           "type": "SPEECH_TEXT",
           "text": "Help yourself to some hand sanitizer. Put your hands under the dispenser to the left.",
           "suspend": true
-        },
-        {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "spider"
         },
         {
           "type": "SPEECH_TEXT",

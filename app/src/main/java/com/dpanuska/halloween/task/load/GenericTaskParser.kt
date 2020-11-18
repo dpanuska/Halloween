@@ -21,7 +21,6 @@ class GenericTaskParser: TaskParser() {
         val type = GeneralTaskType.valueOf(taskType)
         val task = when(type) {
             GeneralTaskType.DELAY -> createDelayFromJSON(taskJSON, suspend)
-            else -> null
         }
 
         task?.taskName = taskName

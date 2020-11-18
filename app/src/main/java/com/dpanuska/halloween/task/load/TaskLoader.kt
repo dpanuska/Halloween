@@ -22,6 +22,7 @@ class TaskLoader {
     val taskTypeRand = HashMap<String, Int>()
 
     init {
+        // TODO perhaps this should be app loaded
         registerTaskParser(SpeechTaskParser())
         registerTaskParser(VisualTaskParser())
         registerTaskParser(GenericTaskParser())
@@ -31,12 +32,20 @@ class TaskLoader {
         registerTaskParser(NamedTaskParser())
     }
 
+    /**
+     * Shuffle all lists of tasks
+     */
     private fun randomizeTaskTypes() {
         for (typeArray in taskTypeMap.values) {
             typeArray.shuffle(SecureRandom())
         }
     }
 
+    /**
+     * Return random cloned task with a type
+     * Randomization is accomplished by reshuffling lists of tasks each time all tasks of that type
+     * have been used.  Helps prevent reuse of the same tasks repeatedly
+     */
     fun getRandomTaskOfType(type: String): BaseTask? {
         var index = taskTypeRand[type] ?: 0
         val tasks = taskTypeMap[type]
@@ -52,10 +61,16 @@ class TaskLoader {
         return null
     }
 
+    /**
+     * Return a clone of a task with given name
+     */
     fun getTaskByName(name: String): BaseTask? {
         return taskNameMap[name]?.clone() as BaseTask?
     }
 
+    /**
+     * Return a cloned list of all loaded tasks
+     */
     fun getAllTasks(): Collection<BaseTask> {
         val result = ArrayList<BaseTask>()
         val allTypes = taskTypeMap.values
@@ -69,12 +84,34 @@ class TaskLoader {
         return result
     }
 
+    /**
+     * Registers a parser for all of the parsers supported task types
+     */
     private fun registerTaskParser(parser: TaskParser) {
         for (type in parser.supportedTypes) {
             parsers[type] = parser
         }
     }
 
+    /**
+     * Add a task to list of tasks with type
+     */
+    private fun addTaskOfType(type: String, task: BaseTask) {
+        var list = taskTypeMap[type]
+        if (list == null) {
+            list = ArrayList<BaseTask>()
+            taskTypeMap[type] = list
+        }
+        list.add(task)
+
+        if (task.taskName != null) {
+            taskNameMap[task.taskName!!] = task
+        }
+    }
+
+    /**
+     * Load tasks from JSON resource file
+     */
     fun loadFromJSONResource(resources: Resources, resId: Int) {
 
         val text = resources.openRawResource(resId).bufferedReader().use {
@@ -105,20 +142,10 @@ class TaskLoader {
         randomizeTaskTypes()
     }
 
-
-    private fun addTaskOfType(type: String, task: BaseTask) {
-        var list = taskTypeMap[type]
-        if (list == null) {
-            list = ArrayList<BaseTask>()
-            taskTypeMap[type] = list
-        }
-        list.add(task)
-
-        if (task.taskName != null) {
-            taskNameMap[task.taskName!!] = task
-        }
-    }
-
+    /**
+     * Load all subtasks of a task definition. Only works if a parser has een registered which supports
+     * the task type.
+     */
     private fun createTaskListFromSubTaskJSON(subTasksJSON: JSONArray, suspend: Boolean, taskName: String?): TaskList {
         val subTaskList = ArrayList<BaseTask>()
 
@@ -162,12 +189,13 @@ class TaskLoader {
         TYPED
     }
 
+    /**
+     * Task loader for special type tasks including Named and Typed tasks.
+     */
     inner class NamedTaskParser: TaskParser() {
+
         override val supportedTypes: ArrayList<String>
-            get() = arrayListOf(
-                NamedTaskType.NAMED.toString(),
-                NamedTaskType.TYPED.toString()
-            )
+            get() = ArrayList<String>(NamedTaskType.values().map { type -> type.toString() })
 
         override fun createFromJSON(
             taskJSON: JSONObject,
@@ -198,6 +226,9 @@ class TaskLoader {
         }
     }
 
+    /**
+     * Task type used to clone a task with provided name.  Must match a loaded named task
+     */
     inner class NamedTask(name: String, suspend: Boolean = false): BaseTask(null, Dispatchers.Default, suspend, null) {
         override fun clone(): Any {
             val task = getTaskByName(taskName!!) as BaseTask
@@ -206,6 +237,9 @@ class TaskLoader {
         }
     }
 
+    /**
+     * Task type used to randomly clone a task of type. Must have a loaded task of desired type
+     */
     inner class TypeTask(type: String, suspend: Boolean = false): BaseTask(null, Dispatchers.Default, suspend, null) {
         val taskType = type
 

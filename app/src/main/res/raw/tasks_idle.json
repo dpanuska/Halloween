@@ -36,17 +36,8 @@
             "type": "IDLE_IMAGE",
             "subTasks": [
                 {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "happy_house"
-                }
-            ]
-        },
-        {
-            "type": "IDLE_IMAGE",
-            "subTasks": [
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "happy_house2"
+                    "type": "VISUAL_TEXT",
+                    "text": "IDLE"
                 }
             ]
         },
@@ -58,8 +49,8 @@
                     "type": "SPEECH_RESET"
                 },
                 {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "idle_stars"
+                    "type": "VISUAL_TEXT",
+                    "text": "Space Facts!"
                 },
                 {
                     "type": "SPEECH_TEXT",
@@ -77,17 +68,14 @@
                     "suspend": true
                 },
                 {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "idle_space"
-                },
-                {
                     "type": "SPEECH_TEXT",
                     "text": "If two pieces of the same type of metal touch in space, they will bond and be permanently stuck together; this amazing effect is known as cold welding.",
                     "suspend": true
                 },
                 {
                     "type": "TYPED",
-                    "taskType": "CONFUSED"
+                    "taskType": "CONFUSED",
+                    "suspend": true
                 },
                 {
                     "type": "SPEECH_TEXT",
@@ -95,8 +83,8 @@
                     "suspend": true
                 },
                 {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "learn_space"
+                    "type": "VISUAL_TEXT",
+                    "text": "Space Facts!"
                 },
                 {
                     "type": "SPEECH_TEXT",
@@ -122,16 +110,13 @@
                 },
                 {
                     "type": "TYPED",
-                    "taskType": "CONFUSED"
+                    "taskType": "CONFUSED",
+                    "suspend": true
                 },
                 {
                     "type": "SPEECH_TEXT",
                     "text": "But he said something about requiring users to touch the device and bluetooth printer protocol or whatever...",
                     "suspend": true
-                },
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "next_year"
                 },
                 {
                     "type": "SPEECH_TEXT",
@@ -145,138 +130,16 @@
             "subTasks": [
                 {
                     "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "dance"
+                    "resource": "dylan"
                 },
                 {
                     "type": "SPEECH_TEXT",
-                    "text": "Hey, lets dance to some beats!",
+                    "text": "This is Dylan. He likes being chased down the hall",
                     "suspend": true
-                },
-                {
-                    "type": "SPEECH_TEXT",
-                    "text": "inst, inst, inst, inst, inst, inst, inst, inst, Badalaa bum badalaa bum Dum-dada-dum Dum-dada-dum",
-                    "suspend": true
-                },
-                {
-                    "type": "SPEECH_RESET"
-                },
-                {
-                    "type": "TYPED",
-                    "taskType": "SORRY",
-                    "suspend": true
-                },
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "beats"
-                },
-                {
-                    "type": "SPEECH_TEXT",
-                    "text": "I'm not very good at dropping beats!",
-                    "suspend": true
-                }
-            ]
-        },
-        {
-            "type": "IDLE_RAND",
-            "subTasks": [
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "donut"
-                },
-                {
-                    "type": "SPEECH_TEXT",
-                    "text": "Don't eat too many sweets tonight!",
-                    "suspend": true
-                }, 
-                {
-                    "type": "DELAY",
-                    "duration": 2
-                }
-            ]
-        },
-        {
-            "type": "IDLE_RAND",
-            "subTasks": [
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "static"
                 },
                 {
                     "type": "DELAY",
                     "duration": 1
-                },
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "horror"
-                },
-                {
-                    "type": "DELAY",
-                    "duration": 0.5
-                },
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "static"
-                },                
-                {
-                    "type": "DELAY",
-                    "duration": 0.3
-                },
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "horror"
-                },
-                {
-                    "type": "DELAY",
-                    "duration": 2
-                }
-            ]
-        },
-        {
-            "type": "IDLE_RAND",
-            "subTasks": [
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "jack"
-                },
-                {
-                    "type": "SPEECH_TEXT",
-                    "text": "BOO!",
-                    "suspend": true
-                },
-                {
-                    "type": "DELAY",
-                    "duration": 1.5
-                }
-            ]
-        },
-        {
-            "type": "IDLE_RAND",
-            "subTasks": [
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "boo"
-                },
-                {
-                    "type": "SPEECH_TEXT",
-                    "text": "BOO!",
-                    "suspend": true
-                },
-                {
-                    "type": "DELAY",
-                    "duration": 2
-                }
-            ]
-        },
-        {
-            "type": "IDLE_RAND",
-            "subTasks": [
-                {
-                    "type": "VISUAL_BACKGROUND_GIF",
-                    "resource": "horror_walk"
-                },
-                {
-                    "type": "DELAY",
-                    "duration": 8
                 }
             ]
         }

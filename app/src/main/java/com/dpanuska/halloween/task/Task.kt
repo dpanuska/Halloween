@@ -24,21 +24,32 @@ open class BaseTask(taskBlock: TaskBlock?, dispatch: CoroutineDispatcher = Dispa
     var waitForCompletion = suspend
     var completionHandler: ((TaskResult) -> Unit)? = null
 
+    /**
+     * Execute the logic block for the task
+     */
     open suspend fun executeAsync(previousResult: Any? = null): Deferred<TaskResult> {
         if (executionBlock == null) {
             throw Exception("Task has no execution block!!!")
         }
         val result = executionBlock!!(previousResult)
-        // If a completion block has been provided, notifty once task is complete
+        // If a completion block has been provided, notify once task is complete
         if (completionHandler != null) {
             completionHandler!!(result.await())
         }
         return result
     }
 
+    /**
+     * Cancel the task
+     * TODO would be nice to support this here, but currently TaskList is main used type which does
+     */
     open fun cancel() {
     }
 
+    /**
+     * Clone this task to make a new task with default state or use some special logic
+     * (See named and typed tasks for example)
+     */
     public override fun clone(): Any {
         return super.clone()
     }
@@ -62,13 +73,17 @@ class TaskList(
     var taskList = tasks;
     var jobs = ArrayList<Job>()
 
+    /**
+     * Execute all tasks in this task list.  Will wait to execute next tasks if suspend (waitForCompletion)
+     * flag is set on the task.
+     */
      override suspend fun executeAsync(previousResult: Any?): Deferred<TaskResult> = coroutineScope {
          val deferred = CompletableDeferred<TaskResult>()
 
          var prevResult = previousResult
          for(i in 0 until taskList.size) {
              val task = taskList[i]
-             // Dispatch on provided CoroutineDispatcher (thread + job)
+             // Dispatch on provided Dispatcher
              val job = CoroutineScope(task.dispatcher).async {
                  val result = task.executeAsync(prevResult)
                  // If a task is marked as suspend, it can pass it's result to the next task assuming !null
@@ -91,6 +106,9 @@ class TaskList(
          deferred
     }
 
+    /**
+     * Cancel the currently running job
+     */
     override fun cancel() {
         for (job in jobs) {
             job.cancel()

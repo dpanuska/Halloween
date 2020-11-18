@@ -10,6 +10,11 @@
           "type": "VISUAL_RESET"
         },
         {
+          "type": "SPEECH_TEXT",
+          "text": "I've detected someone and will now take a picture and initiate sub-tasks.",
+          "suspend": true
+        },
+        {
           "type": "NAMED",
           "name": "CAMERA_PICTURE_BASE"
 
@@ -30,12 +35,8 @@
       "type": "GREETING_SUB",
       "subTasks": [
         {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "hello_obi"
-        },
-        {
-          "type": "DELAY",
-          "duration": 1.5
+          "type": "VISUAL_TEXT",
+          "text": "Hello There!"
         },
         {
           "type": "SPEECH_TEXT",
@@ -47,18 +48,6 @@
     {
       "type": "GREETING_SUB",
       "subTasks":[
-        {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "static"
-        },
-        {
-          "type": "DELAY",
-          "duration": 1
-        },
-        {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "hal"
-        },
         {
           "type": "SPEECH_PITCH",
           "pitch": 0.8
@@ -81,8 +70,8 @@
       "type": "GREETING_SUB",
       "subTasks": [
         {
-          "type": "VISUAL_BACKGROUND",
-          "resource": "anime"
+          "type": "VISUAL_TEXT",
+          "text": "Locale change"
         },
         {
           "type": "SPEECH_LOCALE",
@@ -118,62 +107,6 @@
         {
           "type": "SPEECH_TEXT",
           "text": "My creator must have launched the wrong program",
-          "suspend": true
-        }
-      ]
-    },
-    {
-      "type": "GREETING_SUB",
-      "subTasks": [
-        {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "hello_princess"
-        },
-        {
-          "type": "SPEECH_TEXT",
-          "text": "Hello!",
-          "suspend": true
-        }
-      ]
-    },
-    {
-      "type": "GREETING_SUB",
-      "subTasks": [
-        {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "hello_doubtfire"
-        },
-        {
-          "type": "SPEECH_TEXT",
-          "text": "Helloooo",
-          "suspend": true
-        }
-      ]
-    },
-    {
-      "type": "GREETING_SUB",
-      "subTasks": [
-        {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "hello_bean"
-        },
-        {
-          "type": "SPEECH_TEXT",
-          "text": "Hello",
-          "suspend": true
-        }
-      ]
-    },
-    {
-      "type": "GREETING_SUB",
-      "subTasks": [
-        {
-          "type": "VISUAL_BACKGROUND_GIF",
-          "resource": "hello_woody"
-        },
-        {
-          "type": "SPEECH_TEXT",
-          "text": "Howdy howdy howdy",
           "suspend": true
         }
       ]

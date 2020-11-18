@@ -9,6 +9,9 @@ import kotlinx.coroutines.Deferred
 import java.util.*
 import kotlin.collections.HashMap
 
+/**
+ * Service used to interact with text to speech
+ */
 object SpeechService : UtteranceProgressListener() {
 
     private var tts: TextToSpeech? = null
@@ -16,6 +19,9 @@ object SpeechService : UtteranceProgressListener() {
     private var defaultRate = 1f
     private var sayTextResults = HashMap<String, CompletableDeferred<TaskResult>>() // Could also try promise / deferred
 
+    /**
+     * Start the Service
+     */
     fun start(context: Context) {
         shutDown()
 
@@ -28,6 +34,9 @@ object SpeechService : UtteranceProgressListener() {
         })
     }
 
+    /**
+     * Shut down the service
+     */
     fun shutDown() {
         if (tts != null) {
             tts!!.stop()
@@ -36,12 +45,19 @@ object SpeechService : UtteranceProgressListener() {
         }
     }
 
+    /**
+     * Reset TTS values to default
+     */
     fun resetDefaultValues() {
         setLocale(Locale.US)
         setPitch(defaultPitch)
         setSpeechRate(defaultRate)
     }
 
+    /**
+     * Say something with TTS. Tracks the completion of execution in order to notify consumer
+     * when TTS has completed saying the text
+     */
     fun sayTextAsync(text: String): Deferred<TaskResult> {
         if (tts == null) {
             throw Exception("TextToSpeech not initialized")
@@ -55,6 +71,9 @@ object SpeechService : UtteranceProgressListener() {
         return result
     }
 
+    /**
+     * Set TTS locale
+     */
     fun setLocale(locale: Locale): Boolean {
         if (tts == null) {
             throw Exception("TextToSpeech not initialized")
@@ -65,6 +84,9 @@ object SpeechService : UtteranceProgressListener() {
         return result == TextToSpeech.LANG_AVAILABLE
     }
 
+    /**
+     * Set TTS pitch
+     */
     fun setPitch(pitch: Float): Boolean {
         if (tts == null) {
             throw Exception("TextToSpeech not initialized")
@@ -75,6 +97,9 @@ object SpeechService : UtteranceProgressListener() {
         return result == TextToSpeech.SUCCESS
     }
 
+    /**
+     * Set TTS speech rate
+     */
     fun setSpeechRate(freq: Float): Boolean {
         if (tts == null) {
             throw Exception("TextToSpeech not initialized")
@@ -87,10 +112,14 @@ object SpeechService : UtteranceProgressListener() {
 
     // UtteranceProgressListener
 
-    override fun onStart(utteranceId: String?) {
+    /**
+     * Callback when TTS speak starts
+     */
+    override fun onStart(utteranceId: String?) {}
 
-    }
-
+    /**
+     * Callback when TTS speak completes. Will complete deferred result
+     */
     override fun onDone(utteranceId: String?) {
         utteranceId.let { id ->
             val result = sayTextResults[id]
@@ -101,6 +130,9 @@ object SpeechService : UtteranceProgressListener() {
         }
     }
 
+    /**
+     * Callback for TTS speak error. Will complete deferred result with error
+     */
     override fun onError(utteranceId: String?) {
         utteranceId.let { id ->
             val result = sayTextResults[id]

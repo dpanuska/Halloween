@@ -8,6 +8,9 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Service used to save files
+ */
 object FileService {
 
     private const val SAVE_WIDTH = 900
@@ -17,6 +20,9 @@ object FileService {
     lateinit var outputDirectory: File
     var lastSavedFile: File? = null
 
+    /**
+     * Start the service
+     */
     fun start(context: Context) {
         val mediaDir = context.externalMediaDirs.firstOrNull()?.let {
             File(it, context.resources.getString(R.string.app_name)).apply { mkdirs() } }
@@ -24,10 +30,14 @@ object FileService {
             mediaDir else context.filesDir
     }
 
-    fun shutDown() {
+    /**
+     * Shut down the service
+     */
+    fun shutDown() {}
 
-    }
-
+    /**
+     * Save a Bitmap to file
+     */
     fun saveBitmap(bitmap: Bitmap) {
         val photoFile = File(
             outputDirectory,

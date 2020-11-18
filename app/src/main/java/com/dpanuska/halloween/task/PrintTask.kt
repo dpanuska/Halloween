@@ -9,10 +9,14 @@ import kotlinx.coroutines.Dispatchers
 
 /**
  * Factory to create Print based tasks.
+ *
+ * Unused until I potentially find out how to communicate directly with a bluetooth printer
+ * without needing to use built in action intents (which show UI and need user interaction)
  */
 object PrintTask {
 
-    val dispater = Dispatchers.IO
+    /*
+    private val dispater = Dispatchers.IO
     const val TAG = "PrintTask"
 
     fun createPrintImageTask(image: Bitmap): BaseTask {
@@ -31,4 +35,5 @@ object PrintTask {
         val result = CompletableDeferred<TaskResult>()
         return result
     }
+    */
 }

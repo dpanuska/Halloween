@@ -8,6 +8,10 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
 
+/**
+ * Service used to ideally connect to a bluetooth printer.
+ * TODO Unused - Find out how to actually communicate with a bluetooth printer
+ */
 class BluetoothService {
 
     var adapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter()

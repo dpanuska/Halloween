@@ -10,6 +10,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.dpanuska.halloween.R
 
+/**
+ * Service used to display visuals
+ * TODO initialization expects a lot here..
+ */
 object VisualService {
 
     lateinit var layout: ConstraintLayout
@@ -19,6 +23,9 @@ object VisualService {
 
     lateinit var glide: RequestManager
 
+    /**
+     * Start the service
+     */
     fun start(context: Context, overlayLayout: ConstraintLayout) {
         glide = Glide.with(context)
         layout = overlayLayout
@@ -30,10 +37,14 @@ object VisualService {
         hide()
     }
 
-    fun shutDown() {
+    /**
+     * Shut Down the Service
+     */
+    fun shutDown() {}
 
-    }
-
+    /**
+     * Hide Visuals
+     */
     fun hide() {
         // TODO: Fix
         //layout.visibility = View.INVISIBLE
@@ -42,6 +53,9 @@ object VisualService {
         textView.visibility = View.INVISIBLE
     }
 
+    /**
+     * Show specific UI elements
+     */
     fun show(showBG: Boolean = true, showImage: Boolean = true, showText: Boolean = true) {
         layout.visibility = View.VISIBLE
 
@@ -56,21 +70,33 @@ object VisualService {
         }
     }
 
+    /**
+     * Display some text
+     */
     fun setText(text: String) {
         show(false, false, true)
         textView.text = text
     }
 
+    /**
+     * Display an image from resource
+     */
     fun showBackgroundImage(resId: Int) {
         show(true, true, false)
         glide.load(resId).into(imageView)
     }
 
+    /**
+     * Display an image from Bitmap
+     */
     fun showBackgroundImage(bitmap: Bitmap) {
         show(true, true, false)
         glide.load(bitmap).into(imageView)
     }
 
+    /**
+     * Display a gif
+     */
     fun showBackgroundGif(resId: Int) {
         show(true, true, false)
         glide.load(resId).into(imageView)

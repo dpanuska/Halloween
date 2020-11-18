@@ -11,6 +11,11 @@ interface SpeechHandler {
     fun onResults(result: String)
 }
 
+/**
+ * Service used to recognize voice commands
+ *
+ * TODO Would be much more useful to set commands in plain text rather than grammar files
+ */
 object VoiceRecognitionService: RecognitionListener {
 
     enum class RecognitionType(val typeName: String) {
@@ -21,6 +26,9 @@ object VoiceRecognitionService: RecognitionListener {
     private var recognizer: SpeechRecognizer? = null
     private var speechHandler: SpeechHandler? = null
 
+    /**
+     * Start the service
+     */
     fun start(context: Context, handler: SpeechHandler) {
 
         speechHandler = handler
@@ -44,21 +52,31 @@ object VoiceRecognitionService: RecognitionListener {
         recognizer?.addKeywordSearch(RecognitionType.CAMERA.typeName, cameraGrammar)
     }
 
+    /**
+     * Shit down the Service
+     */
     fun shutDown() {
         recognizer?.cancel()
         recognizer?.shutdown()
         recognizer = null
     }
 
+    /**
+     * Stop listening for commands
+     */
     fun stopListening() {
         recognizer?.stop()
     }
 
+    /**
+     * Set the recognizer commands and start listening
+     */
     fun setRecognitionType(type: RecognitionType) {
         recognizer?.stop()
         recognizer?.startListening(type.typeName)
     }
 
+    // region RecognitionListener
     override fun onBeginningOfSpeech() {
        //TODO("Not yet implemented")
     }
@@ -88,6 +106,5 @@ object VoiceRecognitionService: RecognitionListener {
     override fun onTimeout() {
         //TODO("Not yet implemented")
     }
-
-    // Something/callback should be able to create task in response
+    // endregion
 }

@@ -1,20 +1,17 @@
 package com.dpanuska.halloween
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import com.dpanuska.halloween.analysis.*
 import com.dpanuska.halloween.permissions.PermissionHelper
 import com.dpanuska.halloween.service.CameraService
 import com.dpanuska.halloween.service.FileService
-import com.dpanuska.halloween.service.PrintService
 import com.dpanuska.halloween.service.SpeechService
 import com.dpanuska.halloween.service.VisualService
 import com.dpanuska.halloween.service.SpeechHandler
@@ -25,7 +22,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
-
 
 
 enum class AppState {
@@ -45,11 +41,9 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     val runTestTasks = false
 
     var poseAnalyzer = PoseAnalyzer(this)
-
     var scheduler = TaskScheduler(Dispatchers.Default)
     val taskLoader = TaskLoader()
     val testLoader = TaskLoader()
-
 
     var currentState = AppState.IDLE
 
@@ -57,11 +51,9 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     var goodbyeTask: TimerTask? = null
     var activeIdleTask: TimerTask? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         // Hide bars
         window.setDecorFitsSystemWindows(false)
@@ -79,7 +71,6 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_greeting)
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_bye)
         taskLoader.loadFromJSONResource(resources, R.raw.tasks_camera)
-
 
         testLoader.loadFromJSONResource(resources, R.raw.tasks_test)
 
@@ -115,6 +106,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         Timer().schedule(initTask, 1000)
     }
 
+    // region User interaction
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         scheduler.queueTask(taskLoader.getRandomTaskOfType("DONT_TOUCH")!!, true)
 
@@ -123,16 +115,18 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         }
         return super.onTouchEvent(event)
     }
+    // endregion
 
+    // region Permissions
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray) {
         PermissionHelper.onRequestPermissionsResult(this, requestCode, permissions, grantResults)
     }
+    // endregion
 
-    // SpeechHandler
-
+    // region SpeechHandler
     override fun onPartialResults(result: String) {
         parseSpeechResults(result)
     }
@@ -180,12 +174,11 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
             scheduler.queueTask(cameraTask!!, true)
         }
     }
+    //endregion
 
+    // region Activity Detection
 
-    // Activity Detection
-
-    // DetectionCallbackHandler
-
+    // region DetectionCallbackHandler
     override fun onObjectDetected() {
         handleActivation()
     }
@@ -193,6 +186,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     override fun onNoObjectDetected() {
         handleDeactivation()
     }
+    // endregion
 
 
     /**
@@ -257,8 +251,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
         }
     }
 
-    // Luminosity
-
+    // region Luminosity
     override fun onRawLuminosity(averageLuminosity: Double, currentLuminosity: Double) {
         lifecycleScope.launch(Dispatchers.Main) {
             debugTextView.text = "Avg: $averageLuminosity \n Curr: $currentLuminosity \n Diff: ${averageLuminosity - currentLuminosity}"
@@ -272,5 +265,7 @@ class MainActivity : AppCompatActivity(), SpeechHandler, LuminosityCallbackHandl
     override fun onLuminosityNormal(averageLuminosity: Double) {
         handleDeactivation()
     }
+    // endregion
+    // endregion Activity Detection
 
 }
