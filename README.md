@@ -1,17 +1,10 @@
 # Halloween
-Halloween android thing
-
-## Disclaimer
-I hold no rights to any image or gif used except me grabbing a bag of candy.  I will try updating this with a "clean" version in the future to remove any
-potentially copyright material. Please don't hurt me!
-
-This is the first time I've ever used Kotlin and Android OS 11 features, so do not take this as gospel, and leave critisism of the contructive kind.
-Very willing to take that and improve, time allowing.
-
-
-## Summary
 This application is for detecting people and greeting trick or treaters for Halloween. 
 It is written for Android OS 11 (SDK 30) using a device with the front camera available.
+
+## Disclaimer
+This is the first time I've ever used Kotlin and Android OS 11 features, so do not take this as gospel, and leave critisism of the contructive kind.
+Very willing to take that and improve, time allowing.
 
 ## Supported Tasks
 - TAKE_PICTURE - Takes a picture from current (front) camera
@@ -144,7 +137,7 @@ Loaded from JSON this looks like the following
 - Task Schema with UI for creation - Mobile and/or web creation of tasks
 - Visuals pre-loaded from web based on definitions
 - Service to provide "Packs" of tasks
-- Load pocketsphinx terms from JSON definitions rather than predefined grammar files
+- Load pocketsphinx terms from JSON definitions rather than predefined grammar files and link tasks for execution based on spoken commands
 - Better error handling
 - Better logging
 - More data driven in general - define wait time for "GREETING" - define what "GREETING" is in task "pack" etc.
