@@ -2,6 +2,8 @@
 This application is for detecting people and greeting trick or treaters for Halloween. 
 It is written for Android OS 11 (SDK 30) using a device with the front camera available.
 
+https://www.youtube.com/watch?v=MQfzsSgZz6I&list=PL77NfWIzmnzyghrEG0vlEM3k7t7s-nEaq
+
 ## Disclaimer
 This is the first time I've ever used Kotlin and Android OS 11 features, so do not take this as gospel, and leave critisism of the contructive kind.
 Very willing to take that and improve, time allowing.
