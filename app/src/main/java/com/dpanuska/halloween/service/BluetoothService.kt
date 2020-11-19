@@ -45,7 +45,7 @@ class BluetoothService {
             device.createRfcommSocketToServiceRecord(device.uuids[1].uuid)
         }
 
-        public override fun run() {
+        override fun run() {
             // Cancel discovery because it otherwise slows down the connection.
             adapter?.cancelDiscovery()
 
