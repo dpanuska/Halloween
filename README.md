@@ -6,7 +6,7 @@ https://www.youtube.com/watch?v=MQfzsSgZz6I&list=PL77NfWIzmnzyghrEG0vlEM3k7t7s-n
 
 ## Disclaimer
 This is the first time I've ever used Kotlin and Android OS 11 features, so do not take this as gospel, and leave critisism of the contructive kind.
-Very willing to take that and improve, time allowing.
+Very willing to take that and improve, time allowing. Realize the task dispatching can be cleaned up a lot and am working on that here and there.
 
 ## Supported Tasks
 - TAKE_PICTURE - Takes a picture from current (front) camera
