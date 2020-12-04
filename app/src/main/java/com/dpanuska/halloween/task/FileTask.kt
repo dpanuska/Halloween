@@ -27,7 +27,7 @@ object FileTask {
     private fun saveImageBlock(): TaskBlock {
         return {
             val bitmap = it as? Bitmap ?: throw Exception("Image not passed from previous task")
-            Log.e(TAG, "Starting Save Image task")
+            Log.d(TAG, "Starting Save Image task")
             saveImageBlockAsync(bitmap)
         }
     }
@@ -38,7 +38,7 @@ object FileTask {
 
     private fun saveImageBlock(image: Bitmap): TaskBlock {
         return {
-            Log.e(TAG, "Starting Save Image task")
+            Log.d(TAG, "Starting Save Image task")
             saveImageBlockAsync(image)
         }
     }

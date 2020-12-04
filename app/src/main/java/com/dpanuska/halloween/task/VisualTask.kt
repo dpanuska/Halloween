@@ -28,7 +28,7 @@ object VisualTask {
      */
     private fun hideOverlayBlock(): TaskBlock {
         return {
-            Log.e(TAG, "Starting Hide Overlay task")
+            Log.d(TAG, "Starting Hide Overlay task")
             hideOverlayBlockAsync()
         }
     }
@@ -55,7 +55,7 @@ object VisualTask {
      */
     private fun setBackgroundBlock(resId: Int): TaskBlock {
         return {
-            Log.e(TAG, "Starting Set Image task")
+            Log.d(TAG, "Starting Set Image task")
             setBackgroundBlockAsync(resId)
         }
     }
@@ -92,7 +92,7 @@ object VisualTask {
     private fun setBackgroundBlock(): TaskBlock {
         return {
             val bitmap = it as? Bitmap ?: throw(Exception("Bitmap not passed to set background block"))
-            Log.e(TAG, "Starting Set Image task")
+            Log.d(TAG, "Starting Set Image task")
             setBackgroundBlockAsync(bitmap)
         }
     }
@@ -102,7 +102,7 @@ object VisualTask {
      */
     private fun setBackgroundBlock(bitmap: Bitmap): TaskBlock {
         return {
-            Log.e(TAG, "Starting Set Image task")
+            Log.d(TAG, "Starting Set Image task")
             setBackgroundBlockAsync(bitmap)
         }
     }
@@ -129,7 +129,7 @@ object VisualTask {
      */
     private fun setBackgroundGifBlock(resId: Int): TaskBlock {
         return {
-            Log.e(TAG, "Starting Set GIF task")
+            Log.d(TAG, "Starting Set GIF task")
             setBackgroundGifBlockAsync(resId)
         }
     }
@@ -156,7 +156,7 @@ object VisualTask {
      */
     private fun setTextBlock(text: String): TaskBlock {
         return {
-            Log.e(TAG, "Starting Set Text task")
+            Log.d(TAG, "Starting Set Text task")
             setTextBlockAsync(text)
         }
     }

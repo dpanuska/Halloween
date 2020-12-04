@@ -42,7 +42,7 @@ object SpeechTask {
      */
     private fun resetDefaultsTaskBlock(): TaskBlock {
         return {
-            Log.e(TAG, "Starting reset defaults task")
+            Log.d(TAG, "Starting reset defaults task")
             resetDefaultsTaskBlockAsync()
         }
     }
@@ -69,7 +69,7 @@ object SpeechTask {
      */
     private fun sayTextTaskBlock(text: String): TaskBlock {
         return {
-            Log.e(FileTask.TAG, "Starting Say Text task")
+            Log.d(FileTask.TAG, "Starting Say Text task")
             sayTextTaskBlockAsync(text)
         }
     }
@@ -95,7 +95,7 @@ object SpeechTask {
      */
     private fun setPitchTaskBlock(pitch: Float): TaskBlock {
         return {
-            Log.e(FileTask.TAG, "Starting Set Pitch task")
+            Log.d(FileTask.TAG, "Starting Set Pitch task")
             setPitchTaskBlockAsync(pitch)
         }
     }
@@ -122,7 +122,7 @@ object SpeechTask {
      */
     private fun setSpeechRateTaskBlock(speechRate: Float): TaskBlock {
         return {
-            Log.e(FileTask.TAG, "Starting Speech Rate task")
+            Log.d(FileTask.TAG, "Starting Speech Rate task")
             setSpeechRateTaskBlockAsync(speechRate)
         }
     }
@@ -149,7 +149,7 @@ object SpeechTask {
      */
     private fun setLocaleTaskBlock(locale: Locale): TaskBlock {
         return {
-            Log.e(FileTask.TAG, "Starting Set Locale task")
+            Log.d(FileTask.TAG, "Starting Set Locale task")
             setLocaleTaskBlockAsync(locale)
         }
     }

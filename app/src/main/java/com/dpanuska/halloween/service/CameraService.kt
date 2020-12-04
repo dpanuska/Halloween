@@ -102,7 +102,7 @@ object CameraService {
 
             @SuppressLint("UnsafeExperimentalUsageError")
             override fun onCaptureSuccess(image: ImageProxy) {
-                Log.e(TAG, "Photo capture success")
+                Log.d(TAG, "Photo capture success")
                 var bitmap = image.image?.toBitmap()
                 if (selector == CameraSelector.DEFAULT_FRONT_CAMERA) {
                     bitmap = bitmap?.flip()

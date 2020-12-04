@@ -25,7 +25,7 @@ object CameraTask {
      */
     private fun takePhotoBlock(): TaskBlock {
         return {
-            Log.e(TAG, "Starting Take Photo Task")
+            Log.d(TAG, "Starting Take Photo Task")
             takePhotoBlockAsync()
         }
     }

@@ -66,7 +66,7 @@ class TaskScheduler(dispatcher: CoroutineDispatcher = Dispatchers.Default) {
                     CoroutineScope(task.dispatcher).launch {
                         try {
                             val result = task.executeAsync().await()
-                            Log.e(TAG,  "task $task completed successfully with result $result")
+                            Log.d(TAG,  "task $task completed successfully with result $result")
                         } catch (e: Exception) {
                             Log.e(TAG, "task $task threw exception", e)
                         } finally {
