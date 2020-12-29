@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {Button, SafeAreaView} from 'react-native';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
-import {sayText} from '../actions/TextToSpeechActions';
+import {sayText} from '../actions/SpeechActions';
 import BackgroundView from './BackgroundView';
-import {setBackgroundFile} from '../actions/VisualActions';
+// import {setBackgroundFile} from '../actions/VisualActions';
 
 export interface Props {
   onButtonPressed: () => void;
@@ -34,7 +34,7 @@ class AppView extends Component<Props> {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     // dispatching plain actions
-    onButtonPressed: () => dispatch(setBackgroundFile('Testing the stuff!')),
+    onButtonPressed: () => dispatch(sayText('Testing the stuff!')),
   };
 };
 

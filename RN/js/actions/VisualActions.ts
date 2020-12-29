@@ -2,21 +2,25 @@ import {
   VISUAL_RESET,
   VISUAL_SET_BACKGROUND_FILE,
   VISUAL_SET_TEXT,
-} from '../constants/ActionTypes';
+} from '../constants/Actions';
+import {
+  SetBackgroundAction,
+  SetTextAction,
+  ResetVisualAction,
+} from '../types/VisualActionTypes';
 
-export const resetVisuals = () => ({
+export const resetVisuals = (): ResetVisualAction => ({
   type: VISUAL_RESET,
-  payload: {},
 });
 
-export const setBackgroundFile = (filePath: string) => ({
+export const setBackgroundFile = (filePath: string): SetBackgroundAction => ({
   type: VISUAL_SET_BACKGROUND_FILE,
   payload: {
     filePath,
   },
 });
 
-export const displayText = (text: string) => ({
+export const displayText = (text: string): SetTextAction => ({
   type: VISUAL_SET_TEXT,
   payload: {
     text,

@@ -1,5 +1,5 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
-import * as actions from '../constants/ActionTypes';
+import * as actions from '../constants/Actions';
 
 function* executeTask(action) {
   try {

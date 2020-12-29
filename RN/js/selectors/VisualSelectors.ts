@@ -1,9 +1,9 @@
-import {AllState, VisualState} from '../types/StateTypes';
+import {RootState, VisualState} from '../types/StateTypes';
 
-export const getVisualState = (state: AllState): VisualState => state.visual;
+export const getVisualState = (state: RootState): VisualState => state.visual;
 
-export const getBackgroundFile = (state: AllState): string | null =>
+export const getBackgroundFile = (state: RootState): string | null =>
   getVisualState(state).backgroundFile;
 
-export const getText = (state: AllState): string | null =>
+export const getText = (state: RootState): string | null =>
   getVisualState(state).text;

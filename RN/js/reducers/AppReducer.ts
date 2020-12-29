@@ -1,13 +1,17 @@
-import {APP_SET_DETECTION_STATE} from '../constants/ActionTypes';
+import {APP_SET_DETECTION_STATE} from '../constants/Actions';
 import {createReducer} from '@reduxjs/toolkit';
 
-import {AppState, DetectionState} from '../types/StateTypes';
+import {AppState, DetectionStates} from '../types/StateTypes';
+import {DetectionStateAction} from '../types/AppActionTypes';
 
 const initialState: AppState = {
-  detectionState: DetectionState.IDLE,
+  detectionState: DetectionStates.IDLE,
 };
 
-function setAppState(state: AppState, action): AppState {
+function setDetectionState(
+  state: AppState,
+  action: DetectionStateAction,
+): AppState {
   let {detectionState} = action.payload;
   return {
     ...state,
@@ -16,8 +20,8 @@ function setAppState(state: AppState, action): AppState {
 }
 
 const reducer = createReducer(initialState, {
-  [APP_SET_DETECTION_STATE]: (state: AppState, action: any) =>
-    setAppState(state, action),
+  [APP_SET_DETECTION_STATE]: (state: AppState, action: DetectionStateAction) =>
+    setDetectionState(state, action),
 });
 
 export default reducer;

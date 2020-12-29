@@ -2,17 +2,21 @@ import {
   VISUAL_SET_BACKGROUND_FILE,
   VISUAL_RESET,
   VISUAL_SET_TEXT,
-} from '../constants/ActionTypes';
+} from '../constants/Actions';
 import {createReducer} from '@reduxjs/toolkit';
 
 import {VisualState} from '../types/StateTypes';
+import {SetBackgroundAction, SetTextAction} from '../types/VisualActionTypes';
 
 const initialState: VisualState = {
   backgroundFile: null,
   text: null,
 };
 
-function setBackgroundFile(state: VisualState, action): VisualState {
+function setBackgroundFile(
+  state: VisualState,
+  action: SetBackgroundAction,
+): VisualState {
   let {filePath} = action.payload;
   return {
     ...state,
@@ -20,7 +24,7 @@ function setBackgroundFile(state: VisualState, action): VisualState {
   };
 }
 
-function setVisualText(state: VisualState, action): VisualState {
+function setVisualText(state: VisualState, action: SetTextAction): VisualState {
   let {text} = action.payload;
   return {
     ...state,
@@ -33,9 +37,11 @@ function resetVisuals() {
 }
 
 const reducer = createReducer(initialState, {
-  [VISUAL_SET_BACKGROUND_FILE]: (state: VisualState, action: any) =>
-    setBackgroundFile(state, action),
-  [VISUAL_SET_TEXT]: (state: VisualState, action: any) =>
+  [VISUAL_SET_BACKGROUND_FILE]: (
+    state: VisualState,
+    action: SetBackgroundAction,
+  ) => setBackgroundFile(state, action),
+  [VISUAL_SET_TEXT]: (state: VisualState, action: SetTextAction) =>
     setVisualText(state, action),
   [VISUAL_RESET]: () => resetVisuals(),
 });

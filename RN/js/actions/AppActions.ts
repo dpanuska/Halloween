@@ -1,7 +1,11 @@
-import {APP_SET_DETECTION_STATE} from '../constants/ActionTypes';
-import {DetectionState} from '../types/StateTypes';
+import {APP_SET_DETECTION_STATE} from '../constants/Actions';
+import {DetectionStates} from '../types/StateTypes';
 
-export const setDetectionState = (detectionState: DetectionState) => ({
+import {DetectionStateAction} from '../types/AppActionTypes';
+
+export const setDetectionState = (
+  detectionState: DetectionStates,
+): DetectionStateAction => ({
   type: APP_SET_DETECTION_STATE,
   payload: {
     detectionState,

@@ -3,7 +3,7 @@ import {Image, View} from 'react-native';
 import {connect} from 'react-redux';
 import * as visualSelectors from '../selectors/VisualSelectors';
 
-import {AllState} from '../types/StateTypes';
+import {RootState} from '../types/StateTypes';
 
 export interface Props {
   backgroundFile: string | null;
@@ -22,7 +22,7 @@ class BackgroundView extends Component<Props> {
   }
 }
 
-const mapStateToProps = (state: AllState) => {
+const mapStateToProps = (state: RootState) => {
   return {
     backgroundFile: visualSelectors.getBackgroundFile(state),
     text: visualSelectors.getText(state),
