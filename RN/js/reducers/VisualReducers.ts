@@ -1,25 +1,18 @@
 import {
-  VISUAL_BACKGROUND,
-  VISUAL_BACKGROUND_FILE,
+  VISUAL_SET_BACKGROUND_FILE,
   VISUAL_RESET,
-  VISUAL_TEXT,
+  VISUAL_SET_TEXT,
 } from '../constants/ActionTypes';
 import {createReducer} from '@reduxjs/toolkit';
-import {Image} from 'react-native';
 
-interface State {
-  backgroundImage: Image | null;
-  backgroundFile: string | null;
-  text: string | null;
-}
+import {VisualState} from '../types/StateTypes';
 
-const initialState: State = {
-  backgroundImage: null,
+const initialState: VisualState = {
   backgroundFile: null,
   text: null,
 };
 
-function setBackgroundFile(state: State, action): State {
+function setBackgroundFile(state: VisualState, action): VisualState {
   let {filePath} = action.payload;
   return {
     ...state,
@@ -27,15 +20,7 @@ function setBackgroundFile(state: State, action): State {
   };
 }
 
-function setBackgroundImage(state: State, action): State {
-  let {image} = action.payload;
-  return {
-    ...state,
-    backgroundImage: image,
-  };
-}
-
-function setVisualText(state: State, action): State {
+function setVisualText(state: VisualState, action): VisualState {
   let {text} = action.payload;
   return {
     ...state,
@@ -48,10 +33,11 @@ function resetVisuals() {
 }
 
 const reducer = createReducer(initialState, {
-  VISUAL_BACKGROUND: setBackgroundImage,
-  VISUAL_BACKGROUND_FILE: setBackgroundFile,
-  VISUAL_TEXT: setVisualText,
-  VISUAL_RESET: resetVisuals,
+  [VISUAL_SET_BACKGROUND_FILE]: (state: VisualState, action: any) =>
+    setBackgroundFile(state, action),
+  [VISUAL_SET_TEXT]: (state: VisualState, action: any) =>
+    setVisualText(state, action),
+  [VISUAL_RESET]: () => resetVisuals(),
 });
 
 export default reducer;

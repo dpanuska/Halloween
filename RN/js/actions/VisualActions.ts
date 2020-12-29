@@ -1,8 +1,7 @@
 import {
   VISUAL_RESET,
-  VISUAL_BACKGROUND,
-  VISUAL_BACKGROUND_FILE,
-  VISUAL_TEXT,
+  VISUAL_SET_BACKGROUND_FILE,
+  VISUAL_SET_TEXT,
 } from '../constants/ActionTypes';
 
 export const resetVisuals = () => ({
@@ -10,22 +9,15 @@ export const resetVisuals = () => ({
   payload: {},
 });
 
-export const setBackgroundImage = (image: Image) => ({
-  type: VISUAL_BACKGROUND,
-  payload: {
-    image,
-  },
-});
-
 export const setBackgroundFile = (filePath: string) => ({
-  type: VISUAL_BACKGROUND_FILE,
+  type: VISUAL_SET_BACKGROUND_FILE,
   payload: {
     filePath,
   },
 });
 
 export const displayText = (text: string) => ({
-  type: VISUAL_TEXT,
+  type: VISUAL_SET_TEXT,
   payload: {
     text,
   },

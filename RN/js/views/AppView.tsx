@@ -3,7 +3,8 @@ import {Button, SafeAreaView} from 'react-native';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {sayText} from '../actions/TextToSpeechActions';
-// import {setBackgroundFile} from '../actions/VisualActions';
+import BackgroundView from './BackgroundView';
+import {setBackgroundFile} from '../actions/VisualActions';
 
 export interface Props {
   onButtonPressed: () => void;
@@ -20,20 +21,20 @@ class AppView extends Component<Props> {
     return (
       <SafeAreaView>
         <Button title="Touch me" onPress={this.onButtonPress} />
+        <BackgroundView />
       </SafeAreaView>
     );
   }
 
   onButtonPress() {
-    let {onButtonPressed} = this.props;
-    onButtonPressed();
+    this.props.onButtonPressed();
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     // dispatching plain actions
-    onButtonPressed: () => dispatch(sayText('Testing the stuff!')),
+    onButtonPressed: () => dispatch(setBackgroundFile('Testing the stuff!')),
   };
 };
 

@@ -12,9 +12,9 @@ function* executeTask(action) {
         call(executeSubTask, subTask);
       }
     }
-    put({type: actions.SPEECH_TEXT_SUCCEEDED});
+    yield put({type: actions.DISPATCH_TASK_SUCCEEDED});
   } catch (error) {
-    put({type: actions.SPEECH_TEXT_FAILED, error});
+    yield put({type: actions.DISPATCH_TASK_FAILED, error});
   }
 }
 // TODO should we expect taskList always, or be able to execute
