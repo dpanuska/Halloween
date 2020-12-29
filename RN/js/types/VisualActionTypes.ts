@@ -1,11 +1,11 @@
 import {Action, PayloadAction} from '@reduxjs/toolkit';
 
 interface FilePathPayload {
-  filePath: string;
+    filePath: string;
 }
 
 interface TextPayload {
-  text: string;
+    text: string;
 }
 
 export type SetBackgroundAction = PayloadAction<FilePathPayload>;

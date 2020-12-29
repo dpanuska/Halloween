@@ -7,35 +7,34 @@ import BackgroundView from './BackgroundView';
 // import {setBackgroundFile} from '../actions/VisualActions';
 
 export interface Props {
-  onButtonPressed: () => void;
+    onButtonPressed: () => void;
 }
 
 class AppView extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
+    constructor(props: Props) {
+        super(props);
+        this.onButtonPress = this.onButtonPress.bind(this);
+    }
 
-    this.onButtonPress = this.onButtonPress.bind(this);
-  }
+    render() {
+        return (
+            <SafeAreaView>
+                <Button title="Touch me" onPress={this.onButtonPress} />
+                <BackgroundView />
+            </SafeAreaView>
+        );
+    }
 
-  render() {
-    return (
-      <SafeAreaView>
-        <Button title="Touch me" onPress={this.onButtonPress} />
-        <BackgroundView />
-      </SafeAreaView>
-    );
-  }
-
-  onButtonPress() {
-    this.props.onButtonPressed();
-  }
+    onButtonPress() {
+        this.props.onButtonPressed();
+    }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    // dispatching plain actions
-    onButtonPressed: () => dispatch(sayText('Testing the stuff!')),
-  };
+    return {
+        // dispatching plain actions
+        onButtonPressed: () => dispatch(sayText('Testing the stuff!')),
+    };
 };
 
 export default connect(null, mapDispatchToProps)(AppView);

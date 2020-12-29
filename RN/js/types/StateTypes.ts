@@ -1,32 +1,32 @@
 export enum DetectionStates {
-  ACTIVE,
-  IDLE,
+    ACTIVE,
+    IDLE,
 }
 
 export enum RequestStates {
-  STARTED,
-  SUCCESSFUL,
-  FAILED,
+    STARTED,
+    SUCCESSFUL,
+    FAILED,
 }
 
 export interface VisualState {
-  backgroundFile: string | null;
-  text: string | null;
+    backgroundFile: string | null;
+    text: string | null;
 }
 
 export interface AppState {
-  detectionState: DetectionStates;
+    detectionState: DetectionStates;
 }
 
 export interface SpeechState {
-  isSpeaking: boolean;
-  isSettingLocale: boolean;
-  isSettingPitch: boolean;
-  isSettingRate: boolean;
+    isSpeaking: boolean;
+    isSettingLocale: boolean;
+    isSettingPitch: boolean;
+    isSettingRate: boolean;
 }
 
 export interface RootState {
-  app: AppState;
-  visual: VisualState;
-  speech: SpeechState;
+    app: AppState;
+    visual: VisualState;
+    speech: SpeechState;
 }

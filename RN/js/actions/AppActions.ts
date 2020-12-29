@@ -4,10 +4,10 @@ import {DetectionStates} from '../types/StateTypes';
 import {DetectionStateAction} from '../types/AppActionTypes';
 
 export const setDetectionState = (
-  detectionState: DetectionStates,
+    detectionState: DetectionStates,
 ): DetectionStateAction => ({
-  type: APP_SET_DETECTION_STATE,
-  payload: {
-    detectionState,
-  },
+    type: APP_SET_DETECTION_STATE,
+    payload: {
+        detectionState,
+    },
 });

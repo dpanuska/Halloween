@@ -4,9 +4,9 @@ import speechReducer from './SpeechReducers';
 import {combineReducers} from 'redux';
 
 const reducers = combineReducers({
-  app: appReducer,
-  visual: visualReducer,
-  speech: speechReducer,
+    app: appReducer,
+    visual: visualReducer,
+    speech: speechReducer,
 });
 
 export default reducers;

@@ -1,19 +1,19 @@
 import {PayloadAction} from '@reduxjs/toolkit';
 
 interface TextPayload {
-  text: string;
+    text: string;
 }
 
 interface LocalePayload {
-  locale: string;
+    locale: string;
 }
 
 interface RatePayload {
-  rate: number;
+    rate: number;
 }
 
 interface PitchPayload {
-  pitch: number;
+    pitch: number;
 }
 
 export type SayTextAction = PayloadAction<TextPayload>;
