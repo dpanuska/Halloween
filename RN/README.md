@@ -6,6 +6,7 @@ In Progress...
 See root README for overall application description.
 
 ## Building
+See [React-Native Environment Setup Docs](https://reactnative.dev/docs/environment-setup) for more details.
 ### React Native Package:
 
 ```
@@ -22,7 +23,7 @@ cd ../
 npx react-native run-ios
 ```
 
-##Android
+## Android
 Download required Android SDK, build tools, gradle, etc. (Open project in Android Studio)
 ```
 cd /<Project_Root>
