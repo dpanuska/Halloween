@@ -65,7 +65,6 @@ function* setLocale(action: SetLocaleAction) {
     }
 }
 
-// use them in parallel
 export default function* rootSaga() {
     yield takeLatest(actions.SPEECH_SAY_TEXT_REQUESTED, sayText);
     yield takeLatest(actions.SPEECH_SET_LOCALE_REQUESTED, setLocale);

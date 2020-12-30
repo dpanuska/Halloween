@@ -23,7 +23,6 @@ function* executeSubTask(task) {
     } catch (error) {}
 }
 
-// use them in parallel
 export default function* rootSaga() {
     yield takeLatest(actions.DISPATCH_TASK_REQUESTED, executeTask);
 }
