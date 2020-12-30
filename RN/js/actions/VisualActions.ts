@@ -20,7 +20,7 @@ export const setBackgroundFile = (filePath: string): SetBackgroundAction => ({
     },
 });
 
-export const displayText = (text: string): SetTextAction => ({
+export const setText = (text: string): SetTextAction => ({
     type: VISUAL_SET_TEXT,
     payload: {
         text,
