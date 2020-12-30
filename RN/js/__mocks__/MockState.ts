@@ -1,7 +1,7 @@
 import {AppState, DetectionStates, RootState, SpeechState, VisualState} from '../types/StateTypes';
 
 export const mockAppState: AppState = {
-    detectionState: DetectionStates.ACTIVE
+    detectionState: DetectionStates.ACTIVE,
 };
 
 export const mockSpeechState: SpeechState = {
