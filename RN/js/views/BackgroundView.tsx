@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, View} from 'react-native';
+import {Image, View, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import * as visualSelectors from '../selectors/VisualSelectors';
 
@@ -16,11 +16,28 @@ class BackgroundView extends Component<Props> {
     }
 
     render() {
-        // let {backgroundFile} = this.props;
-        // source={require({backgroundFile}
-        return <View />;
+        let {backgroundFile} = this.props;
+        return (
+            <View style={styles.container}>
+                {/* {backgroundFile && (
+                    <Image
+                        style={styles.image}
+                        source={require(backgroundFile)}
+                    />
+                )} */}
+            </View>
+        );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    image: {
+        flex: 1,
+    },
+});
 
 const mapStateToProps = (state: RootState) => {
     return {
