@@ -3,7 +3,7 @@ import {compose, createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import {Provider} from 'react-redux';
 import reducer from './js/reducers/Reducers';
-import speechSagas from './js/sagas/TextToSpeechSagas';
+import speechSagas from './js/sagas/TTSSagas';
 import AppView from './js/views/AppView';
 
 const sagaMiddleware = createSagaMiddleware();

@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import {Button, SafeAreaView} from 'react-native';
+import {Button, SafeAreaView, View, StatusBar, StyleSheet} from 'react-native';
+import CameraView from './CameraView';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
-import {sayText} from '../actions/SpeechActions';
-import BackgroundView from './BackgroundView';
+import {sayText} from '../actions/TTSActions';
+import BackgroundView from './OverlayView';
 // import {setBackgroundFile} from '../actions/VisualActions';
+import {takePicture} from '../actions/CameraActions';
 
 export interface Props {
     onButtonPressed: () => void;
@@ -18,9 +20,15 @@ class AppView extends Component<Props> {
 
     render() {
         return (
-            <SafeAreaView>
-                <Button title="Touch me" onPress={this.onButtonPress} />
-                <BackgroundView />
+            <SafeAreaView style={styles.container}>
+                <StatusBar hidden />
+                <View style={styles.camera}>
+                    <CameraView />
+                </View>
+                <View style={styles.overlay}>
+                    <Button title="Touch me" onPress={this.onButtonPress} />
+                    <BackgroundView />
+                </View>
             </SafeAreaView>
         );
     }
@@ -30,10 +38,25 @@ class AppView extends Component<Props> {
     }
 }
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    camera: {
+        flex: 1,
+    },
+    overlay: {
+        flex: 1,
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
+    },
+});
+
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        // dispatching plain actions
-        onButtonPressed: () => dispatch(sayText('Testing the stuff!')),
+        // onButtonPressed: () => dispatch(sayText('Testing the stuff!')),
+        onButtonPressed: () => dispatch(takePicture()),
     };
 };
 

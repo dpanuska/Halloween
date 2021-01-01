@@ -1,5 +1,5 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
-import TextToSpeechService from '../services/TextToSpeech';
+import TextToSpeechService from '../services/TTSService';
 import * as actions from '../constants/Actions';
 import {
     sayTextStarted,
@@ -14,14 +14,14 @@ import {
     setRateStarted,
     setRateSucceeded,
     setRateFailed,
-} from '../actions/SpeechActions';
+} from '../actions/TTSActions';
 
 import {
     SayTextAction,
     SetPitchAction,
     SetRateAction,
     SetLocaleAction,
-} from '../types/SpeechActionTypes';
+} from '../types/TTSActionTypes';
 
 const ttsService = new TextToSpeechService();
 
@@ -66,8 +66,8 @@ function* setLocale(action: SetLocaleAction) {
 }
 
 export default function* rootSaga() {
-    yield takeLatest(actions.SPEECH_SAY_TEXT_REQUESTED, sayText);
-    yield takeLatest(actions.SPEECH_SET_LOCALE_REQUESTED, setLocale);
-    yield takeLatest(actions.SPEECH_SET_RATE_REQUESTED, setRate);
-    yield takeLatest(actions.SPEECH_SET_PITCH_REQUESTED, setPitch);
+    yield takeLatest(actions.TTS_SAY_TEXT_REQUESTED, sayText);
+    yield takeLatest(actions.TTS_SET_LOCALE_REQUESTED, setLocale);
+    yield takeLatest(actions.TTS_SET_RATE_REQUESTED, setRate);
+    yield takeLatest(actions.TTS_SET_PITCH_REQUESTED, setPitch);
 }

@@ -1,8 +1,8 @@
 import {
-    SPEECH_SAY_TEXT_STATUS,
-    SPEECH_SET_LOCALE_STATUS,
-    SPEECH_SET_PITCH_STATUS,
-    SPEECH_SET_RATE_STATUS,
+    TTS_SAY_TEXT_STATUS,
+    TTS_SET_LOCALE_STATUS,
+    TTS_SET_PITCH_STATUS,
+    TTS_SET_RATE_STATUS,
 } from '../constants/Actions';
 import {RequestStatusAction} from '../types/ActionTypes';
 import {createReducer } from '@reduxjs/toolkit';
@@ -64,22 +64,16 @@ function updatePitchStatus(
 }
 
 const reducer = createReducer(initialState, {
-    [SPEECH_SAY_TEXT_STATUS]: (
-        state: SpeechState,
-        action: RequestStatusAction,
-    ) => updateSayTextStatus(state, action),
-    [SPEECH_SET_LOCALE_STATUS]: (
+    [TTS_SAY_TEXT_STATUS]: (state: SpeechState, action: RequestStatusAction) =>
+        updateSayTextStatus(state, action),
+    [TTS_SET_LOCALE_STATUS]: (
         state: SpeechState,
         action: RequestStatusAction,
     ) => updateLocaleStatus(state, action),
-    [SPEECH_SET_PITCH_STATUS]: (
-        state: SpeechState,
-        action: RequestStatusAction,
-    ) => updatePitchStatus(state, action),
-    [SPEECH_SET_RATE_STATUS]: (
-        state: SpeechState,
-        action: RequestStatusAction,
-    ) => updateRateStatus(state, action),
+    [TTS_SET_PITCH_STATUS]: (state: SpeechState, action: RequestStatusAction) =>
+        updatePitchStatus(state, action),
+    [TTS_SET_RATE_STATUS]: (state: SpeechState, action: RequestStatusAction) =>
+        updateRateStatus(state, action),
 });
 
 export default reducer;

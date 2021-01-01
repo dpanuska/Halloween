@@ -1,9 +1,9 @@
-import speechReducer from '../../reducers/SpeechReducer';
+import speechReducer from '../../reducers/TTSReducer';
 import {
-    SPEECH_SAY_TEXT_STATUS,
-    SPEECH_SET_RATE_STATUS,
-    SPEECH_SET_PITCH_STATUS,
-    SPEECH_SET_LOCALE_STATUS,
+    TTS_SAY_TEXT_STATUS,
+    TTS_SET_RATE_STATUS,
+    TTS_SET_PITCH_STATUS,
+    TTS_SET_LOCALE_STATUS,
 } from '../../constants/Actions';
 import {SpeechState, RequestStates} from '../../types/StateTypes';
 
@@ -14,7 +14,7 @@ let initialState: SpeechState = {
     isSettingLocale: false,
 };
 
-describe('SpeechReducer', () => {
+describe('TTSReducer', () => {
     it('should return initial state', () => {
         expect(speechReducer(initialState, {type: 'INVALID'})).toEqual(
             initialState,
@@ -24,7 +24,7 @@ describe('SpeechReducer', () => {
     describe('Say Actions', () => {
         it('should handle SPEECH_SAY_TEXT_STATUS STARTED', () => {
             let action = {
-                type: SPEECH_SAY_TEXT_STATUS,
+                type: TTS_SAY_TEXT_STATUS,
                 payload: {
                     status: RequestStates.STARTED,
                 },
@@ -42,7 +42,7 @@ describe('SpeechReducer', () => {
                 isSpeaking: true,
             };
             let action = {
-                type: SPEECH_SAY_TEXT_STATUS,
+                type: TTS_SAY_TEXT_STATUS,
                 payload: {
                     status: RequestStates.SUCCESSFUL,
                 },
@@ -61,7 +61,7 @@ describe('SpeechReducer', () => {
             };
             let error = new Error('some error');
             let action = {
-                type: SPEECH_SAY_TEXT_STATUS,
+                type: TTS_SAY_TEXT_STATUS,
                 payload: {
                     status: RequestStates.FAILED,
                     error,
@@ -78,7 +78,7 @@ describe('SpeechReducer', () => {
     describe('Rate Actions', () => {
         it('should handle SPEECH_SET_RATE_STATUS STARTED', () => {
             let action = {
-                type: SPEECH_SET_RATE_STATUS,
+                type: TTS_SET_RATE_STATUS,
                 payload: {
                     status: RequestStates.STARTED,
                 },
@@ -96,7 +96,7 @@ describe('SpeechReducer', () => {
                 isSettingRate: true,
             };
             let action = {
-                type: SPEECH_SET_RATE_STATUS,
+                type: TTS_SET_RATE_STATUS,
                 payload: {
                     status: RequestStates.SUCCESSFUL,
                 },
@@ -115,7 +115,7 @@ describe('SpeechReducer', () => {
             };
             let error = new Error('some error');
             let action = {
-                type: SPEECH_SET_RATE_STATUS,
+                type: TTS_SET_RATE_STATUS,
                 payload: {
                     status: RequestStates.FAILED,
                     error,
@@ -132,7 +132,7 @@ describe('SpeechReducer', () => {
     describe('Pitch Actions', () => {
         it('should handle SPEECH_SET_PITCH_STATUS STARTED', () => {
             let action = {
-                type: SPEECH_SET_PITCH_STATUS,
+                type: TTS_SET_PITCH_STATUS,
                 payload: {
                     status: RequestStates.STARTED,
                 },
@@ -150,7 +150,7 @@ describe('SpeechReducer', () => {
                 isSettingPitch: true,
             };
             let action = {
-                type: SPEECH_SET_PITCH_STATUS,
+                type: TTS_SET_PITCH_STATUS,
                 payload: {
                     status: RequestStates.SUCCESSFUL,
                 },
@@ -169,7 +169,7 @@ describe('SpeechReducer', () => {
             };
             let error = new Error('some error');
             let action = {
-                type: SPEECH_SET_PITCH_STATUS,
+                type: TTS_SET_PITCH_STATUS,
                 payload: {
                     status: RequestStates.FAILED,
                     error,
@@ -186,7 +186,7 @@ describe('SpeechReducer', () => {
     describe('Locale Actions', () => {
         it('should handle SPEECH_SET_LOCALE_STATUS STARTED', () => {
             let action = {
-                type: SPEECH_SET_LOCALE_STATUS,
+                type: TTS_SET_LOCALE_STATUS,
                 payload: {
                     status: RequestStates.STARTED,
                 },
@@ -204,7 +204,7 @@ describe('SpeechReducer', () => {
                 isSettingLocale: true,
             };
             let action = {
-                type: SPEECH_SET_LOCALE_STATUS,
+                type: TTS_SET_LOCALE_STATUS,
                 payload: {
                     status: RequestStates.SUCCESSFUL,
                 },
@@ -223,7 +223,7 @@ describe('SpeechReducer', () => {
             };
             let error = new Error('some error');
             let action = {
-                type: SPEECH_SET_LOCALE_STATUS,
+                type: TTS_SET_LOCALE_STATUS,
                 payload: {
                     status: RequestStates.FAILED,
                     error,

@@ -25,8 +25,16 @@ export interface SpeechState {
     isSettingRate: boolean;
 }
 
+export interface CameraState {
+    aspectRatio: string;
+    useFrontCamera: boolean;
+    isTakingPicture: boolean;
+    isPictureRequested: boolean;
+}
+
 export interface RootState {
     app: AppState;
+    camera: CameraState;
     visual: VisualState;
     speech: SpeechState;
 }

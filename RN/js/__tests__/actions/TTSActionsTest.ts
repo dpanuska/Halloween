@@ -1,13 +1,13 @@
-import * as actions from '../../actions/SpeechActions';
+import * as actions from '../../actions/TTSActions';
 import * as types from '../../constants/Actions';
 import {RequestStates} from '../../types/StateTypes';
 
-describe('SpeechActions', () => {
+describe('TTSActions', () => {
     describe('Say Actions', () => {
         it('should create an action to request say text', () => {
             let text = 'something to say';
             let expectedAction = {
-                type: types.SPEECH_SAY_TEXT_REQUESTED,
+                type: types.TTS_SAY_TEXT_REQUESTED,
                 payload: {
                     text,
                 },
@@ -17,7 +17,7 @@ describe('SpeechActions', () => {
 
         it('should create an action to start saying text', () => {
             let expectedAction = {
-                type: types.SPEECH_SAY_TEXT_STATUS,
+                type: types.TTS_SAY_TEXT_STATUS,
                 payload: {
                     status: RequestStates.STARTED,
                 },
@@ -27,7 +27,7 @@ describe('SpeechActions', () => {
 
         it('should create an action to complete saying text', () => {
             let expectedAction = {
-                type: types.SPEECH_SAY_TEXT_STATUS,
+                type: types.TTS_SAY_TEXT_STATUS,
                 payload: {
                     status: RequestStates.SUCCESSFUL,
                 },
@@ -38,7 +38,7 @@ describe('SpeechActions', () => {
         it('should create an action to fail saying text', () => {
             let error = Error('some error message');
             let expectedAction = {
-                type: types.SPEECH_SAY_TEXT_STATUS,
+                type: types.TTS_SAY_TEXT_STATUS,
                 payload: {
                     status: RequestStates.FAILED,
                     error,
@@ -52,7 +52,7 @@ describe('SpeechActions', () => {
         it('should create an action to request rate change', () => {
             let rate = 0.5;
             let expectedAction = {
-                type: types.SPEECH_SET_RATE_REQUESTED,
+                type: types.TTS_SET_RATE_REQUESTED,
                 payload: {
                     rate,
                 },
@@ -62,7 +62,7 @@ describe('SpeechActions', () => {
 
         it('should create an action to start rate change', () => {
             let expectedAction = {
-                type: types.SPEECH_SET_RATE_STATUS,
+                type: types.TTS_SET_RATE_STATUS,
                 payload: {
                     status: RequestStates.STARTED,
                 },
@@ -72,7 +72,7 @@ describe('SpeechActions', () => {
 
         it('should create an action to complete rate change', () => {
             const expectedAction = {
-                type: types.SPEECH_SET_RATE_STATUS,
+                type: types.TTS_SET_RATE_STATUS,
                 payload: {
                     status: RequestStates.SUCCESSFUL,
                 },
@@ -83,7 +83,7 @@ describe('SpeechActions', () => {
         it('should create an action to fail rate change', () => {
             let error = Error('some error message');
             const expectedAction = {
-                type: types.SPEECH_SET_RATE_STATUS,
+                type: types.TTS_SET_RATE_STATUS,
                 payload: {
                     status: RequestStates.FAILED,
                     error,
@@ -97,7 +97,7 @@ describe('SpeechActions', () => {
         it('should create an action to request pitch change', () => {
             let pitch = 0.5;
             const expectedAction = {
-                type: types.SPEECH_SET_PITCH_REQUESTED,
+                type: types.TTS_SET_PITCH_REQUESTED,
                 payload: {
                     pitch,
                 },
@@ -107,7 +107,7 @@ describe('SpeechActions', () => {
 
         it('should create an action to start pitch change', () => {
             const expectedAction = {
-                type: types.SPEECH_SET_PITCH_STATUS,
+                type: types.TTS_SET_PITCH_STATUS,
                 payload: {
                     status: RequestStates.STARTED,
                 },
@@ -117,7 +117,7 @@ describe('SpeechActions', () => {
 
         it('should create an action to complete pitch change', () => {
             const expectedAction = {
-                type: types.SPEECH_SET_PITCH_STATUS,
+                type: types.TTS_SET_PITCH_STATUS,
                 payload: {
                     status: RequestStates.SUCCESSFUL,
                 },
@@ -128,7 +128,7 @@ describe('SpeechActions', () => {
         it('should create an action to fail pitch change', () => {
             let error = Error('some error message');
             const expectedAction = {
-                type: types.SPEECH_SET_PITCH_STATUS,
+                type: types.TTS_SET_PITCH_STATUS,
                 payload: {
                     status: RequestStates.FAILED,
                     error,
@@ -142,7 +142,7 @@ describe('SpeechActions', () => {
         it('should create an action to request locale change', () => {
             let locale = 'US';
             const expectedAction = {
-                type: types.SPEECH_SET_LOCALE_REQUESTED,
+                type: types.TTS_SET_LOCALE_REQUESTED,
                 payload: {
                     locale,
                 },
@@ -152,7 +152,7 @@ describe('SpeechActions', () => {
 
         it('should create an action to start locale change', () => {
             const expectedAction = {
-                type: types.SPEECH_SET_LOCALE_STATUS,
+                type: types.TTS_SET_LOCALE_STATUS,
                 payload: {
                     status: RequestStates.STARTED,
                 },
@@ -162,7 +162,7 @@ describe('SpeechActions', () => {
 
         it('should create an action to complete locale change', () => {
             const expectedAction = {
-                type: types.SPEECH_SET_LOCALE_STATUS,
+                type: types.TTS_SET_LOCALE_STATUS,
                 payload: {
                     status: RequestStates.SUCCESSFUL,
                 },
@@ -173,7 +173,7 @@ describe('SpeechActions', () => {
         it('should create an action to fail locale change', () => {
             let error = Error('some error message');
             const expectedAction = {
-                type: types.SPEECH_SET_LOCALE_STATUS,
+                type: types.TTS_SET_LOCALE_STATUS,
                 payload: {
                     status: RequestStates.FAILED,
                     error,

@@ -4,10 +4,10 @@ import {
     getIsSettingRate,
     getIsSettingPitch,
     getIsSettingLocale,
-} from '../../selectors/SpeechSelectors';
+} from '../../selectors/TTSSelectors';
 import {mockSpeechState, mockRootState} from '../../__mocks__/MockState';
 
-describe('AppSelectors', () => {
+describe('TTSSelectors', () => {
     it('should get speech slice of state', () => {
         expect(getSpeechState(mockRootState)).toEqual(mockSpeechState);
     });

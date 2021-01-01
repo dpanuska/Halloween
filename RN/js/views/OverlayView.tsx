@@ -10,7 +10,7 @@ export interface Props {
     text: string | null;
 }
 
-class BackgroundView extends Component<Props> {
+class OverlayView extends Component<Props> {
     constructor(props: Props) {
         super(props);
     }
@@ -19,12 +19,7 @@ class BackgroundView extends Component<Props> {
         let {backgroundFile} = this.props;
         return (
             <View style={styles.container}>
-                {/* {backgroundFile && (
-                    <Image
-                        style={styles.image}
-                        source={require(backgroundFile)}
-                    />
-                )} */}
+                {backgroundFile && <View style={styles.image} />}
             </View>
         );
     }
@@ -33,6 +28,7 @@ class BackgroundView extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: 'transparent',
     },
     image: {
         flex: 1,
@@ -46,4 +42,4 @@ const mapStateToProps = (state: RootState) => {
     };
 };
 
-export default connect(mapStateToProps)(BackgroundView);
+export default connect(mapStateToProps)(OverlayView);
