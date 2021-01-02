@@ -14,8 +14,16 @@ export interface VisualState {
     text: string | null;
 }
 
+export interface AppConfig {
+    activationDelay: number;
+    deactivationDelay: number;
+    detectionFrequency: number;
+    detectionClearDelay: number;
+}
+
 export interface AppState {
     detectionState: DetectionStates;
+    config: AppConfig;
 }
 
 export interface SpeechState {
@@ -30,6 +38,7 @@ export interface CameraState {
     useFrontCamera: boolean;
     isTakingPicture: boolean;
     isPictureRequested: boolean;
+    trackedObject: any;
 }
 
 export interface RootState {

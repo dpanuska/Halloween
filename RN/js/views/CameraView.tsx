@@ -1,16 +1,19 @@
-import React, {Component, useEffect} from 'react';
+import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import {Camera} from 'expo-camera';
+import * as FaceDetector from 'expo-face-detector';
 import {
     getAspectRatio,
     getUseFrontCamera,
     getIsPictureRequested,
 } from '../selectors/CameraSelectors';
+import {getDetectionFrequency} from '../selectors/AppSelectors'
 import {
     takePictureStarted,
     takePictureSucceeded,
     takePictureFailed,
+    objectDetected,
 } from '../actions/CameraActions';
 
 import {RootState} from '../types/StateTypes';
@@ -20,15 +23,29 @@ interface Props {
     aspectRatio: string;
     useFrontCamera: boolean;
     shouldTakePicture: boolean;
+    detectionFrequency: number;
     onTakePictureStart: () => void;
     onTakePictureFailed: (error: Error) => void;
     onTakePictureComplete: (uri: string) => void;
+    onObjectDetected: (data: any) => void;
 }
 
 class CameraView extends Component<Props> {
     cameraRef: any;
+    detectionSettings: any;
     constructor(props: Props) {
         super(props);
+
+        this.handleDetections = this.handleDetections.bind(this);
+
+        // doesn't current;y change. but look into updating in useEffect
+        this.detectionSettings = {
+            mode: FaceDetector.Constants.Mode.fast,
+            detectLandmarks: FaceDetector.Constants.Landmarks.none,
+            runClassifications: FaceDetector.Constants.Classifications.none,
+            minDetectionInterval: props.detectionFrequency,
+            tracking: false,
+        };
     }
 
     componentDidUpdate(prevProps: Props) {
@@ -58,6 +75,10 @@ class CameraView extends Component<Props> {
         }
     }
 
+    handleDetections(data: any) {
+        this.props.onObjectDetected(data);
+    }
+
     render() {
         let {aspectRatio, useFrontCamera} = this.props;
         let cameraType = useFrontCamera
@@ -72,6 +93,9 @@ class CameraView extends Component<Props> {
                     style={styles.camera}
                     type={cameraType}
                     ratio={aspectRatio}
+                    // TODO something wrong with android - Firebase not setup right
+                    // onFacesDetected={this.handleDetections}
+                    faceDetectorSettings={this.detectionSettings}
                 />
             </View>
         );
@@ -92,6 +116,7 @@ const mapStateToProps = (state: RootState) => {
         aspectRatio: getAspectRatio(state),
         useFrontCamera: getUseFrontCamera(state),
         shouldTakePicture: getIsPictureRequested(state),
+        detectionFrequency: getDetectionFrequency(state),
     };
 };
 
@@ -102,6 +127,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
             dispatch(takePictureFailed(error)),
         onTakePictureComplete: (uri: string) =>
             dispatch(takePictureSucceeded(uri)),
+        onObjectDetected: (data: any) => dispatch(objectDetected(data)),
     };
 };
 

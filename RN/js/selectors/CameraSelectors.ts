@@ -9,3 +9,6 @@ export const getUseFrontCamera = (state: RootState): boolean =>
 
 export const getIsPictureRequested = (state: RootState): boolean =>
     getCameraState(state).isPictureRequested;
+
+export const getTrackedData = (state: RootState): any =>
+    getCameraState(state).trackedObject;
