@@ -7,6 +7,10 @@ See root README for overall application description.
 
 ## Building
 See [React-Native Environment Setup Docs](https://reactnative.dev/docs/environment-setup) for more details.
+
+Needs Firebase for FaceDetector for now. So you will need to create a firebase app and generate and add config files for it follow [This](https://rnfirebase.io). Likely need to change project id's as well (from com.dpanuska.halloween) - inconvenient but may go away if I have time to make a custom "PoseDetector." 
+
+...obviously added these to .gitignore
 ### React Native Package:
 
 ```

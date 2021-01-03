@@ -14,7 +14,7 @@ const initialState: CameraState = {
     useFrontCamera: true,
     isTakingPicture: false,
     isPictureRequested: false,
-    trackedObject: null,
+    trackedObject: {},
 };
 
 function takePictureRequested(state: CameraState): CameraState {

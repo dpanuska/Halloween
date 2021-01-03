@@ -1,4 +1,4 @@
-package com.halloween;
+package com.dpanuska.halloween;
 
 import android.os.Bundle;
 

@@ -1,6 +1,6 @@
 export enum DetectionStates {
-    ACTIVE,
     IDLE,
+    ACTIVE,
 }
 
 export enum RequestStates {

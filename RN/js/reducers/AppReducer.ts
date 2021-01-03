@@ -29,28 +29,11 @@ function setDetectionState(
     };
 }
 
-function handleDetectionObjectSet(
-    state: AppState,
-    action: SetTrackingObjectAction,
-): AppState {
-    let {data} = action.payload;
-    let detectionState =
-        data == null ? DetectionStates.IDLE : DetectionStates.ACTIVE;
-    return {
-        ...state,
-        detectionState,
-    };
-}
-
 const reducer = createReducer(initialState, {
     [APP_SET_DETECTION_STATE]: (
         state: AppState,
         action: DetectionStateAction,
     ) => setDetectionState(state, action),
-    [CAMERA_SET_TRACKING_OBJECT]: (
-        state: AppState,
-        action: SetTrackingObjectAction,
-    ) => handleDetectionObjectSet(state, action),
 });
 
 export default reducer;

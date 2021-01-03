@@ -12,7 +12,8 @@ function* endObjectDetection() {
 export default function* objectDetectionFlow() {
     let endTask;
     while (true) {
-        const {data} = yield take(CAMERA_OBJECT_DETECTED);
+        let detectAction = yield take(CAMERA_OBJECT_DETECTED);
+        let {data} = detectAction.payload;
         yield put(setTrackingObject(data));
         if (endTask) {
             yield cancel(endTask);

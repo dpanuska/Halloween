@@ -23,29 +23,25 @@ interface Props {
     aspectRatio: string;
     useFrontCamera: boolean;
     shouldTakePicture: boolean;
-    detectionFrequency: number;
+    detectionSettings: any;
     onTakePictureStart: () => void;
     onTakePictureFailed: (error: Error) => void;
     onTakePictureComplete: (uri: string) => void;
     onObjectDetected: (data: any) => void;
 }
 
-class CameraView extends Component<Props> {
+interface State {
+    isCameraReady: boolean;
+}
+
+class CameraView extends Component<Props, State> {
     cameraRef: any;
-    detectionSettings: any;
     constructor(props: Props) {
         super(props);
 
         this.handleDetections = this.handleDetections.bind(this);
 
-        // doesn't current;y change. but look into updating in useEffect
-        this.detectionSettings = {
-            mode: FaceDetector.Constants.Mode.fast,
-            detectLandmarks: FaceDetector.Constants.Landmarks.none,
-            runClassifications: FaceDetector.Constants.Classifications.none,
-            minDetectionInterval: props.detectionFrequency,
-            tracking: false,
-        };
+        this.state = {isCameraReady: false};
     }
 
     componentDidUpdate(prevProps: Props) {
@@ -76,11 +72,14 @@ class CameraView extends Component<Props> {
     }
 
     handleDetections(data: any) {
-        this.props.onObjectDetected(data);
+        if (data.faces.length > 0) {
+            this.props.onObjectDetected(data);
+        }
     }
 
     render() {
-        let {aspectRatio, useFrontCamera} = this.props;
+        let {aspectRatio, detectionSettings, useFrontCamera} = this.props;
+        let {isCameraReady} = this.state;
         let cameraType = useFrontCamera
             ? Camera.Constants.Type.front
             : Camera.Constants.Type.back;
@@ -94,8 +93,11 @@ class CameraView extends Component<Props> {
                     type={cameraType}
                     ratio={aspectRatio}
                     // TODO something wrong with android - Firebase not setup right
-                    // onFacesDetected={this.handleDetections}
-                    faceDetectorSettings={this.detectionSettings}
+                    onFacesDetected={
+                        isCameraReady ? this.handleDetections : undefined
+                    }
+                    faceDetectorSettings={detectionSettings}
+                    onCameraReady={() => this.setState({isCameraReady: true})}
                 />
             </View>
         );
@@ -112,11 +114,19 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state: RootState) => {
+    let detectionFrequency = getDetectionFrequency(state);
+    let detectionSettings = {
+        mode: FaceDetector.Constants.Mode.fast,
+        detectLandmarks: FaceDetector.Constants.Landmarks.none,
+        runClassifications: FaceDetector.Constants.Classifications.none,
+        minDetectionInterval: detectionFrequency,
+        tracking: false,
+    };
     return {
         aspectRatio: getAspectRatio(state),
         useFrontCamera: getUseFrontCamera(state),
         shouldTakePicture: getIsPictureRequested(state),
-        detectionFrequency: getDetectionFrequency(state),
+        detectionSettings,
     };
 };
 

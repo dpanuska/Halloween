@@ -24,11 +24,17 @@ function* objectDetectionSet(data: any) {
 
 export default function* objectDetectionFlow() {
     let task;
+    let prevDetection;
     while (true) {
-        const {data} = yield take(CAMERA_SET_TRACKING_OBJECT);
-        if (task) {
-            cancel(task);
+        let setAction = yield take(CAMERA_SET_TRACKING_OBJECT);
+        let {data} = setAction.payload;
+        let detection = data != null;
+        if (prevDetection !== detection) {
+            if (task) {
+                cancel(task);
+            }
+            task = yield fork(objectDetectionSet, data);
         }
-        task = yield fork(objectDetectionSet, data);
+        prevDetection = detection;
     }
 }
