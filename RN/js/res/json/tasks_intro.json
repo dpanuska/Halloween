@@ -1,0 +1,77 @@
+{
+  "taskDefinitions": [
+    {
+      "type": "INTRO",
+      "subTasks": [
+        {
+          "type": "TYPED",
+          "taskType": "INTRO_IMAGE"
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Happy Halloween!",
+          "suspend": true
+        },
+        {
+          "type": "TYPED",
+          "taskType": "HANDS",
+          "suspend": true
+        },
+        {
+          "type": "TYPED",
+          "taskType": "GRAB_CANDY",
+          "suspend": true
+        },
+        {
+          "type": "TYPED",
+          "taskType": "IDLE"
+        }
+      ]
+    },
+    {
+      "type": "INTRO_IMAGE",
+      "subTasks": [
+        {
+          "type": "VISUAL_TEXT",
+          "text": "INTRO"
+        }
+      ]
+    },
+    {
+      "type": "HANDS",
+      "subTasks": [
+        {
+          "type": "VISUAL_RESET"
+        },
+        {
+          "type": "VISUAL_TEXT",
+          "text": "Hands"
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Help yourself to some hand sanitizer. Put your hands under the dispenser to the left.",
+          "suspend": true
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Don't worry, the spider won't hurt you!",
+          "suspend": true
+        }
+      ]
+    },
+    {
+      "type": "GRAB_CANDY",
+      "subTasks": [
+        {
+          "type": "VISUAL_BACKGROUND_GIF",
+          "resource": "grab_candy"
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Pull on a bag of candy to remove it from the board.  Enjoy!",
+          "suspend": true
+        }
+      ]
+    }
+  ]
+}

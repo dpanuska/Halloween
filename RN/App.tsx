@@ -2,10 +2,8 @@ import React from 'react';
 import {compose, createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import {Provider} from 'react-redux';
+import rootSaga from './js/sagas/RootSagas';
 import reducer from './js/reducers/Reducers';
-import appSagas from './js/sagas/AppSagas';
-import ttsSagas from './js/sagas/TTSSagas';
-import cameraSagas from './js/sagas/CameraSagas';
 import AppView from './js/views/AppView';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -23,6 +21,4 @@ export default function App() {
     );
 }
 
-sagaMiddleware.run(appSagas);
-sagaMiddleware.run(ttsSagas);
-sagaMiddleware.run(cameraSagas);
+sagaMiddleware.run(rootSaga);

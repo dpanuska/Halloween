@@ -4,6 +4,7 @@ import CameraView from './CameraView';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {sayText} from '../actions/TTSActions';
+import {setBackgroundFile, setText} from '../actions/VisualActions';
 import BackgroundView from './OverlayView';
 // import {setBackgroundFile} from '../actions/VisualActions';
 import {takePicture} from '../actions/CameraActions';
@@ -56,7 +57,8 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         // onButtonPressed: () => dispatch(sayText('Testing the stuff!')),
-        onButtonPressed: () => dispatch(takePicture()),
+        // onButtonPressed: () => dispatch(takePicture()),
+        onButtonPressed: () => dispatch(setBackgroundFile('dylan')),
     };
 };
 

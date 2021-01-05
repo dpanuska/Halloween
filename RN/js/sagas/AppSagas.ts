@@ -1,11 +1,15 @@
-import {take, delay, put, fork, cancel, select} from 'redux-saga/effects';
-import {CAMERA_SET_TRACKING_OBJECT} from '../constants/Actions';
-import {setDetectionState} from '../actions/AppActions';
+import {take, delay, put, fork, cancel, select, call} from 'redux-saga/effects';
+import {
+    APP_INITIALIZE_SERVICES,
+    CAMERA_SET_TRACKING_OBJECT,
+} from '../constants/Actions';
+import {setDetectionState, setConfiguration} from '../actions/AppActions';
 import {
     getDetectionDelay,
     getDetectionState,
     getEndDetectionDelay,
 } from '../selectors/AppSelectors';
+import config from 'res/config';
 
 import {DetectionStates} from '../types/StateTypes';
 
@@ -22,7 +26,7 @@ function* objectDetectionSet(data: any) {
     }
 }
 
-export default function* objectDetectionFlow() {
+function* objectDetectionFlow() {
     let task;
     let prevDetection;
     while (true) {
@@ -31,10 +35,21 @@ export default function* objectDetectionFlow() {
         let detection = data != null;
         if (prevDetection !== detection) {
             if (task) {
-                cancel(task);
+                yield cancel(task);
             }
             task = yield fork(objectDetectionSet, data);
         }
         prevDetection = detection;
     }
+}
+
+// TODO make some kind of central initialization
+function* initialize() {
+    yield put(setConfiguration(config));
+}
+
+export default function* rootSaga() {
+    yield take(APP_INITIALIZE_SERVICES);
+    yield call(initialize);
+    yield fork(objectDetectionFlow);
 }

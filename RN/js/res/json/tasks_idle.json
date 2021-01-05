@@ -1,0 +1,147 @@
+{
+    "taskDefinitions": [
+        {
+            "type": "IDLE",
+            "subTasks": [
+                {
+                    "type": "VISUAL_RESET"
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "IDLE_IMAGE"
+                }
+            ]
+        },
+        {
+            "type": "ACTIVE_IDLE",
+            "subTasks": [
+                {
+                    "type": "VISUAL_RESET"
+                },
+                {
+                    "type": "SPEECH_RESET"
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "IDLE_RAND",
+                    "suspend": true
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "IDLE"
+                }
+            ]
+        },
+        {
+            "type": "IDLE_IMAGE",
+            "subTasks": [
+                {
+                    "type": "VISUAL_TEXT",
+                    "text": "IDLE"
+                }
+            ]
+        },
+        {
+            "type": "IDLE_RAND",
+            "name": "IDLE_SPACE",
+            "subTasks": [
+                {
+                    "type": "SPEECH_RESET"
+                },
+                {
+                    "type": "VISUAL_TEXT",
+                    "text": "Space Facts!"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Here are some interesting facts about space!",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Did you know that there is no sound in space because molecules are too far apart to transmit sound?",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "There are and estimated 200 to 400 billion stars in our galaxy, the Milky Way but nobody knows for sure!",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "If two pieces of the same type of metal touch in space, they will bond and be permanently stuck together; this amazing effect is known as cold welding.",
+                    "suspend": true
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "CONFUSED",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "It happens because the atoms of the individual pieces of metal have no way of knowing that they are different pieces of metal, so the lumps join together.",
+                    "suspend": true
+                },
+                {
+                    "type": "VISUAL_TEXT",
+                    "text": "Space Facts!"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Hope you learned a lot about space!",
+                    "suspend": true
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 1
+                },
+                {
+                    "type": "VISUAL_RESET"
+                }
+            ]
+        },
+        {
+            "type": "IDLE_RAND",
+            "subTasks": [
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "My creator mentioned having a photo booth option",
+                    "suspend": true
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "CONFUSED",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "But he said something about requiring users to touch the device and bluetooth printer protocol or whatever...",
+                    "suspend": true
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Maybe next year",
+                    "suspend": true
+                }
+            ]
+        },
+        {
+            "type": "IDLE_RAND",
+            "subTasks": [
+                {
+                    "type": "VISUAL_BACKGROUND_GIF",
+                    "resource": "dylan"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "This is Dylan. He likes being chased down the hall",
+                    "suspend": true
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 1
+                }
+            ]
+        }
+    ]
+}

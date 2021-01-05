@@ -1,0 +1,94 @@
+{
+    "taskDefinitions": [
+        {
+            "type": "SORRY",
+            "subTasks":[
+                {
+                    "type": "SPEECH_RESET"
+                },
+                {
+                    "type": "VISUAL_RESET"
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "SORRY_SUB",
+                    "suspend": true
+                }
+            ]
+        },
+        {
+            "type": "SORRY_SUB",
+            "subTasks": [
+                {
+                    "type": "VISUAL_TEXT",
+                    "text": "Sorry!"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Sorry!",
+                    "suspend": true
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 1
+                }
+            ]
+        },
+        {
+            "type": "SORRY_SUB",
+            "subTasks": [
+                {
+                    "type": "VISUAL_TEXT",
+                    "text": "I'm Sorry..."
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "I'm Sorry",
+                    "suspend": true
+                },
+                {
+                    "type": "DELAY",
+                    "duration": 1
+                }
+            ]
+        },
+        {
+            "type": "CONFUSED",
+            "subTasks":[
+                {
+                    "type": "VISUAL_TEXT",
+                    "text": "Content Removed"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "This is a confused task.",
+                    "suspend": true
+                }
+            ]
+        },
+        {
+            "type": "DONT_TOUCH",
+            "subTasks":[
+                {
+                    "type": "VISUAL_RESET"
+                },
+                {
+                    "type": "SPEECH_RESET"
+                },
+                {
+                    "type": "VISUAL_TEXT",
+                    "text": "Don't Touch!"
+                },
+                {
+                    "type": "SPEECH_TEXT",
+                    "text": "Please don't touch the device!",
+                    "suspend": true
+                },
+                {
+                    "type": "TYPED",
+                    "taskType": "IDLE"
+                }
+            ]
+        }
+    ]
+}

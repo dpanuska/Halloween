@@ -19,6 +19,10 @@ export interface AppConfig {
     deactivationDelay: number;
     detectionFrequency: number;
     detectionClearDelay: number;
+    activationEventType: string;
+    deactivationEventType: string;
+    idleEventType: string;
+    activeIdleEventType: string;
 }
 
 export interface AppState {

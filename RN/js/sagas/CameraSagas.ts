@@ -14,10 +14,10 @@ export default function* objectDetectionFlow() {
     while (true) {
         let detectAction = yield take(CAMERA_OBJECT_DETECTED);
         let {data} = detectAction.payload;
-        yield put(setTrackingObject(data));
         if (endTask) {
             yield cancel(endTask);
         }
+        yield put(setTrackingObject(data));
         endTask = yield fork(endObjectDetection);
     }
 }

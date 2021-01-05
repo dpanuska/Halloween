@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {Image, View, StyleSheet} from 'react-native';
+import {Image, View, StyleSheet, Text} from 'react-native';
 import {connect} from 'react-redux';
 import * as visualSelectors from '../selectors/VisualSelectors';
 
 import {RootState} from '../types/StateTypes';
 
 export interface Props {
-    backgroundFile: string | null;
+    backgroundImage: any;
     text: string | null;
 }
 
@@ -16,10 +16,17 @@ class OverlayView extends Component<Props> {
     }
 
     render() {
-        let {backgroundFile} = this.props;
+        let {backgroundImage, text} = this.props;
+        var style = styles.container;
+        if (backgroundImage != null) {
+            style = {...style, ...styles.containerImage};
+        }
         return (
-            <View style={styles.container}>
-                {backgroundFile && <View style={styles.image} />}
+            <View style={style}>
+                {backgroundImage && (
+                    <Image style={styles.image} source={backgroundImage} />
+                )}
+                {text && <Text style={styles.text}>{text}</Text>}
             </View>
         );
     }
@@ -30,14 +37,26 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'transparent',
     },
+    containerImage: {
+        backgroundColor: 'black',
+    },
     image: {
         flex: 1,
+        alignSelf: 'center',
+    },
+    text: {
+        flex: 1,
+        position: 'absolute',
+        width: '100%',
+        fontSize: 80,
+        color: 'white',
+        textAlign: 'center',
     },
 });
 
 const mapStateToProps = (state: RootState) => {
     return {
-        backgroundFile: visualSelectors.getBackgroundFile(state),
+        backgroundImage: visualSelectors.getBackgroundResource(state),
         text: visualSelectors.getText(state),
     };
 };

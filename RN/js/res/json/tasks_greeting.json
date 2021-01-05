@@ -1,0 +1,115 @@
+{
+  "taskDefinitions": [
+    {
+      "type": "GREETING",
+      "subTasks": [
+        {
+          "type": "SPEECH_RESET"
+        },
+        {
+          "type": "VISUAL_RESET"
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "I've detected someone and will now take a picture and initiate sub-tasks.",
+          "suspend": true
+        },
+        {
+          "type": "NAMED",
+          "name": "CAMERA_PICTURE_BASE"
+
+        },
+        {
+          "type": "TYPED",
+          "taskType": "GREETING_SUB",
+          "suspend": true
+        },
+        {
+          "type": "TYPED",
+          "taskType": "INTRO",
+          "suspend": true
+        }
+      ]
+    },
+    {
+      "type": "GREETING_SUB",
+      "subTasks": [
+        {
+          "type": "VISUAL_TEXT",
+          "text": "Hello There!"
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Hello There!",
+          "suspend": true
+        }
+      ]
+    },
+    {
+      "type": "GREETING_SUB",
+      "subTasks":[
+        {
+          "type": "SPEECH_PITCH",
+          "pitch": 0.8
+        },
+        {
+          "type": "SPEECH_RATE",
+          "rate": 0.5
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Hello Dave, You're looking well today",
+          "suspend": true
+        },
+        {
+          "type": "SPEECH_RESET"
+        }
+      ]
+    },
+    {
+      "type": "GREETING_SUB",
+      "subTasks": [
+        {
+          "type": "VISUAL_TEXT",
+          "text": "Locale change"
+        },
+        {
+          "type": "SPEECH_LOCALE",
+          "locale": "JAPAN",
+          "suspend": true
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "こんにちは、幸せなハロウィーン",
+          "suspend": true
+        },
+        {
+          "type": "SPEECH_RESET",
+          "suspend": true
+        },
+        {
+          "type": "SPEECH_RATE",
+          "rate": 0.6
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Ahem",
+          "suspend": true
+        },
+        {
+          "type": "SPEECH_RESET"
+        },
+        {
+          "type": "TYPED",
+          "taskType": "SORRY",
+          "suspend": true
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "My creator must have launched the wrong program",
+          "suspend": true
+        }
+      ]
+    }
+  ]
+}

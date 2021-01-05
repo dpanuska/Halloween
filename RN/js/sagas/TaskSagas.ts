@@ -1,28 +1,35 @@
-// import {call, put, takeLatest} from 'redux-saga/effects';
-// import * as actions from '../constants/Actions';
+import {call, put, take, takeLatest} from 'redux-saga/effects';
+import {
+    APP_INITIALIZE_SERVICES,
+    APP_SET_DETECTION_STATE,
+} from '../constants/Actions';
+import TaskService from '../services/TaskService';
+import {sayText} from '../actions/TTSActions';
 
-// function* executeTask(action) {
-//     try {
-//         let {task} = action.payload;
-//         var subTask;
-//         for (subTask in task.taskList) {
-//             if (subTask.suspend === true) {
-//                 yield call(executeSubTask, subTask);
-//             } else {
-//                 call(executeSubTask, subTask);
-//             }
-//         }
-//         yield put({type: actions.DISPATCH_TASK_SUCCEEDED});
-//     } catch (error) {
-//         yield put({type: actions.DISPATCH_TASK_FAILED, error});
-//     }
-// }
-// // TODO should we expect taskList always, or be able to execute
-// function* executeSubTask(task) {
-//     try {
-//     } catch (error) {}
-// }
+import {DetectionStateAction} from '../types/AppActionTypes';
+import {DetectionStates} from '../types/StateTypes';
 
-// export default function* rootSaga() {
-//     yield takeLatest(actions.DISPATCH_TASK_REQUESTED, executeTask);
-// }
+// TODO Better service registration - this is fine for now.
+const taskService = new TaskService();
+
+function* initialize() {
+    taskService.loadTasks();
+}
+
+function* handleDetectionStateChange(action: DetectionStateAction) {
+    let state = action.payload.detectionState;
+    if (state === DetectionStates.ACTIVE) {
+        // TODO this would start a greeting action
+        yield put(sayText('hello there'));
+    } else {
+        // TODO this would start a goodbye action
+        yield put(sayText('goodbye'));
+    }
+}
+
+export default function* rootSaga() {
+    // TODO again - better init/registration
+    yield take(APP_INITIALIZE_SERVICES);
+    yield call(initialize);
+    yield takeLatest(APP_SET_DETECTION_STATE, handleDetectionStateChange);
+}
