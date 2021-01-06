@@ -1,11 +1,12 @@
 import {
     APP_SET_DETECTION_STATE,
-    APP_INITIALIZE_SERVICES,
-    APP_SET_CONFIGURATION,
+    APP_FETCH_CONFIG_REQUESTED,
+    APP_FETCH_CONFIG_STATUS,
 } from '../constants/Actions';
-import {AppConfig, DetectionStates} from '../types/StateTypes';
+import {AppConfig, DetectionStates, RequestStates} from '../types/StateTypes';
 
-import {DetectionStateAction, SetConfigAction} from '../types/AppActionTypes';
+import {RequestStatusAction} from '../types/ActionTypes';
+import {DetectionStateAction} from '../types/AppActionTypes';
 import {Action} from '@reduxjs/toolkit';
 
 export const setDetectionState = (
@@ -17,13 +18,29 @@ export const setDetectionState = (
     },
 });
 
-export const inializeServices = (): Action => ({
-    type: APP_INITIALIZE_SERVICES,
+export const fetchAppConfig = (): Action => ({
+    type: APP_FETCH_CONFIG_REQUESTED,
 });
 
-export const setConfiguration = (config: AppConfig): SetConfigAction => ({
-    type: APP_SET_CONFIGURATION,
+export const fetchConfigStarted = (): RequestStatusAction => ({
+    type: APP_FETCH_CONFIG_STATUS,
     payload: {
-        ...config,
+        status: RequestStates.STARTED,
+    },
+});
+
+export const fetchConfigFailed = (error: Error): RequestStatusAction => ({
+    type: APP_FETCH_CONFIG_STATUS,
+    payload: {
+        status: RequestStates.FAILED,
+        error,
+    },
+});
+
+export const fetchConfigSuccess = (config: AppConfig): RequestStatusAction => ({
+    type: APP_FETCH_CONFIG_STATUS,
+    payload: {
+        status: RequestStates.SUCCESSFUL,
+        result: config,
     },
 });

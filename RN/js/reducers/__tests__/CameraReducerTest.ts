@@ -5,7 +5,6 @@ import {
     CAMERA_SET_TRACKING_OBJECT,
 } from '../../constants/Actions';
 import {CameraState, RequestStates} from '../../types/StateTypes';
-import { mockRootState } from '../../__mocks__/MockState';
 
 let initialState: CameraState = {
     isPictureRequested: false,

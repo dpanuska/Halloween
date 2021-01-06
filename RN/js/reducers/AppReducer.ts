@@ -1,20 +1,21 @@
-import {APP_SET_DETECTION_STATE, APP_SET_CONFIGURATION} from '../constants/Actions';
+import {
+    APP_SET_DETECTION_STATE,
+    APP_FETCH_CONFIG_STATUS,
+} from '../constants/Actions';
 import {createReducer} from '@reduxjs/toolkit';
 
-import {AppState, DetectionStates} from '../types/StateTypes';
-import {DetectionStateAction, SetConfigAction} from '../types/AppActionTypes';
+import {AppState, DetectionStates, RequestStates} from '../types/StateTypes';
+import {RequestStatusAction} from '../types/ActionTypes';
+import {DetectionStateAction} from '../types/AppActionTypes';
 
 const initialState: AppState = {
     detectionState: DetectionStates.IDLE,
+    configFetchStatus: RequestStates.NOT_FETCHED,
     config: {
         activationDelay: 500,
         deactivationDelay: 2000,
         detectionFrequency: 100,
         detectionClearDelay: 250,
-        activationEventType: 'GREETING',
-        deactivationEventType: 'GOODBYE',
-        idleEventType: 'IDLE',
-        activeIdleEventType: 'ACTIVE_IDLE',
     },
 };
 
@@ -29,11 +30,16 @@ function setDetectionState(
     };
 }
 
-function setConfiguration(state: AppState, action: SetConfigAction): AppState {
-    let config = action.payload;
+function updateConfigFetchStatus(
+    state: AppState,
+    action: RequestStatusAction,
+): AppState {
+    let {status, result} = action.payload;
+    let config = result != null ? result : state.config;
     return {
         ...state,
         config,
+        configFetchStatus: status,
     };
 }
 
@@ -42,8 +48,8 @@ const reducer = createReducer(initialState, {
         state: AppState,
         action: DetectionStateAction,
     ) => setDetectionState(state, action),
-    [APP_SET_CONFIGURATION]: (state: AppState, action: SetConfigAction) =>
-        setConfiguration(state, action),
+    [APP_FETCH_CONFIG_STATUS]: (state: AppState, action: RequestStatusAction) =>
+        updateConfigFetchStatus(state, action),
 });
 
 export default reducer;

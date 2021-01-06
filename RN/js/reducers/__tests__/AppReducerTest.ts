@@ -1,18 +1,15 @@
 import appReducer from '../AppReducer';
-import {APP_SET_CONFIGURATION, APP_SET_DETECTION_STATE} from '../../constants/Actions';
-import {AppState, DetectionStates} from '../../types/StateTypes';
+import {APP_SET_DETECTION_STATE, APP_FETCH_CONFIG_STATUS} from '../../constants/Actions';
+import {AppState, DetectionStates, RequestStates} from '../../types/StateTypes';
 
 let initialState: AppState = {
     detectionState: DetectionStates.IDLE,
+    configFetchStatus: RequestStates.NOT_FETCHED,
     config: {
         detectionFrequency: 1,
         deactivationDelay: 1,
         activationDelay: 1,
         detectionClearDelay: 1,
-        activeIdleEventType: 'TYPE',
-        activationEventType: 'TYPE',
-        idleEventType: 'TYPE',
-        deactivationEventType: 'TYPE',
     },
 };
 
@@ -41,19 +38,55 @@ describe('AppReducer', () => {
         expect(appReducer(mockState, action)).toEqual(expectedState);
     });
 
-    it('should handle APP_SET_CONFIGURATION', () => {
-        let mockConfig = {
-            ...initialState.config,
-            detectionFrequency: 1000,
-        }
-        let action = {
-            type: APP_SET_CONFIGURATION,
-            payload: mockConfig,
-        };
-        let expectedState = {
-            ...initialState,
-            config: mockConfig,
-        };
-        expect(appReducer(initialState, action)).toEqual(expectedState);
+    describe('APP_FETCH_CONFIG_STATUS', () => {
+        it('should handle started', () => {
+            let action = {
+                type: APP_FETCH_CONFIG_STATUS,
+                payload: {
+                    status: RequestStates.STARTED,
+                },
+            };
+            let expectedState = {
+                ...initialState,
+                configFetchStatus: RequestStates.STARTED,
+            };
+            expect(appReducer(initialState, action)).toEqual(expectedState);
+        });
+
+        it('should handle success', () => {
+            let mockConfig = {
+                ...initialState.config,
+                detectionClearDelay: 10000,
+            };
+            let action = {
+                type: APP_FETCH_CONFIG_STATUS,
+                payload: {
+                    status: RequestStates.SUCCESSFUL,
+                    result: mockConfig,
+                },
+            };
+            let expectedState = {
+                ...initialState,
+                configFetchStatus: RequestStates.SUCCESSFUL,
+                config: mockConfig,
+            };
+            expect(appReducer(initialState, action)).toEqual(expectedState);
+        });
+
+        it('should handle failure', () => {
+            let error = new Error('some error');
+            let action = {
+                type: APP_FETCH_CONFIG_STATUS,
+                payload: {
+                    status: RequestStates.FAILED,
+                    error,
+                },
+            };
+            let expectedState = {
+                ...initialState,
+                configFetchStatus: RequestStates.FAILED,
+            };
+            expect(appReducer(initialState, action)).toEqual(expectedState);
+        });
     });
 });

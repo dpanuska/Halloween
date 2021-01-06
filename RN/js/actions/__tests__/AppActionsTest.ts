@@ -1,6 +1,20 @@
-import {APP_SET_DETECTION_STATE, APP_INITIALIZE_SERVICES, APP_SET_CONFIGURATION} from '../../constants/Actions';
-import {setDetectionState, setConfiguration, inializeServices} from '../AppActions';
-import {AppConfig, DetectionStates} from '../../types/StateTypes';
+import {
+    APP_SET_DETECTION_STATE,
+    APP_FETCH_CONFIG_REQUESTED,
+    APP_FETCH_CONFIG_STATUS,
+} from '../../constants/Actions';
+import {
+    setDetectionState,
+    fetchAppConfig,
+    fetchConfigStarted,
+    fetchConfigSuccess,
+    fetchConfigFailed,
+} from '../AppActions';
+import {
+    AppConfig,
+    DetectionStates,
+    RequestStates,
+} from '../../types/StateTypes';
 
 describe('AppActions', () => {
     it('should create an action to set detection state', () => {
@@ -14,28 +28,49 @@ describe('AppActions', () => {
         expect(setDetectionState(detectionState)).toEqual(expectedAction);
     });
 
-    it('should create an action to initialize services', () => {
+    it('should create an action to request fetch config', () => {
         let expectedAction = {
-            type: APP_INITIALIZE_SERVICES,
+            type: APP_FETCH_CONFIG_REQUESTED,
         };
-        expect(inializeServices()).toEqual(expectedAction);
+        expect(fetchAppConfig()).toEqual(expectedAction);
     });
 
-    it('should create an action to set configuration', () => {
+    it('should create an action for fetch config started', () => {
+        let expectedAction = {
+            type: APP_FETCH_CONFIG_STATUS,
+            payload: {
+                status: RequestStates.STARTED,
+            },
+        };
+        expect(fetchConfigStarted()).toEqual(expectedAction);
+    });
+
+    it('should create an action for fetch config success', () => {
         let mockConfig: AppConfig = {
-            detectionFrequency: 1,
             deactivationDelay: 1,
-            activationDelay: 1,
             detectionClearDelay: 1,
-            activeIdleEventType: 'TYPE',
-            activationEventType: 'TYPE',
-            idleEventType: 'TYPE',
-            deactivationEventType: 'TYPE',
+            activationDelay: 1,
+            detectionFrequency: 1,
         };
         let expectedAction = {
-            type: APP_SET_CONFIGURATION,
-            payload: mockConfig,
+            type: APP_FETCH_CONFIG_STATUS,
+            payload: {
+                status: RequestStates.SUCCESSFUL,
+                result: mockConfig,
+            },
         };
-        expect(setConfiguration(mockConfig)).toEqual(expectedAction);
+        expect(fetchConfigSuccess(mockConfig)).toEqual(expectedAction);
+    });
+
+    it('should create an action for fetch config fail', () => {
+        let error = new Error('some error');
+        let expectedAction = {
+            type: APP_FETCH_CONFIG_STATUS,
+            payload: {
+                status: RequestStates.FAILED,
+                error,
+            },
+        };
+        expect(fetchConfigFailed(error)).toEqual(expectedAction);
     });
 });

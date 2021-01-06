@@ -1,12 +1,15 @@
+import {BaseTask} from './TaskTypes';
+
 export enum DetectionStates {
     IDLE,
     ACTIVE,
 }
 
 export enum RequestStates {
-    STARTED,
+    STARTED = 0,
     SUCCESSFUL,
     FAILED,
+    NOT_FETCHED = -1,
 }
 
 export interface VisualState {
@@ -19,15 +22,26 @@ export interface AppConfig {
     deactivationDelay: number;
     detectionFrequency: number;
     detectionClearDelay: number;
+}
+
+export interface AppState {
+    detectionState: DetectionStates;
+    configFetchStatus: RequestStates;
+    config: AppConfig;
+}
+
+export interface TaskConfig {
     activationEventType: string;
     deactivationEventType: string;
     idleEventType: string;
     activeIdleEventType: string;
 }
 
-export interface AppState {
-    detectionState: DetectionStates;
-    config: AppConfig;
+export interface TaskState {
+    tasks: BaseTask[];
+    configFetchStatus: RequestStates;
+    taskFetchStatus: RequestStates;
+    config: TaskConfig;
 }
 
 export interface SpeechState {
@@ -50,4 +64,5 @@ export interface RootState {
     camera: CameraState;
     visual: VisualState;
     speech: SpeechState;
+    task: TaskState;
 }

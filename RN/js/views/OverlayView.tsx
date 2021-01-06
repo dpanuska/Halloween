@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {Image, View, StyleSheet, Text} from 'react-native';
 import {connect} from 'react-redux';
 import * as visualSelectors from '../selectors/VisualSelectors';
@@ -10,7 +10,7 @@ export interface Props {
     text: string | null;
 }
 
-class OverlayView extends Component<Props> {
+class OverlayView extends PureComponent<Props> {
     constructor(props: Props) {
         super(props);
     }

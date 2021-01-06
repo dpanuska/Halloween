@@ -1,20 +1,24 @@
 import {call, put, take, takeLatest} from 'redux-saga/effects';
 import {
-    APP_INITIALIZE_SERVICES,
     APP_SET_DETECTION_STATE,
+    TASK_FETCH_CONFIG_REQUESTED,
+    TASK_FETCH_TASKS_REQUESTED,
 } from '../constants/Actions';
-import TaskService from '../services/TaskService';
 import {sayText} from '../actions/TTSActions';
+import {
+    fetchConfigStarted,
+    fetchConfigSuccess,
+    fetchConfigFailed,
+    fetchTasksStarted,
+    fetchTasksSuccess,
+    fetchTasksFailed,
+} from '../actions/TaskActions';
+import {fetchTasks, fetchConfiguration} from '../services/TaskService';
 
 import {DetectionStateAction} from '../types/AppActionTypes';
 import {DetectionStates} from '../types/StateTypes';
 
 // TODO Better service registration - this is fine for now.
-const taskService = new TaskService();
-
-function* initialize() {
-    taskService.loadTasks();
-}
 
 function* handleDetectionStateChange(action: DetectionStateAction) {
     let state = action.payload.detectionState;
@@ -27,9 +31,28 @@ function* handleDetectionStateChange(action: DetectionStateAction) {
     }
 }
 
+function* fetchTaskConfig() {
+    try {
+        yield put(fetchConfigStarted());
+        let config = yield call(fetchConfiguration);
+        yield put(fetchConfigSuccess(config));
+    } catch (error) {
+        yield put(fetchConfigFailed(error));
+    }
+}
+
+function* fetchAllTasks() {
+    try {
+        yield put(fetchTasksStarted());
+        let tasks = yield call(fetchTasks);
+        yield put(fetchTasksSuccess(tasks));
+    } catch (error) {
+        yield put(fetchTasksFailed(error));
+    }
+}
+
 export default function* rootSaga() {
-    // TODO again - better init/registration
-    yield take(APP_INITIALIZE_SERVICES);
-    yield call(initialize);
+    yield takeLatest(TASK_FETCH_CONFIG_REQUESTED, fetchTaskConfig);
+    yield takeLatest(TASK_FETCH_TASKS_REQUESTED, fetchAllTasks);
     yield takeLatest(APP_SET_DETECTION_STATE, handleDetectionStateChange);
 }

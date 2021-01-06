@@ -1,5 +1,4 @@
-import {put, spawn} from 'redux-saga/effects';
-import {inializeServices} from '../actions/AppActions';
+import {spawn} from 'redux-saga/effects';
 import appSagas from './AppSagas';
 import ttsSagas from './TTSSagas';
 import cameraSagas from './CameraSagas';
@@ -10,5 +9,4 @@ export default function* rootSaga() {
     yield spawn(ttsSagas);
     yield spawn(cameraSagas);
     yield spawn(taskSagas);
-    yield put(inializeServices());
 }

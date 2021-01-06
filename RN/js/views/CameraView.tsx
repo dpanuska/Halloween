@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import {Camera} from 'expo-camera';
@@ -34,7 +34,7 @@ interface State {
     isCameraReady: boolean;
 }
 
-class CameraView extends Component<Props, State> {
+class CameraView extends PureComponent<Props, State> {
     cameraRef: any;
     constructor(props: Props) {
         super(props);

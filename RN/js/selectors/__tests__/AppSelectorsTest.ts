@@ -6,10 +6,8 @@ import {
     getActivationDelay,
     getDetectionFrequency,
     getDeactivationDelay,
-    getActivationEventType,
-    getDeactivationEventType,
-    getIdleEventType,
-    getActiveIdleEventType,
+    getIsAppConfigFetched,
+    getAppConfigFetchStatus,
 } from '../AppSelectors';
 import {mockAppState, mockRootState} from '../../__mocks__/MockState';
 
@@ -52,27 +50,13 @@ describe('AppSelectors', () => {
         );
     });
 
-    it('should get config activation event type', () => {
-        expect(getActivationEventType(mockRootState)).toEqual(
-            mockAppState.config.activationEventType,
+    it('should get config fetch status', () => {
+        expect(getAppConfigFetchStatus(mockRootState)).toEqual(
+            mockAppState.configFetchStatus,
         );
     });
 
-    it('should get config deactivation event type', () => {
-        expect(getDeactivationEventType(mockRootState)).toEqual(
-            mockAppState.config.deactivationEventType,
-        );
-    });
-
-    it('should get config idle event type', () => {
-        expect(getIdleEventType(mockRootState)).toEqual(
-            mockAppState.config.idleEventType,
-        );
-    });
-
-    it('should get config active-idle event type', () => {
-        expect(getActiveIdleEventType(mockRootState)).toEqual(
-            mockAppState.config.activeIdleEventType,
-        );
+    it('should get if config has been fetched', () => {
+        expect(getIsAppConfigFetched(mockRootState)).toEqual(false);
     });
 });

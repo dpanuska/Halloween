@@ -1,11 +1,23 @@
+import {createSelector} from '@reduxjs/toolkit';
 import {
     RootState,
     AppState,
     DetectionStates,
     AppConfig,
+    RequestStates,
 } from '../types/StateTypes';
 
 export const getAppState = (state: RootState): AppState => state.app;
+
+export const getAppConfigFetchStatus = (state: RootState): RequestStates =>
+    getAppState(state).configFetchStatus;
+
+export const getIsAppConfigFetched = createSelector(
+    getAppConfigFetchStatus,
+    (status) => {
+        return status === RequestStates.SUCCESSFUL;
+    },
+);
 
 export const getDetectionState = (state: RootState): DetectionStates =>
     getAppState(state).detectionState;
@@ -24,15 +36,3 @@ export const getDetectionFrequency = (state: RootState): number =>
 
 export const getDetectionClearDelay = (state: RootState): number =>
     getConfig(state).detectionClearDelay;
-
-export const getActivationEventType = (state: RootState): string =>
-    getConfig(state).activationEventType;
-
-export const getDeactivationEventType = (state: RootState): string =>
-    getConfig(state).deactivationEventType;
-
-export const getIdleEventType = (state: RootState): string =>
-    getConfig(state).idleEventType;
-
-export const getActiveIdleEventType = (state: RootState): string =>
-    getConfig(state).activeIdleEventType;

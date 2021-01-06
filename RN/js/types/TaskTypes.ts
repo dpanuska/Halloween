@@ -4,6 +4,7 @@ export interface BaseTask {
     subTasks: [BaseTask];
     suspend: boolean;
 }
+
 export interface TTSSayTextTask extends BaseTask {
     text: string;
 }

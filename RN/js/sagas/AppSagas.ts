@@ -1,15 +1,29 @@
-import {take, delay, put, fork, cancel, select, call} from 'redux-saga/effects';
 import {
-    APP_INITIALIZE_SERVICES,
+    take,
+    takeLatest,
+    delay,
+    put,
+    fork,
+    cancel,
+    select,
+    call,
+} from 'redux-saga/effects';
+import {
+    APP_FETCH_CONFIG_REQUESTED,
     CAMERA_SET_TRACKING_OBJECT,
 } from '../constants/Actions';
-import {setDetectionState, setConfiguration} from '../actions/AppActions';
+import {
+    setDetectionState,
+    fetchConfigStarted,
+    fetchConfigSuccess,
+    fetchConfigFailed,
+} from '../actions/AppActions';
 import {
     getActivationDelay,
     getDetectionState,
     getDeactivationDelay,
 } from '../selectors/AppSelectors';
-import appConfig from 'res/config';
+import {fetchConfiguration} from '../services/AppService';
 
 import {DetectionStates} from '../types/StateTypes';
 
@@ -43,13 +57,17 @@ export function* objectDetectionFlow() {
     }
 }
 
-// TODO make some kind of central initialization
-export function* initialize() {
-    yield put(setConfiguration(appConfig));
+export function* fetchAppConfig() {
+    try {
+        yield put(fetchConfigStarted());
+        let config = yield call(fetchConfiguration);
+        yield put(fetchConfigSuccess(config));
+    } catch (error) {
+        yield put(fetchConfigFailed(error));
+    }
 }
 
 export default function* rootSaga() {
-    yield take(APP_INITIALIZE_SERVICES);
-    yield call(initialize);
+    yield takeLatest(APP_FETCH_CONFIG_REQUESTED, fetchAppConfig);
     yield fork(objectDetectionFlow);
 }

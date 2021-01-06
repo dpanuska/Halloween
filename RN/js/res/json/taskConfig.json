@@ -1,0 +1,6 @@
+{
+  "activationEventType": "GREETING",
+  "deactivationEventType": "GOODBYE",
+  "idleEventType": "IDLE",
+  "activeIdleEventType": "ACTIVE_IDLE"
+}
