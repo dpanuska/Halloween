@@ -12,3 +12,6 @@ export const getIsPictureRequested = (state: RootState): boolean =>
 
 export const getTrackedData = (state: RootState): any =>
     getCameraState(state).trackedObject;
+
+export const getIsTakingPicture = (state: RootState): boolean =>
+    getCameraState(state).isTakingPicture;

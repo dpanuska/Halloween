@@ -1,6 +1,7 @@
 import {RootState, VisualState} from '../types/StateTypes';
 import images from 'res/images';
-// TODO use createSelector for calculated state
+import {createSelector} from '@reduxjs/toolkit';
+
 interface ResourceMap {
     [key: string]: any;
 }
@@ -16,13 +17,15 @@ export const getVisualState = (state: RootState): VisualState => state.visual;
 export const getBackgroundFile = (state: RootState): string | null =>
     getVisualState(state).backgroundFile;
 
-export const getBackgroundResource = (state: RootState): any | null => {
-    let fileName = getBackgroundFile(state);
-    if (fileName == null) {
-        return null;
-    }
-    return imageMap[fileName];
-};
+export const getBackgroundResource = createSelector(
+    getBackgroundFile,
+    (backgroundFile) => {
+        if (backgroundFile == null) {
+            return null;
+        }
+        return imageMap[backgroundFile];
+    },
+);
 
 export const getText = (state: RootState): string | null =>
     getVisualState(state).text;

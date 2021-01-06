@@ -5,28 +5,28 @@ import {
 } from '../constants/Actions';
 import {setDetectionState, setConfiguration} from '../actions/AppActions';
 import {
-    getDetectionDelay,
+    getActivationDelay,
     getDetectionState,
-    getEndDetectionDelay,
+    getDeactivationDelay,
 } from '../selectors/AppSelectors';
-import config from 'res/config';
+import appConfig from 'res/config';
 
 import {DetectionStates} from '../types/StateTypes';
 
-function* objectDetectionSet(data: any) {
+export function* objectDetectionSet(data: any) {
     let detectionState = yield select(getDetectionState);
     if (detectionState === DetectionStates.ACTIVE && data == null) {
-        let clearDelay = yield select(getEndDetectionDelay);
+        let clearDelay = yield select(getDeactivationDelay);
         yield delay(clearDelay);
         yield put(setDetectionState(DetectionStates.IDLE));
     } else if (detectionState === DetectionStates.IDLE && data != null) {
-        let activeDelay = yield select(getDetectionDelay);
+        let activeDelay = yield select(getActivationDelay);
         yield delay(activeDelay);
         yield put(setDetectionState(DetectionStates.ACTIVE));
     }
 }
 
-function* objectDetectionFlow() {
+export function* objectDetectionFlow() {
     let task;
     let prevDetection;
     while (true) {
@@ -44,8 +44,8 @@ function* objectDetectionFlow() {
 }
 
 // TODO make some kind of central initialization
-function* initialize() {
-    yield put(setConfiguration(config));
+export function* initialize() {
+    yield put(setConfiguration(appConfig));
 }
 
 export default function* rootSaga() {

@@ -1,8 +1,8 @@
 {
   "activationDelay": 500,
-  "deactivationDelay": 2000,
+  "deactivationDelay": 1500,
   "detectionFrequency": 100,
-  "detectionClearDelay": 1000,
+  "detectionClearDelay": 500,
   "activationEventType": "GREETING",
   "deactivationEventType": "GOODBYE",
   "idleEventType": "IDLE",

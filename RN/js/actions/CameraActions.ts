@@ -8,7 +8,10 @@ import {
 import {Action} from '@reduxjs/toolkit';
 import {RequestStatusAction} from '../types/ActionTypes';
 import {RequestStates} from '../types/StateTypes';
-import {ObjectDetectedActon, SetTrackingObjectAction} from '../types/CameraActionTypes';
+import {
+    ObjectDetectedActon,
+    SetTrackingObjectAction,
+} from '../types/CameraActionTypes';
 
 export const takePicture = (): Action => ({
     type: CAMERA_TAKE_PICTURE_REQUESTED,

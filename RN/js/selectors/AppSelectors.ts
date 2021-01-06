@@ -13,10 +13,10 @@ export const getDetectionState = (state: RootState): DetectionStates =>
 export const getConfig = (state: RootState): AppConfig =>
     getAppState(state).config;
 
-export const getDetectionDelay = (state: RootState): number =>
+export const getActivationDelay = (state: RootState): number =>
     getConfig(state).activationDelay;
 
-export const getEndDetectionDelay = (state: RootState): number =>
+export const getDeactivationDelay = (state: RootState): number =>
     getConfig(state).deactivationDelay;
 
 export const getDetectionFrequency = (state: RootState): number =>
@@ -24,3 +24,15 @@ export const getDetectionFrequency = (state: RootState): number =>
 
 export const getDetectionClearDelay = (state: RootState): number =>
     getConfig(state).detectionClearDelay;
+
+export const getActivationEventType = (state: RootState): string =>
+    getConfig(state).activationEventType;
+
+export const getDeactivationEventType = (state: RootState): string =>
+    getConfig(state).deactivationEventType;
+
+export const getIdleEventType = (state: RootState): string =>
+    getConfig(state).idleEventType;
+
+export const getActiveIdleEventType = (state: RootState): string =>
+    getConfig(state).activeIdleEventType;
