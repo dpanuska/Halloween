@@ -2,10 +2,11 @@ import {
     getVisualState,
     getBackgroundFile,
     getText,
-} from '../../selectors/VisualSelectors';
+    getBackgroundResource,
+} from '../VisualSelectors';
 import {mockVisualState, mockRootState} from '../../__mocks__/MockState';
 
-describe('AppSelectors', () => {
+describe('VisualSelectors', () => {
     it('should get visual slice of state', () => {
         expect(getVisualState(mockRootState)).toEqual(mockVisualState);
     });

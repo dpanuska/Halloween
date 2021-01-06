@@ -1,4 +1,4 @@
-import visualReducer from '../../reducers/VisualReducer';
+import visualReducer from '../VisualReducer';
 import {
     VISUAL_RESET,
     VISUAL_SET_BACKGROUND_FILE,

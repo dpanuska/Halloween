@@ -7,7 +7,7 @@ import {
     resetVisuals,
     setBackgroundFile,
     setText,
-} from '../../actions/VisualActions';
+} from '../VisualActions';
 
 describe('VisualActions', () => {
     it('should create an action to reset visual state', () => {

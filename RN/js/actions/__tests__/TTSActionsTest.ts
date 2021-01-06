@@ -1,4 +1,4 @@
-import * as actions from '../../actions/TTSActions';
+import * as actions from '../TTSActions';
 import * as types from '../../constants/Actions';
 import {RequestStates} from '../../types/StateTypes';
 

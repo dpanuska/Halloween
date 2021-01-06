@@ -4,7 +4,7 @@ import {
     getIsSettingRate,
     getIsSettingPitch,
     getIsSettingLocale,
-} from '../../selectors/TTSSelectors';
+} from '../TTSSelectors';
 import {mockSpeechState, mockRootState} from '../../__mocks__/MockState';
 
 describe('TTSSelectors', () => {

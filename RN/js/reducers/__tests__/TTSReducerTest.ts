@@ -1,4 +1,4 @@
-import speechReducer from '../../reducers/TTSReducer';
+import speechReducer from '../TTSReducer';
 import {
     TTS_SAY_TEXT_STATUS,
     TTS_SET_RATE_STATUS,
