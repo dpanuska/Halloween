@@ -1,23 +1,27 @@
-export interface BaseTask {
+export interface Task {
     type: string;
-    name?: string;
-    subTasks: [BaseTask];
     suspend: boolean;
 }
 
-export interface TTSSayTextTask extends BaseTask {
+export interface TaskList {
+    type: string;
+    name?: string;
+    subTasks: Task[];
+}
+
+export interface TTSSayTextTask extends TaskList {
     text: string;
 }
-export interface TTSPitchTask extends BaseTask {
+export interface TTSPitchTask extends TaskList {
     pitch: number;
 }
-export interface TTSRateTask extends BaseTask {
+export interface TTSRateTask extends TaskList {
     rate: number;
 }
-export interface TTSLocaleTask extends BaseTask {
+export interface TTSLocaleTask extends TaskList {
     locale: string;
 }
 
 export interface TaskJson {
-    taskDefinitions: [BaseTask]
+    taskDefinitions: [TaskList]
 }

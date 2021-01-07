@@ -1,4 +1,4 @@
-import {BaseTask} from './TaskTypes';
+import {TaskList} from './TaskTypes';
 
 export enum DetectionStates {
     IDLE,
@@ -38,7 +38,7 @@ export interface TaskConfig {
 }
 
 export interface TaskState {
-    tasks: BaseTask[];
+    tasks: TaskList[];
     configFetchStatus: RequestStates;
     taskFetchStatus: RequestStates;
     config: TaskConfig;

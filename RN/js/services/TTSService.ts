@@ -67,7 +67,7 @@ export default class TextToSpeechService {
         try {
             return await Tts.setDefaultPitch(pitch);
         } catch (e) {
-            throw new TTSError('Set Default Language Failed', e);
+            throw new TTSError('Set Default Pitch Failed', e);
         }
     }
 
@@ -75,7 +75,7 @@ export default class TextToSpeechService {
         try {
             return await Tts.setDefaultRate(rate);
         } catch (e) {
-            throw new TTSError('Set Default Language Failed', e);
+            throw new TTSError('Set Default Rate Failed', e);
         }
     }
 }

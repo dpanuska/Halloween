@@ -5,7 +5,7 @@ import {
     TTS_SET_RATE_STATUS,
 } from '../constants/Actions';
 import {RequestStatusAction} from '../types/ActionTypes';
-import {createReducer } from '@reduxjs/toolkit';
+import {createReducer} from '@reduxjs/toolkit';
 import {SpeechState, RequestStates} from '../types/StateTypes';
 
 const initialState: SpeechState = {

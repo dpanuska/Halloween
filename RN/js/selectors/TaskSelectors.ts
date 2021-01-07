@@ -1,7 +1,7 @@
 import {createSelector} from '@reduxjs/toolkit';
 
 import {TaskState, RootState, RequestStates} from '../types/StateTypes';
-import {BaseTask} from '../types/TaskTypes';
+import {TaskList} from '../types/TaskTypes';
 
 export const getTaskState = (state: RootState): TaskState => state.task;
 
@@ -15,11 +15,11 @@ export const getAreTasksFetched = createSelector(
     },
 );
 
-export const getAllTasks = (state: RootState): BaseTask[] =>
+export const getAllTasks = (state: RootState): TaskList[] =>
     getTaskState(state).tasks;
 
 export const getTasksByName = createSelector(getAllTasks, (tasks) => {
-    let namedTasks = new Map<string, BaseTask>();
+    let namedTasks = new Map<string, TaskList>();
     for (let task of tasks) {
         if (task.name != null) {
             namedTasks.set(task.name, task);
@@ -37,13 +37,13 @@ export const getTasksByTypes = createSelector(getAllTasks, (tasks) =>
     filterTasksByType(tasks),
 );
 
-function filterTasksByType(tasks: BaseTask[]) {
-    let mapByTypes = new Map<string, BaseTask[]>();
+function filterTasksByType(tasks: TaskList[]) {
+    let mapByTypes = new Map<string, TaskList[]>();
     for (let task of tasks) {
         let list = mapByTypes.get(task.type);
         if (list == null) {
             // eslint-disable-next-line no-array-constructor
-            list = new Array<BaseTask>();
+            list = new Array<TaskList>();
             mapByTypes.set(task.type, list);
         }
         list.push(task);
