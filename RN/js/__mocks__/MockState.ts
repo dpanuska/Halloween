@@ -5,8 +5,10 @@ import {
     AppState,
     CameraState,
     DetectionStates,
+    RequestStates,
     RootState,
     SpeechState,
+    TaskState,
     VisualState,
 } from '../types/StateTypes';
 
@@ -15,13 +17,10 @@ export const mockAppConfig: AppConfig = {
     deactivationDelay: 1,
     activationDelay: 1,
     detectionClearDelay: 1,
-    activeIdleEventType: 'TYPE',
-    activationEventType: 'TYPE',
-    idleEventType: 'TYPE',
-    deactivationEventType: 'TYPE',
 };
 
 export const mockAppState: AppState = {
+    configFetchStatus: RequestStates.NOT_FETCHED,
     detectionState: DetectionStates.ACTIVE,
     config: mockAppConfig,
 };
@@ -46,9 +45,22 @@ export const mockCameraState: CameraState = {
     aspectRatio: '16:9',
 };
 
+export const mockTaskState: TaskState = {
+    tasks: [],
+    taskFetchStatus: RequestStates.NOT_FETCHED,
+    configFetchStatus: RequestStates.NOT_FETCHED,
+    config: {
+        activeIdleEventType: 'TYPE',
+        activationEventType: 'TYPE',
+        idleEventType: 'TYPE',
+        deactivationEventType: 'TYPE',
+    },
+};
+
 export const mockRootState: RootState = {
     app: mockAppState,
     speech: mockSpeechState,
     visual: mockVisualState,
     camera: mockCameraState,
+    task: mockTaskState,
 };

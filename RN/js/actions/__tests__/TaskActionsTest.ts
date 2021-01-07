@@ -2,7 +2,7 @@ import {
     TASK_FETCH_CONFIG_REQUESTED,
     TASK_FETCH_CONFIG_STATUS,
     TASK_FETCH_TASKS_REQUESTED,
-    TASK_FETCH_TASKS_STATUS
+    TASK_FETCH_TASKS_STATUS,
 } from '../../constants/Actions';
 import {
     fetchTasks,
@@ -14,10 +14,7 @@ import {
     fetchConfigSuccess,
     fetchConfigFailed,
 } from '../TaskActions';
-import {
-    TaskConfig,
-    RequestStates,
-} from '../../types/StateTypes';
+import {RequestStates} from '../../types/StateTypes';
 
 describe('TaskActions', () => {
     describe('fetch config', () => {
