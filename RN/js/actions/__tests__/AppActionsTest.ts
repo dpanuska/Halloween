@@ -10,11 +10,7 @@ import {
     fetchConfigSuccess,
     fetchConfigFailed,
 } from '../AppActions';
-import {
-    AppConfig,
-    DetectionStates,
-    RequestStates,
-} from '../../types/StateTypes';
+import {AppConfig, DetectionStates, RequestStates} from 'types/StateTypes';
 
 describe('AppActions', () => {
     it('should create an action to set detection state', () => {

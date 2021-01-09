@@ -9,7 +9,7 @@ const reducers = combineReducers({
     app: appReducer,
     camera: cameraReducer,
     visual: visualReducer,
-    speech: speechReducer,
+    tts: speechReducer,
     task: taskReducer,
 });
 

@@ -1,5 +1,5 @@
 import {PayloadAction} from '@reduxjs/toolkit';
-import {RequestStates} from '../types/StateTypes';
+import {RequestStates} from 'types/StateTypes';
 
 export interface RequestStatusPayload {
     status: RequestStates;

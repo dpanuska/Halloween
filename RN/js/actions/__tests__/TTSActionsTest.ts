@@ -1,6 +1,7 @@
 import * as actions from '../TTSActions';
 import * as types from '../../constants/Actions';
-import {RequestStates} from '../../types/StateTypes';
+
+import {RequestStates} from 'types/StateTypes';
 
 describe('TTSActions', () => {
     describe('Say Actions', () => {

@@ -7,7 +7,7 @@ import {
     SetBackgroundAction,
     SetTextAction,
     ResetVisualAction,
-} from '../types/VisualActionTypes';
+} from 'types/VisualActionTypes';
 
 export const resetVisuals = (): ResetVisualAction => ({
     type: VISUAL_RESET,

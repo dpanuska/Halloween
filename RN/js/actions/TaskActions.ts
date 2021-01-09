@@ -5,10 +5,10 @@ import {
     TASK_FETCH_TASKS_STATUS,
 } from '../constants/Actions';
 
-import {RequestStates, TaskConfig} from '../types/StateTypes';
-import {RequestStatusAction} from '../types/ActionTypes';
 import {Action} from '@reduxjs/toolkit';
-import {TaskList} from '../types/TaskTypes';
+import {RequestStates, TaskConfig} from 'types/StateTypes';
+import {RequestStatusAction} from 'types/ActionTypes';
+import {TaskList} from 'types/TaskTypes';
 
 export const fetchTaskConfig = (): Action => ({
     type: TASK_FETCH_CONFIG_REQUESTED,

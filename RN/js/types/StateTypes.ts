@@ -63,6 +63,6 @@ export interface RootState {
     app: AppState;
     camera: CameraState;
     visual: VisualState;
-    speech: SpeechState;
+    tts: SpeechState;
     task: TaskState;
 }

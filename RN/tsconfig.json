@@ -10,10 +10,12 @@
       "noEmit": true,
       "strict": true,
       "target": "esnext",
+      "baseUrl": "./",
       "paths": {
         "src/*": ["js/*"],
         "res/*": ["js/res/*"],
-      },
+        "types/*": ["js/types/*"]
+      }
     },
     "exclude": [
       "node_modules",

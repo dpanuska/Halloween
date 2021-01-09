@@ -5,8 +5,8 @@ import {
 } from '../constants/Actions';
 import {createReducer} from '@reduxjs/toolkit';
 
-import {VisualState} from '../types/StateTypes';
-import {SetBackgroundAction, SetTextAction} from '../types/VisualActionTypes';
+import {VisualState} from 'types/StateTypes';
+import {SetBackgroundAction, SetTextAction} from 'types/VisualActionTypes';
 
 const initialState: VisualState = {
     backgroundFile: null,

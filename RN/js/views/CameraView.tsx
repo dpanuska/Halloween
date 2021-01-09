@@ -16,7 +16,7 @@ import {
     objectDetected,
 } from '../actions/CameraActions';
 
-import {RootState} from '../types/StateTypes';
+import {RootState} from 'types/StateTypes';
 import {Dispatch} from 'redux';
 
 interface Props {

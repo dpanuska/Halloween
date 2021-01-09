@@ -4,7 +4,8 @@ import {
     VISUAL_SET_BACKGROUND_FILE,
     VISUAL_SET_TEXT,
 } from '../../constants/Actions';
-import {VisualState} from '../../types/StateTypes';
+
+import {VisualState} from 'types/StateTypes';
 
 let initialState: VisualState = {
     backgroundFile: null,

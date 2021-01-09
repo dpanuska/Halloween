@@ -4,8 +4,8 @@ import {
 } from '../constants/Actions';
 import {createReducer} from '@reduxjs/toolkit';
 
-import {RequestStates, TaskState} from '../types/StateTypes';
-import {RequestStatusAction} from '../types/ActionTypes';
+import {RequestStates, TaskState} from 'types/StateTypes';
+import {RequestStatusAction} from 'types/ActionTypes';
 
 const initialState: TaskState = {
     tasks: [],

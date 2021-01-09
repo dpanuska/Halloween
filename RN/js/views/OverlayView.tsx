@@ -3,7 +3,7 @@ import {Image, View, StyleSheet, Text} from 'react-native';
 import {connect} from 'react-redux';
 import * as visualSelectors from '../selectors/VisualSelectors';
 
-import {RootState} from '../types/StateTypes';
+import {RootState} from 'types/StateTypes';
 
 export interface Props {
     backgroundImage: any;

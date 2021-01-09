@@ -1,4 +1,6 @@
 const {defaults: tsjPreset} = require('ts-jest/presets');
+const {pathsToModuleNameMapper} = require('ts-jest/utils');
+const {compilerOptions} = require('./tsconfig.json');
 
 module.exports = {
     ...tsjPreset,
@@ -9,9 +11,13 @@ module.exports = {
     },
     globals: {
         'ts-jest': {
-            babelConfig: true,
+            tsconfig: 'tsconfig.json',
+            diagnostics: true,
         },
     },
+    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+        prefix: '<rootDir>',
+    }),
 
     cacheDirectory: '.jest/cache',
 };

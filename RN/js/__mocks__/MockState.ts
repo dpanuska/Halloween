@@ -10,7 +10,7 @@ import {
     SpeechState,
     TaskState,
     VisualState,
-} from '../types/StateTypes';
+} from 'types/StateTypes';
 
 export const mockAppConfig: AppConfig = {
     detectionFrequency: 1,
@@ -59,7 +59,7 @@ export const mockTaskState: TaskState = {
 
 export const mockRootState: RootState = {
     app: mockAppState,
-    speech: mockSpeechState,
+    tts: mockSpeechState,
     visual: mockVisualState,
     camera: mockCameraState,
     task: mockTaskState,

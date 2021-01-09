@@ -4,7 +4,8 @@ import {
     CAMERA_TAKE_PICTURE_STATUS,
     CAMERA_SET_TRACKING_OBJECT,
 } from '../../constants/Actions';
-import {CameraState, RequestStates} from '../../types/StateTypes';
+
+import {CameraState, RequestStates} from 'types/StateTypes';
 
 let initialState: CameraState = {
     isPictureRequested: false,

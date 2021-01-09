@@ -20,7 +20,7 @@ import {
     getAreTasksFetched,
 } from '../selectors/TaskSelectors';
 
-import {RootState} from '../types/StateTypes';
+import {RootState} from 'types/StateTypes';
 
 export interface Props {
     isEverythingFetched: boolean;

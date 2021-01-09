@@ -15,8 +15,8 @@ import {
 } from '../actions/TaskActions';
 import {fetchTasks, fetchConfiguration} from '../services/TaskService';
 
-import {DetectionStateAction} from '../types/AppActionTypes';
-import {DetectionStates} from '../types/StateTypes';
+import {DetectionStateAction} from 'types/AppActionTypes';
+import {DetectionStates} from 'types/StateTypes';
 
 // TODO Better service registration - this is fine for now.
 

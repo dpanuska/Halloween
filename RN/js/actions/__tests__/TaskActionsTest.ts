@@ -14,7 +14,7 @@ import {
     fetchConfigSuccess,
     fetchConfigFailed,
 } from '../TaskActions';
-import {RequestStates} from '../../types/StateTypes';
+import {RequestStates} from 'types/StateTypes';
 
 describe('TaskActions', () => {
     describe('fetch config', () => {

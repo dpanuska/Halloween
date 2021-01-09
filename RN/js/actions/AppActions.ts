@@ -3,10 +3,10 @@ import {
     APP_FETCH_CONFIG_REQUESTED,
     APP_FETCH_CONFIG_STATUS,
 } from '../constants/Actions';
-import {AppConfig, DetectionStates, RequestStates} from '../types/StateTypes';
 
-import {RequestStatusAction} from '../types/ActionTypes';
-import {DetectionStateAction} from '../types/AppActionTypes';
+import {AppConfig, DetectionStates, RequestStates} from 'types/StateTypes';
+import {RequestStatusAction} from 'types/ActionTypes';
+import {DetectionStateAction} from 'types/AppActionTypes';
 import {Action} from '@reduxjs/toolkit';
 
 export const setDetectionState = (

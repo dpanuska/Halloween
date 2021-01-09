@@ -5,7 +5,8 @@ import {
     TTS_SET_PITCH_STATUS,
     TTS_SET_LOCALE_STATUS,
 } from '../../constants/Actions';
-import {SpeechState, RequestStates} from '../../types/StateTypes';
+
+import {SpeechState, RequestStates} from 'types/StateTypes';
 
 let initialState: SpeechState = {
     isSpeaking: false,

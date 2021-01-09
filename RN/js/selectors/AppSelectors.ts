@@ -5,7 +5,7 @@ import {
     DetectionStates,
     AppConfig,
     RequestStates,
-} from '../types/StateTypes';
+} from 'types/StateTypes';
 
 export const getAppState = (state: RootState): AppState => state.app;
 

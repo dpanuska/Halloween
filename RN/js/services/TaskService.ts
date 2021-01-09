@@ -1,7 +1,8 @@
-import {TaskList, TaskJson} from '../types/TaskTypes';
 import taskJson from 'res/tasks';
 import taskConfig from 'res/taskConfig';
-import {TaskConfig} from '../types/StateTypes';
+
+import {TaskConfig} from 'types/StateTypes';
+import {TaskList, TaskJson} from 'types/TaskTypes';
 
 export async function fetchTasks(): Promise<TaskList[]> {
     let allTasks = loadTasksFromJson(taskJson.base)
@@ -18,7 +19,7 @@ export async function fetchConfiguration(): Promise<TaskConfig> {
 }
 
 function loadTasksFromJson(jsonObj: TaskJson): TaskList[] {
-    let tasks = Array<TaskList>();
+    let tasks: TaskList[] = [];
     for (var def of jsonObj.taskDefinitions) {
         tasks.push(def);
     }

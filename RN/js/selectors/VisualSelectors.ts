@@ -1,6 +1,7 @@
-import {RootState, VisualState} from '../types/StateTypes';
 import images from 'res/images';
 import {createSelector} from '@reduxjs/toolkit';
+
+import {RootState, VisualState} from 'types/StateTypes';
 
 interface ResourceMap {
     [key: string]: any;

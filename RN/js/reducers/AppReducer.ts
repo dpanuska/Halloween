@@ -4,9 +4,9 @@ import {
 } from '../constants/Actions';
 import {createReducer} from '@reduxjs/toolkit';
 
-import {AppState, DetectionStates, RequestStates} from '../types/StateTypes';
-import {RequestStatusAction} from '../types/ActionTypes';
-import {DetectionStateAction} from '../types/AppActionTypes';
+import {AppState, DetectionStates, RequestStates} from 'types/StateTypes';
+import {RequestStatusAction} from 'types/ActionTypes';
+import {DetectionStateAction} from 'types/AppActionTypes';
 
 const initialState: AppState = {
     detectionState: DetectionStates.IDLE,

@@ -1,7 +1,7 @@
 import {createSelector} from '@reduxjs/toolkit';
 
-import {TaskState, RootState, RequestStates} from '../types/StateTypes';
-import {TaskList} from '../types/TaskTypes';
+import {TaskState, RootState, RequestStates} from 'types/StateTypes';
+import {TaskList} from 'types/TaskTypes';
 
 export const getTaskState = (state: RootState): TaskState => state.task;
 
@@ -28,10 +28,13 @@ export const getTasksByName = createSelector(getAllTasks, (tasks) => {
     return namedTasks;
 });
 
-export const getNamedTask = (name: string) =>
-    createSelector(getTasksByName, (tasks) => {
-        return tasks.get(name);
-    });
+export const getNamedTask = createSelector(
+    getTasksByName,
+    (_: RootState, name: string) => name,
+    (tasks, name) => {
+        return tasks.get(name) || null;
+    },
+);
 
 export const getTasksByTypes = createSelector(getAllTasks, (tasks) =>
     filterTasksByType(tasks),
@@ -42,8 +45,7 @@ function filterTasksByType(tasks: TaskList[]) {
     for (let task of tasks) {
         let list = mapByTypes.get(task.type);
         if (list == null) {
-            // eslint-disable-next-line no-array-constructor
-            list = new Array<TaskList>();
+            list = [];
             mapByTypes.set(task.type, list);
         }
         list.push(task);
@@ -51,10 +53,13 @@ function filterTasksByType(tasks: TaskList[]) {
     return mapByTypes;
 }
 
-export const getAllTasksOfType = (type: string) =>
-    createSelector(getTasksByTypes, (taskMap) => {
+export const getAllTasksOfType = createSelector(
+    getTasksByTypes,
+    (_: RootState, type: string) => type,
+    (taskMap, type) => {
         return taskMap.get(type) || null;
-    });
+    },
+);
 
 export const getConfigFetchStatus = (state: RootState) =>
     getTaskState(state).configFetchStatus;

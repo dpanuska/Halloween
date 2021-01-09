@@ -13,9 +13,9 @@ import {
     SetPitchAction,
     SetRateAction,
     SetLocaleAction,
-} from '../types/TTSActionTypes';
-import {RequestStatusAction} from '../types/ActionTypes';
-import {RequestStates} from '../types/StateTypes';
+} from 'types/TTSActionTypes';
+import {RequestStatusAction} from 'types/ActionTypes';
+import {RequestStates} from 'types/StateTypes';
 
 export const sayText = (text: string): SayTextAction => ({
     type: TTS_SAY_TEXT_REQUESTED,

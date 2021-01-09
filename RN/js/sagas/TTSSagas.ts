@@ -21,7 +21,7 @@ import {
     SetPitchAction,
     SetRateAction,
     SetLocaleAction,
-} from '../types/TTSActionTypes';
+} from 'types/TTSActionTypes';
 
 const ttsService = new TextToSpeechService();
 

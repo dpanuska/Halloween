@@ -3,7 +3,8 @@ import {
     TASK_FETCH_CONFIG_STATUS,
     TASK_FETCH_TASKS_STATUS,
 } from '../../constants/Actions';
-import {TaskState, RequestStates} from '../../types/StateTypes';
+
+import {TaskState, RequestStates} from 'types/StateTypes';
 
 let initialState: TaskState = {
     tasks: [],

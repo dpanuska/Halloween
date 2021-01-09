@@ -25,7 +25,7 @@ import {
 } from '../selectors/AppSelectors';
 import {fetchConfiguration} from '../services/AppService';
 
-import {DetectionStates} from '../types/StateTypes';
+import {DetectionStates} from 'types/StateTypes';
 
 export function* objectDetectionSet(data: any) {
     let detectionState = yield select(getDetectionState);

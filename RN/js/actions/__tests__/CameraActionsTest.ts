@@ -4,7 +4,6 @@ import {
     CAMERA_TAKE_PICTURE_REQUESTED,
     CAMERA_TAKE_PICTURE_STATUS,
 } from '../../constants/Actions';
-import {RequestStates} from '../../types/StateTypes';
 import {
     setTrackingObject,
     objectDetected,
@@ -13,6 +12,8 @@ import {
     takePictureFailed,
     takePictureSucceeded,
 } from '../CameraActions';
+
+import {RequestStates} from 'types/StateTypes';
 
 describe('CameraActions', () => {
     describe('Object Detection', () => {

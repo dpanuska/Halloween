@@ -1,6 +1,6 @@
-import {RootState, SpeechState} from '../types/StateTypes';
+import {RootState, SpeechState} from 'types/StateTypes';
 
-export const getSpeechState = (state: RootState): SpeechState => state.speech;
+export const getSpeechState = (state: RootState): SpeechState => state.tts;
 
 export const getIsSpeaking = (state: RootState): boolean =>
     getSpeechState(state).isSpeaking;

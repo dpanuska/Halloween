@@ -1,6 +1,6 @@
 import appReducer from '../AppReducer';
 import {APP_SET_DETECTION_STATE, APP_FETCH_CONFIG_STATUS} from '../../constants/Actions';
-import {AppState, DetectionStates, RequestStates} from '../../types/StateTypes';
+import {AppState, DetectionStates, RequestStates} from 'types/StateTypes';
 
 let initialState: AppState = {
     detectionState: DetectionStates.IDLE,

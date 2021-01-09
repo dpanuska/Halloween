@@ -1,5 +1,5 @@
 import {PayloadAction} from '@reduxjs/toolkit';
-import {DetectionStates} from '../types/StateTypes';
+import {DetectionStates} from 'types/StateTypes';
 
 interface DetectionPayload {
     detectionState: DetectionStates;

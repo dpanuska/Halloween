@@ -1,4 +1,5 @@
-import {RootState, CameraState} from '../types/StateTypes';
+import {RootState, CameraState} from 'types/StateTypes';
+
 export const getCameraState = (state: RootState): CameraState => state.camera;
 
 export const getAspectRatio = (state: RootState): string =>

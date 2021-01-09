@@ -5,9 +5,9 @@ import {
     CAMERA_SET_TRACKING_OBJECT,
 } from '../constants/Actions';
 
-import {CameraState, RequestStates} from '../types/StateTypes';
-import {RequestStatusAction} from '../types/ActionTypes';
-import {SetTrackingObjectAction} from '../types/CameraActionTypes';
+import {CameraState, RequestStates} from 'types/StateTypes';
+import {RequestStatusAction} from 'types/ActionTypes';
+import {SetTrackingObjectAction} from 'types/CameraActionTypes';
 
 const initialState: CameraState = {
     aspectRatio: '16:9',
