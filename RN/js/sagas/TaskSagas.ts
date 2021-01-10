@@ -1,10 +1,10 @@
-import {call, put, take, takeLatest} from 'redux-saga/effects';
+import {call, put, takeLatest} from 'redux-saga/effects';
 import {
     APP_SET_DETECTION_STATE,
     TASK_FETCH_CONFIG_REQUESTED,
     TASK_FETCH_TASKS_REQUESTED,
-} from '../constants/Actions';
-import {sayText} from '../actions/TTSActions';
+} from 'src/constants/Actions';
+import {sayText} from 'src/actions/TTSActions';
 import {
     fetchConfigStarted,
     fetchConfigSuccess,
@@ -12,8 +12,8 @@ import {
     fetchTasksStarted,
     fetchTasksSuccess,
     fetchTasksFailed,
-} from '../actions/TaskActions';
-import {fetchTasks, fetchConfiguration} from '../services/TaskService';
+} from 'src/actions/TaskActions';
+import {fetchTasks, fetchConfiguration} from 'src/services/TaskService';
 
 import {DetectionStateAction} from 'types/AppActionTypes';
 import {DetectionStates} from 'types/StateTypes';

@@ -7,18 +7,18 @@ import {
     StatusBar,
     StyleSheet,
 } from 'react-native';
-import CameraView from './CameraView';
+import CameraView from 'src/views/CameraView';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
-import {fetchAppConfig} from '../actions/AppActions';
-import {fetchTaskConfig, fetchTasks} from '../actions/TaskActions';
-import {setBackgroundFile} from '../actions/VisualActions';
-import BackgroundView from './OverlayView';
-import {getIsAppConfigFetched} from '../selectors/AppSelectors';
+import {fetchAppConfig} from 'src/actions/AppActions';
+import {fetchTaskConfig, fetchTasks} from 'src/actions/TaskActions';
+import {setBackgroundFile} from 'src/actions/VisualActions';
+import BackgroundView from 'src/views/OverlayView';
+import {getIsAppConfigFetched} from 'src/selectors/AppSelectors';
 import {
     getIsTaskConfigFetched,
     getAreTasksFetched,
-} from '../selectors/TaskSelectors';
+} from 'src/selectors/TaskSelectors';
 
 import {RootState} from 'types/StateTypes';
 

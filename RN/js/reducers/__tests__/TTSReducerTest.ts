@@ -1,10 +1,10 @@
-import speechReducer from '../TTSReducer';
+import speechReducer from 'src/reducers/TTSReducer';
 import {
     TTS_SAY_TEXT_STATUS,
     TTS_SET_RATE_STATUS,
     TTS_SET_PITCH_STATUS,
     TTS_SET_LOCALE_STATUS,
-} from '../../constants/Actions';
+} from 'src/constants/Actions';
 
 import {SpeechState, RequestStates} from 'types/StateTypes';
 

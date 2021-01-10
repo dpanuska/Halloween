@@ -3,7 +3,7 @@ import {
     TASK_FETCH_CONFIG_STATUS,
     TASK_FETCH_TASKS_REQUESTED,
     TASK_FETCH_TASKS_STATUS,
-} from '../../constants/Actions';
+} from 'src/constants/Actions';
 import {
     fetchTasks,
     fetchTasksStarted,
@@ -13,7 +13,7 @@ import {
     fetchConfigStarted,
     fetchConfigSuccess,
     fetchConfigFailed,
-} from '../TaskActions';
+} from 'src/actions/TaskActions';
 import {RequestStates} from 'types/StateTypes';
 
 describe('TaskActions', () => {

@@ -3,7 +3,7 @@ import {
     CAMERA_SET_TRACKING_OBJECT,
     CAMERA_TAKE_PICTURE_REQUESTED,
     CAMERA_TAKE_PICTURE_STATUS,
-} from '../../constants/Actions';
+} from 'src/constants/Actions';
 import {
     setTrackingObject,
     objectDetected,
@@ -11,7 +11,7 @@ import {
     takePictureStarted,
     takePictureFailed,
     takePictureSucceeded,
-} from '../CameraActions';
+} from 'src/actions/CameraActions';
 
 import {RequestStates} from 'types/StateTypes';
 

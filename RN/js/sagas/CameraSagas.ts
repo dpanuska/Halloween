@@ -1,7 +1,7 @@
 import {take, delay, put, fork, cancel, select} from 'redux-saga/effects';
-import {CAMERA_OBJECT_DETECTED} from '../constants/Actions';
-import {setTrackingObject} from '../actions/CameraActions';
-import {getDetectionClearDelay} from '../selectors/AppSelectors';
+import {CAMERA_OBJECT_DETECTED} from 'src/constants/Actions';
+import {setTrackingObject} from 'src/actions/CameraActions';
+import {getDetectionClearDelay} from 'src/selectors/AppSelectors';
 
 function* endObjectDetection() {
     let endDelay = yield select(getDetectionClearDelay);

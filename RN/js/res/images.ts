@@ -1,6 +1,6 @@
 const images = {
-    dylan: require('./images/dylan.gif'),
-    grab_candy: require('./images/grab_candy.gif'),
+    dylan: require('res/images/dylan.gif'),
+    grab_candy: require('res/images/grab_candy.gif'),
 };
 
 export default images;

@@ -3,7 +3,7 @@ import {
     TASK_FETCH_CONFIG_STATUS,
     TASK_FETCH_TASKS_REQUESTED,
     TASK_FETCH_TASKS_STATUS,
-} from '../constants/Actions';
+} from 'src/constants/Actions';
 
 import {Action} from '@reduxjs/toolkit';
 import {RequestStates, TaskConfig} from 'types/StateTypes';

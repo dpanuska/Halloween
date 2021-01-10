@@ -1,8 +1,8 @@
-import visualReducer from './VisualReducer';
-import appReducer from './AppReducer';
-import cameraReducer from './CameraReducer';
-import speechReducer from './TTSReducer';
-import taskReducer from './TaskReducer';
+import visualReducer from 'src/reducers/VisualReducer';
+import appReducer from 'src/reducers/AppReducer';
+import cameraReducer from 'src/reducers/CameraReducer';
+import speechReducer from 'src/reducers/TTSReducer';
+import taskReducer from 'src/reducers/TaskReducer';
 import {combineReducers} from 'redux';
 
 const reducers = combineReducers({

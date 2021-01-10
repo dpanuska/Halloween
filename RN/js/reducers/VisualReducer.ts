@@ -2,7 +2,7 @@ import {
     VISUAL_SET_BACKGROUND_FILE,
     VISUAL_RESET,
     VISUAL_SET_TEXT,
-} from '../constants/Actions';
+} from 'src/constants/Actions';
 import {createReducer} from '@reduxjs/toolkit';
 
 import {VisualState} from 'types/StateTypes';

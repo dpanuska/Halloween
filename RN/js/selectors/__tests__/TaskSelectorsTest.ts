@@ -14,7 +14,7 @@ import {
     getAllTasksOfType,
     getTasksByName,
     getNamedTask,
-} from '../TaskSelectors';
+} from 'src/selectors/TaskSelectors';
 import {mockRootState, mockTaskState} from '../../__mocks__/MockState';
 
 import {RequestStates} from 'types/StateTypes';

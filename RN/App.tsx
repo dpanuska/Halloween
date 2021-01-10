@@ -2,9 +2,9 @@ import React from 'react';
 import {compose, createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import {Provider} from 'react-redux';
-import rootSaga from './js/sagas/RootSagas';
-import reducer from './js/reducers/Reducers';
-import AppView from './js/views/AppView';
+import rootSaga from 'src/sagas/RootSagas';
+import reducer from 'src/reducers/Reducers';
+import AppView from 'src/views/AppView';
 
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

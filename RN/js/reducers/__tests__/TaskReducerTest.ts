@@ -1,8 +1,8 @@
-import taskReducer from '../TaskReducer';
+import taskReducer from 'src/reducers/TaskReducer';
 import {
     TASK_FETCH_CONFIG_STATUS,
     TASK_FETCH_TASKS_STATUS,
-} from '../../constants/Actions';
+} from 'src/constants/Actions';
 
 import {TaskState, RequestStates} from 'types/StateTypes';
 

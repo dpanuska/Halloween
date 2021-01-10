@@ -11,19 +11,19 @@ import {
 import {
     APP_FETCH_CONFIG_REQUESTED,
     CAMERA_SET_TRACKING_OBJECT,
-} from '../constants/Actions';
+} from 'src/constants/Actions';
 import {
     setDetectionState,
     fetchConfigStarted,
     fetchConfigSuccess,
     fetchConfigFailed,
-} from '../actions/AppActions';
+} from 'src/actions/AppActions';
 import {
     getActivationDelay,
     getDetectionState,
     getDeactivationDelay,
-} from '../selectors/AppSelectors';
-import {fetchConfiguration} from '../services/AppService';
+} from 'src/selectors/AppSelectors';
+import {fetchConfiguration} from 'src/services/AppService';
 
 import {DetectionStates} from 'types/StateTypes';
 

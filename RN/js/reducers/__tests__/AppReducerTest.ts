@@ -1,5 +1,8 @@
-import appReducer from '../AppReducer';
-import {APP_SET_DETECTION_STATE, APP_FETCH_CONFIG_STATUS} from '../../constants/Actions';
+import appReducer from 'src/reducers/AppReducer';
+import {
+    APP_SET_DETECTION_STATE,
+    APP_FETCH_CONFIG_STATUS,
+} from 'src/constants/Actions';
 import {AppState, DetectionStates, RequestStates} from 'types/StateTypes';
 
 let initialState: AppState = {

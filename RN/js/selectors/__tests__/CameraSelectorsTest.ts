@@ -5,7 +5,7 @@ import {
     getIsTakingPicture,
     getAspectRatio,
     getUseFrontCamera,
-} from '../CameraSelectors';
+} from 'src/selectors/CameraSelectors';
 import {mockCameraState, mockRootState} from '../../__mocks__/MockState';
 
 describe('CameraSelectors', () => {

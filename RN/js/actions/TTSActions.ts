@@ -7,7 +7,7 @@ import {
     TTS_SET_PITCH_STATUS,
     TTS_SET_RATE_REQUESTED,
     TTS_SET_RATE_STATUS,
-} from '../constants/Actions';
+} from 'src/constants/Actions';
 import {
     SayTextAction,
     SetPitchAction,

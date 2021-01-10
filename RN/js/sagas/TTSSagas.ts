@@ -1,6 +1,6 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
-import TextToSpeechService from '../services/TTSService';
-import * as actions from '../constants/Actions';
+import TextToSpeechService from 'src/services/TTSService';
+import * as actions from 'src/constants/Actions';
 import {
     sayTextStarted,
     sayTextSucceeded,
@@ -14,7 +14,7 @@ import {
     setRateStarted,
     setRateSucceeded,
     setRateFailed,
-} from '../actions/TTSActions';
+} from 'src/actions/TTSActions';
 
 import {
     SayTextAction,

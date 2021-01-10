@@ -1,3 +1,3 @@
-const config = require('./json/appConfig.json');
+const config = require('res/json/appConfig.json');
 
 export default config;

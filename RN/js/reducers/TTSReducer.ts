@@ -3,7 +3,7 @@ import {
     TTS_SET_LOCALE_STATUS,
     TTS_SET_PITCH_STATUS,
     TTS_SET_RATE_STATUS,
-} from '../constants/Actions';
+} from 'src/constants/Actions';
 import {RequestStatusAction} from 'types/ActionTypes';
 import {createReducer} from '@reduxjs/toolkit';
 import {SpeechState, RequestStates} from 'types/StateTypes';

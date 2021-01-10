@@ -2,14 +2,14 @@ import {
     APP_SET_DETECTION_STATE,
     APP_FETCH_CONFIG_REQUESTED,
     APP_FETCH_CONFIG_STATUS,
-} from '../../constants/Actions';
+} from 'src/constants/Actions';
 import {
     setDetectionState,
     fetchAppConfig,
     fetchConfigStarted,
     fetchConfigSuccess,
     fetchConfigFailed,
-} from '../AppActions';
+} from 'src/actions/AppActions';
 import {AppConfig, DetectionStates, RequestStates} from 'types/StateTypes';
 
 describe('AppActions', () => {

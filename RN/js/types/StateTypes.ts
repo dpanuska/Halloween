@@ -1,4 +1,4 @@
-import {TaskList} from './TaskTypes';
+import {TaskList} from 'src/types/TaskTypes';
 
 export enum DetectionStates {
     IDLE,

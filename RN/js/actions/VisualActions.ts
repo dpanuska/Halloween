@@ -2,7 +2,7 @@ import {
     VISUAL_RESET,
     VISUAL_SET_BACKGROUND_FILE,
     VISUAL_SET_TEXT,
-} from '../constants/Actions';
+} from 'src/constants/Actions';
 import {
     SetBackgroundAction,
     SetTextAction,

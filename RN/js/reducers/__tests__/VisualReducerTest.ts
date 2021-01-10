@@ -1,9 +1,9 @@
-import visualReducer from '../VisualReducer';
+import visualReducer from 'src/reducers/VisualReducer';
 import {
     VISUAL_RESET,
     VISUAL_SET_BACKGROUND_FILE,
     VISUAL_SET_TEXT,
-} from '../../constants/Actions';
+} from 'src/constants/Actions';
 
 import {VisualState} from 'types/StateTypes';
 

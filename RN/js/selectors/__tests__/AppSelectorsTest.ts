@@ -8,7 +8,7 @@ import {
     getDeactivationDelay,
     getIsAppConfigFetched,
     getAppConfigFetchStatus,
-} from '../AppSelectors';
+} from 'src/selectors/AppSelectors';
 import {mockAppState, mockRootState} from '../../__mocks__/MockState';
 
 describe('AppSelectors', () => {

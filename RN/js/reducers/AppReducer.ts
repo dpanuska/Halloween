@@ -1,7 +1,7 @@
 import {
     APP_SET_DETECTION_STATE,
     APP_FETCH_CONFIG_STATUS,
-} from '../constants/Actions';
+} from 'src/constants/Actions';
 import {createReducer} from '@reduxjs/toolkit';
 
 import {AppState, DetectionStates, RequestStates} from 'types/StateTypes';

@@ -7,14 +7,14 @@ import {
     getAspectRatio,
     getUseFrontCamera,
     getIsPictureRequested,
-} from '../selectors/CameraSelectors';
-import {getDetectionFrequency} from '../selectors/AppSelectors'
+} from 'src/selectors/CameraSelectors';
+import {getDetectionFrequency} from 'src/selectors/AppSelectors';
 import {
     takePictureStarted,
     takePictureSucceeded,
     takePictureFailed,
     objectDetected,
-} from '../actions/CameraActions';
+} from 'src/actions/CameraActions';
 
 import {RootState} from 'types/StateTypes';
 import {Dispatch} from 'redux';

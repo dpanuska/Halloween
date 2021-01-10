@@ -3,7 +3,7 @@ import {
     CAMERA_TAKE_PICTURE_REQUESTED,
     CAMERA_TAKE_PICTURE_STATUS,
     CAMERA_SET_TRACKING_OBJECT,
-} from '../constants/Actions';
+} from 'src/constants/Actions';
 
 import {CameraState, RequestStates} from 'types/StateTypes';
 import {RequestStatusAction} from 'types/ActionTypes';

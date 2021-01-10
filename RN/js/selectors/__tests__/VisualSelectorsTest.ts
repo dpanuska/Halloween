@@ -3,7 +3,7 @@ import {
     getBackgroundFile,
     getText,
     getBackgroundResource,
-} from '../VisualSelectors';
+} from 'src/selectors/VisualSelectors';
 import {mockVisualState, mockRootState} from '../../__mocks__/MockState';
 
 describe('VisualSelectors', () => {

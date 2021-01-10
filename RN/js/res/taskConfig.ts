@@ -1,3 +1,3 @@
-const config = require('./json/taskConfig.json');
+const config = require('res/json/taskConfig.json');
 
 export default config;

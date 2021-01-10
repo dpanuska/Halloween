@@ -2,7 +2,7 @@ import {
     APP_SET_DETECTION_STATE,
     APP_FETCH_CONFIG_REQUESTED,
     APP_FETCH_CONFIG_STATUS,
-} from '../constants/Actions';
+} from 'src/constants/Actions';
 
 import {AppConfig, DetectionStates, RequestStates} from 'types/StateTypes';
 import {RequestStatusAction} from 'types/ActionTypes';
