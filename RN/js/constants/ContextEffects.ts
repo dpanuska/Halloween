@@ -1,0 +1,1 @@
+export const TTS_SERVICE_KEY = 'TTS_SERVICE_KEY';

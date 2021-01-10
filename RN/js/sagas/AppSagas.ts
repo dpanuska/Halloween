@@ -7,6 +7,7 @@ import {
     cancel,
     select,
     call,
+    cancelled,
 } from 'redux-saga/effects';
 import {
     APP_FETCH_CONFIG_REQUESTED,
@@ -32,11 +33,15 @@ export function* objectDetectionSet(data: any) {
     if (detectionState === DetectionStates.ACTIVE && data == null) {
         let clearDelay = yield select(getDeactivationDelay);
         yield delay(clearDelay);
-        yield put(setDetectionState(DetectionStates.IDLE));
+        if (!(yield cancelled())) {
+            yield put(setDetectionState(DetectionStates.IDLE));
+        }
     } else if (detectionState === DetectionStates.IDLE && data != null) {
         let activeDelay = yield select(getActivationDelay);
         yield delay(activeDelay);
-        yield put(setDetectionState(DetectionStates.ACTIVE));
+        if (!(yield cancelled())) {
+            yield put(setDetectionState(DetectionStates.ACTIVE));
+        }
     }
 }
 

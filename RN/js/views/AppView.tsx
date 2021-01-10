@@ -21,12 +21,13 @@ import {
 } from 'src/selectors/TaskSelectors';
 
 import {RootState} from 'types/StateTypes';
+import { sayText } from 'src/actions/TTSActions';
 
 export interface Props {
     isEverythingFetched: boolean;
-    fetchAppConfig: () => void;
-    fetchTaskConfig: () => void;
-    fetchTasks: () => void;
+    requestFetchAppConfig: () => void;
+    requestFetchTaskConfig: () => void;
+    requestFetchTasks: () => void;
     onButtonPressed: () => void;
 }
 
@@ -37,10 +38,14 @@ class AppView extends PureComponent<Props> {
     }
 
     componentDidMount() {
-        let {fetchAppConfig, fetchTaskConfig, fetchTasks} = this.props;
-        fetchAppConfig();
-        fetchTaskConfig();
-        fetchTasks();
+        let {
+            requestFetchAppConfig,
+            requestFetchTaskConfig,
+            requestFetchTasks,
+        } = this.props;
+        requestFetchAppConfig();
+        requestFetchTaskConfig();
+        requestFetchTasks();
     }
 
     render() {
@@ -104,10 +109,10 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        fetchAppConfig: () => dispatch(fetchAppConfig()),
-        fetchTaskConfig: () => dispatch(fetchTaskConfig()),
-        fetchTasks: () => dispatch(fetchTasks()),
-        onButtonPressed: () => dispatch(setBackgroundFile('dylan')),
+        requestFetchAppConfig: () => dispatch(fetchAppConfig()),
+        requestFetchTaskConfig: () => dispatch(fetchTaskConfig()),
+        requestFetchTasks: () => dispatch(fetchTasks()),
+        onButtonPressed: () => dispatch(sayText('dylan')),
     };
 };
 

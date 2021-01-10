@@ -23,7 +23,7 @@ export default class TextToSpeechService {
         });
     }
 
-    onTtsFinish(event: any) {
+    private onTtsFinish(event: any) {
         let {utteranceId} = event;
         let resolver = this.utteranceIds.get(utteranceId);
         if (resolver != null) {
@@ -33,7 +33,7 @@ export default class TextToSpeechService {
         }
     }
 
-    onTtsCancel(event: any) {
+    private onTtsCancel(event: any) {
         let {utteranceId} = event;
         let resolver = this.utteranceIds.get(utteranceId);
         if (resolver != null) {

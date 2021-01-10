@@ -1,5 +1,4 @@
-import {call, put, takeLatest} from 'redux-saga/effects';
-import TextToSpeechService from 'src/services/TTSService';
+import {call, put, takeLatest, getContext} from 'redux-saga/effects';
 import * as actions from 'src/constants/Actions';
 import {
     sayTextStarted,
@@ -15,6 +14,7 @@ import {
     setRateSucceeded,
     setRateFailed,
 } from 'src/actions/TTSActions';
+import {TTS_SERVICE_KEY} from 'src/constants/ContextEffects';
 
 import {
     SayTextAction,
@@ -22,11 +22,11 @@ import {
     SetRateAction,
     SetLocaleAction,
 } from 'types/TTSActionTypes';
-
-const ttsService = new TextToSpeechService();
+import TTSService from 'types/TTSType';
 
 function* sayText(action: SayTextAction) {
     try {
+        let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
         yield put(sayTextStarted());
         yield call(ttsService.speak, action.payload.text);
         yield put(sayTextSucceeded());
@@ -37,6 +37,7 @@ function* sayText(action: SayTextAction) {
 
 function* setRate(action: SetRateAction) {
     try {
+        let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
         yield put(setRateStarted());
         yield call(ttsService.setDefaultRate, action.payload.rate);
         yield put(setRateSucceeded());
@@ -47,6 +48,7 @@ function* setRate(action: SetRateAction) {
 
 function* setPitch(action: SetPitchAction) {
     try {
+        let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
         yield put(setPitchStarted());
         yield call(ttsService.setDefaultPitch, action.payload.pitch);
         yield put(setPitchSucceeded());
@@ -57,6 +59,7 @@ function* setPitch(action: SetPitchAction) {
 
 function* setLocale(action: SetLocaleAction) {
     try {
+        let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
         yield put(setLocaleStarted());
         yield call(ttsService.setDefaultLanguage, action.payload.locale);
         yield put(setLocaleSucceeded());

@@ -20,7 +20,7 @@ import {DetectionStates} from 'types/StateTypes';
 
 // TODO Better service registration - this is fine for now.
 
-function* handleDetectionStateChange(action: DetectionStateAction) {
+export function* handleDetectionStateChange(action: DetectionStateAction) {
     let state = action.payload.detectionState;
     if (state === DetectionStates.ACTIVE) {
         // TODO this would start a greeting action
@@ -31,7 +31,7 @@ function* handleDetectionStateChange(action: DetectionStateAction) {
     }
 }
 
-function* fetchTaskConfig() {
+export function* fetchTaskConfig() {
     try {
         yield put(fetchConfigStarted());
         let config = yield call(fetchConfiguration);
@@ -41,7 +41,7 @@ function* fetchTaskConfig() {
     }
 }
 
-function* fetchAllTasks() {
+export function* fetchAllTasks() {
     try {
         yield put(fetchTasksStarted());
         let tasks = yield call(fetchTasks);

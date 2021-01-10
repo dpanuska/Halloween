@@ -1,5 +1,5 @@
 import ttsSagas from 'src/sagas/TTSSagas';
 
-describe('CameraSagas', () => {
+describe('TTSSagas', () => {
     it('is empty right now', () => {});
 });

@@ -23,5 +23,5 @@ export interface TTSLocaleTask extends TaskList {
 }
 
 export interface TaskJson {
-    taskDefinitions: [TaskList]
+    taskDefinitions: TaskList[]
 }
