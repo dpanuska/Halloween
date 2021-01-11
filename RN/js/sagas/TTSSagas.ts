@@ -24,7 +24,7 @@ import {
 } from 'types/TTSActionTypes';
 import TTSService from 'types/TTSType';
 
-function* sayText(action: SayTextAction) {
+export function* sayText(action: SayTextAction) {
     try {
         let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
         yield put(sayTextStarted());
@@ -35,7 +35,7 @@ function* sayText(action: SayTextAction) {
     }
 }
 
-function* setRate(action: SetRateAction) {
+export function* setRate(action: SetRateAction) {
     try {
         let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
         yield put(setRateStarted());
@@ -46,7 +46,7 @@ function* setRate(action: SetRateAction) {
     }
 }
 
-function* setPitch(action: SetPitchAction) {
+export function* setPitch(action: SetPitchAction) {
     try {
         let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
         yield put(setPitchStarted());
@@ -57,7 +57,7 @@ function* setPitch(action: SetPitchAction) {
     }
 }
 
-function* setLocale(action: SetLocaleAction) {
+export function* setLocale(action: SetLocaleAction) {
     try {
         let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
         yield put(setLocaleStarted());
