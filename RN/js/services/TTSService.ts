@@ -1,4 +1,5 @@
 import Tts from 'react-native-tts';
+import {TTSInitPayload} from 'src/types/TTSActionTypes';
 
 export class TTSError extends Error {
     innerError?: Error;
@@ -41,6 +42,25 @@ export default class TextToSpeechService {
             this.utteranceIds.delete(utteranceId);
             reject(new Error('Utterance Canceled'));
         }
+    }
+
+    async initialize(): Promise<TTSInitPayload> {
+        const voices = await Tts.voices();
+        let languages: any[] = [];
+        const availableLanguages: any[] = voices
+            .filter((v: any) => !v.networkConnectionRequired && !v.notInstalled)
+            .reduce((accumulator: any[], current: any) => {
+                if (!accumulator.includes(current.language)) {
+                    accumulator.push(current.language);
+                }
+                return accumulator;
+            }, languages);
+        if (availableLanguages == null || availableLanguages.length === 0) {
+            throw new TTSError('No languages found!');
+        }
+        return {
+            availableLanguages,
+        };
     }
 
     async speak(text: string): Promise<any> {

@@ -6,10 +6,10 @@ import {
 } from 'src/constants/Actions';
 
 import {Action} from '@reduxjs/toolkit';
-import {RequestStatusAction} from 'types/ActionTypes';
 import {RequestStates} from 'types/StateTypes';
 import {
     ObjectDetectedActon,
+    PictureRequstStatusAction,
     SetTrackingObjectAction,
 } from 'types/CameraActionTypes';
 
@@ -17,14 +17,16 @@ export const takePicture = (): Action => ({
     type: CAMERA_TAKE_PICTURE_REQUESTED,
 });
 
-export const takePictureStarted = (): RequestStatusAction => ({
+export const takePictureStarted = (): PictureRequstStatusAction => ({
     type: CAMERA_TAKE_PICTURE_STATUS,
     payload: {
         status: RequestStates.STARTED,
     },
 });
 
-export const takePictureSucceeded = (uri: string): RequestStatusAction => ({
+export const takePictureSucceeded = (
+    uri: string,
+): PictureRequstStatusAction => ({
     type: CAMERA_TAKE_PICTURE_STATUS,
     payload: {
         status: RequestStates.SUCCESSFUL,
@@ -32,7 +34,7 @@ export const takePictureSucceeded = (uri: string): RequestStatusAction => ({
     },
 });
 
-export const takePictureFailed = (error: Error): RequestStatusAction => ({
+export const takePictureFailed = (error: Error): PictureRequstStatusAction => ({
     type: CAMERA_TAKE_PICTURE_STATUS,
     payload: {
         status: RequestStates.FAILED,

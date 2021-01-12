@@ -7,6 +7,7 @@ import reducer from 'src/reducers/Reducers';
 import AppView from 'src/views/AppView';
 import {TTS_SERVICE_KEY} from 'src/constants/ContextEffects';
 import TTSService from 'src/services/TTSService';
+import logger from 'src/middleware/logger';
 
 const ttsService = new TTSService();
 const sagaMiddleware = createSagaMiddleware({
@@ -17,7 +18,7 @@ const sagaMiddleware = createSagaMiddleware({
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
     reducer,
-    composeEnhancers(applyMiddleware(sagaMiddleware)),
+    composeEnhancers(applyMiddleware(sagaMiddleware, logger)),
 );
 
 export default function App() {

@@ -9,6 +9,12 @@ import {
 import {SpeechState, RequestStates} from 'types/StateTypes';
 
 let initialState: SpeechState = {
+    initStatus: {
+        status: RequestStates.SUCCESSFUL,
+        result: {
+            availableLanguages: [],
+        },
+    },
     isSpeaking: false,
     isSettingRate: false,
     isSettingPitch: false,

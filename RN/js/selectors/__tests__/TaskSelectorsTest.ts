@@ -1,6 +1,5 @@
 import {
     getTaskState,
-    getTaskConfig,
     getConfigFetchStatus,
     getActivationEventType,
     getDeactivationEventType,
@@ -24,10 +23,6 @@ describe('TaskSelectors', () => {
         expect(getTaskState(mockRootState)).toEqual(mockTaskState);
     });
 
-    it('should get task configuration', () => {
-        expect(getTaskConfig(mockRootState)).toEqual(mockTaskState.config);
-    });
-
     it('should get get config fetch status', () => {
         expect(getConfigFetchStatus(mockRootState)).toEqual(
             mockTaskState.configFetchStatus,
@@ -36,31 +31,31 @@ describe('TaskSelectors', () => {
 
     it('should get if task config is fetched', () => {
         expect(getIsTaskConfigFetched(mockRootState)).toEqual(
-            mockTaskState.configFetchStatus === RequestStates.SUCCESSFUL,
+            mockTaskState.configFetchStatus.status === RequestStates.SUCCESSFUL,
         );
     });
 
     it('should get activation event type', () => {
         expect(getActivationEventType(mockRootState)).toEqual(
-            mockTaskState.config.activationEventType,
+            mockTaskState.configFetchStatus.result?.activationEventType,
         );
     });
 
     it('should get deactivation event type', () => {
         expect(getDeactivationEventType(mockRootState)).toEqual(
-            mockTaskState.config.deactivationEventType,
+            mockTaskState.configFetchStatus.result?.deactivationEventType,
         );
     });
 
     it('should get idle event type', () => {
         expect(getIdleEventType(mockRootState)).toEqual(
-            mockTaskState.config.idleEventType,
+            mockTaskState.configFetchStatus.result?.idleEventType,
         );
     });
 
     it('should get active idle event type', () => {
         expect(getActiveIdleEventType(mockRootState)).toEqual(
-            mockTaskState.config.activeIdleEventType,
+            mockTaskState.configFetchStatus.result?.activeIdleEventType,
         );
     });
 
@@ -72,12 +67,14 @@ describe('TaskSelectors', () => {
 
     it('should get if tasks have been fetched', () => {
         expect(getAreTasksFetched(mockRootState)).toEqual(
-            mockTaskState.taskFetchStatus === RequestStates.SUCCESSFUL,
+            mockTaskState.taskFetchStatus.status === RequestStates.SUCCESSFUL,
         );
     });
 
     it('should get all tasks', () => {
-        expect(getAllTasks(mockRootState)).toEqual(mockTaskState.tasks);
+        expect(getAllTasks(mockRootState)).toEqual(
+            mockTaskState.taskFetchStatus.result,
+        );
     });
 
     it('should get tasks by type', () => {
@@ -88,7 +85,10 @@ describe('TaskSelectors', () => {
         ];
         let taskState = {
             ...mockTaskState,
-            tasks: mockTasks,
+            taskFetchStatus: {
+                status: RequestStates.SUCCESSFUL,
+                result: mockTasks,
+            },
         };
         let rootState = {
             ...mockRootState,
@@ -111,7 +111,10 @@ describe('TaskSelectors', () => {
         ];
         let taskState = {
             ...mockTaskState,
-            tasks: mockTasks,
+            taskFetchStatus: {
+                status: RequestStates.SUCCESSFUL,
+                result: mockTasks,
+            },
         };
         let rootState = {
             ...mockRootState,
@@ -132,7 +135,10 @@ describe('TaskSelectors', () => {
         ];
         let taskState = {
             ...mockTaskState,
-            tasks: mockTasks,
+            taskFetchStatus: {
+                status: RequestStates.SUCCESSFUL,
+                result: mockTasks,
+            },
         };
         let rootState = {
             ...mockRootState,

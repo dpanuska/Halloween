@@ -5,54 +5,48 @@ import {
 import {createReducer} from '@reduxjs/toolkit';
 
 import {RequestStates, TaskState} from 'types/StateTypes';
-import {RequestStatusAction} from 'types/ActionTypes';
+import {
+    FetchConfigRequestStatusAction,
+    FetchTasksRequestStatusAction,
+} from 'src/types/TaskActionTypes';
 
 const initialState: TaskState = {
-    tasks: [],
-    configFetchStatus: RequestStates.NOT_FETCHED,
-    taskFetchStatus: RequestStates.NOT_FETCHED,
-    config: {
-        activationEventType: 'GREETING',
-        deactivationEventType: 'GOODBYE',
-        idleEventType: 'IDLE',
-        activeIdleEventType: 'ACTIVE_IDLE',
+    configFetchStatus: {
+        status: RequestStates.NOT_FETCHED,
+    },
+    taskFetchStatus: {
+        status: RequestStates.NOT_FETCHED,
     },
 };
 
 function updateConfigFetchStatus(
     state: TaskState,
-    action: RequestStatusAction,
+    action: FetchConfigRequestStatusAction,
 ): TaskState {
-    let {status, result} = action.payload;
-    let config = result != null ? result : state.config;
     return {
         ...state,
-        configFetchStatus: status,
-        config,
+        configFetchStatus: action.payload,
     };
 }
 
 function updateTaskFetchStatus(
     state: TaskState,
-    action: RequestStatusAction,
+    action: FetchTasksRequestStatusAction,
 ): TaskState {
-    let {status, result} = action.payload;
-    let tasks = result != null ? result : state.tasks;
     return {
         ...state,
-        taskFetchStatus: status,
-        tasks,
+        taskFetchStatus: action.payload,
     };
 }
 
 const reducer = createReducer(initialState, {
     [TASK_FETCH_CONFIG_STATUS]: (
         state: TaskState,
-        action: RequestStatusAction,
+        action: FetchConfigRequestStatusAction,
     ) => updateConfigFetchStatus(state, action),
     [TASK_FETCH_TASKS_STATUS]: (
         state: TaskState,
-        action: RequestStatusAction,
+        action: FetchTasksRequestStatusAction,
     ) => updateTaskFetchStatus(state, action),
 });
 

@@ -39,6 +39,7 @@ describe('TaskSagas', () => {
                 deactivationEventType: 'deactivation',
                 idleEventType: 'idle',
                 activeIdleEventType: 'active-idle',
+                defaultLanguage: 'language',
             };
             mocked(fetchConfiguration).mockImplementation(() => {
                 return Promise.resolve(mockConfig);

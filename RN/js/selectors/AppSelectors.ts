@@ -5,34 +5,47 @@ import {
     DetectionStates,
     AppConfig,
     RequestStates,
+    RequestActionStatus,
 } from 'types/StateTypes';
 
 export const getAppState = (state: RootState): AppState => state.app;
 
-export const getAppConfigFetchStatus = (state: RootState): RequestStates =>
-    getAppState(state).configFetchStatus;
+export const getAppConfigFetchStatus = (
+    state: RootState,
+): RequestActionStatus<void, AppConfig> => getAppState(state).configFetchStatus;
 
 export const getIsAppConfigFetched = createSelector(
     getAppConfigFetchStatus,
-    (status) => {
-        return status === RequestStates.SUCCESSFUL;
+    (config) => {
+        return config.status === RequestStates.SUCCESSFUL;
     },
 );
 
 export const getDetectionState = (state: RootState): DetectionStates =>
     getAppState(state).detectionState;
 
-export const getConfig = (state: RootState): AppConfig =>
-    getAppState(state).config;
+export const getActivationDelay = createSelector(
+    getAppConfigFetchStatus,
+    (config) => {
+        return config.result?.activationDelay;
+    },
+);
 
-export const getActivationDelay = (state: RootState): number =>
-    getConfig(state).activationDelay;
-
-export const getDeactivationDelay = (state: RootState): number =>
-    getConfig(state).deactivationDelay;
-
-export const getDetectionFrequency = (state: RootState): number =>
-    getConfig(state).detectionFrequency;
-
-export const getDetectionClearDelay = (state: RootState): number =>
-    getConfig(state).detectionClearDelay;
+export const getDeactivationDelay = createSelector(
+    getAppConfigFetchStatus,
+    (config) => {
+        return config.result?.deactivationDelay;
+    },
+);
+export const getDetectionFrequency = createSelector(
+    getAppConfigFetchStatus,
+    (config) => {
+        return config.result?.detectionFrequency;
+    },
+);
+export const getDetectionClearDelay = createSelector(
+    getAppConfigFetchStatus,
+    (config) => {
+        return config.result?.detectionClearDelay;
+    },
+);

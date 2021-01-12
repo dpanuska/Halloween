@@ -7,18 +7,23 @@ import {
 import {TaskState, RequestStates} from 'types/StateTypes';
 
 let initialState: TaskState = {
-    tasks: [],
-    taskFetchStatus: RequestStates.NOT_FETCHED,
-    configFetchStatus: RequestStates.NOT_FETCHED,
-    config: {
-        activationEventType: 'activation',
-        deactivationEventType: 'deactivation',
-        idleEventType: 'idle',
-        activeIdleEventType: 'active-idle',
+    taskFetchStatus: {
+        status: RequestStates.SUCCESSFUL,
+        result: [],
+    },
+    configFetchStatus: {
+        status: RequestStates.SUCCESSFUL,
+        result: {
+            activationEventType: 'activation',
+            deactivationEventType: 'deactivation',
+            idleEventType: 'idle',
+            activeIdleEventType: 'active-idle',
+            defaultLanguage: 'language',
+        },
     },
 };
 
-describe('AppReducer', () => {
+describe('TaskReducer', () => {
     it('should return initial state', () => {
         expect(taskReducer(initialState, {type: 'INVALID'})).toEqual(
             initialState,
@@ -35,14 +40,16 @@ describe('AppReducer', () => {
             };
             let expectedState = {
                 ...initialState,
-                configFetchStatus: RequestStates.STARTED,
+                configFetchStatus: {
+                    status: RequestStates.STARTED,
+                },
             };
             expect(taskReducer(initialState, action)).toEqual(expectedState);
         });
 
         it('should handle success', () => {
             let mockConfig = {
-                ...initialState.config,
+                ...initialState.configFetchStatus.result,
                 activationEventType: 'newType',
             };
             let action = {
@@ -54,8 +61,10 @@ describe('AppReducer', () => {
             };
             let expectedState = {
                 ...initialState,
-                configFetchStatus: RequestStates.SUCCESSFUL,
-                config: mockConfig,
+                configFetchStatus: {
+                    status: RequestStates.SUCCESSFUL,
+                    result: mockConfig,
+                },
             };
             expect(taskReducer(initialState, action)).toEqual(expectedState);
         });
@@ -71,7 +80,10 @@ describe('AppReducer', () => {
             };
             let expectedState = {
                 ...initialState,
-                configFetchStatus: RequestStates.FAILED,
+                configFetchStatus: {
+                    status: RequestStates.FAILED,
+                    error,
+                },
             };
             expect(taskReducer(initialState, action)).toEqual(expectedState);
         });
@@ -87,7 +99,9 @@ describe('AppReducer', () => {
             };
             let expectedState = {
                 ...initialState,
-                taskFetchStatus: RequestStates.STARTED,
+                taskFetchStatus: {
+                    status: RequestStates.STARTED,
+                },
             };
             expect(taskReducer(initialState, action)).toEqual(expectedState);
         });
@@ -103,8 +117,10 @@ describe('AppReducer', () => {
             };
             let expectedState = {
                 ...initialState,
-                taskFetchStatus: RequestStates.SUCCESSFUL,
-                tasks: mockTasks,
+                taskFetchStatus: {
+                    status: RequestStates.SUCCESSFUL,
+                    result: mockTasks,
+                },
             };
             expect(taskReducer(initialState, action)).toEqual(expectedState);
         });
@@ -120,7 +136,10 @@ describe('AppReducer', () => {
             };
             let expectedState = {
                 ...initialState,
-                taskFetchStatus: RequestStates.FAILED,
+                taskFetchStatus: {
+                    status: RequestStates.FAILED,
+                    error,
+                },
             };
             expect(taskReducer(initialState, action)).toEqual(expectedState);
         });

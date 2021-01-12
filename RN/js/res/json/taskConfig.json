@@ -2,5 +2,6 @@
   "activationEventType": "GREETING",
   "deactivationEventType": "GOODBYE",
   "idleEventType": "IDLE",
-  "activeIdleEventType": "ACTIVE_IDLE"
+  "activeIdleEventType": "ACTIVE_IDLE",
+  "defaultLanguage": "en-US"
 }

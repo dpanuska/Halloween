@@ -1,6 +1,20 @@
-import {RootState, SpeechState} from 'types/StateTypes';
+import {createSelector} from '@reduxjs/toolkit';
+import {RequestStates, RootState, SpeechState} from 'types/StateTypes';
 
 export const getSpeechState = (state: RootState): SpeechState => state.tts;
+
+export const getInitState = (state: RootState) =>
+    getSpeechState(state).initStatus;
+
+export const getIsInitialized = createSelector(
+    getInitState,
+    (init) => init.status === RequestStates.SUCCESSFUL,
+);
+
+export const getAvailableLanguages = createSelector(
+    getInitState,
+    (init) => init.result?.availableLanguages,
+);
 
 export const getIsSpeaking = (state: RootState): boolean =>
     getSpeechState(state).isSpeaking;

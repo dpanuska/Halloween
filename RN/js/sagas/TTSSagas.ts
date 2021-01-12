@@ -1,5 +1,11 @@
-import {call, put, takeLatest, getContext} from 'redux-saga/effects';
-import * as actions from 'src/constants/Actions';
+import {call, put, takeLatest, getContext, take} from 'redux-saga/effects';
+import {
+    TTS_INIT_REQUESTED,
+    TTS_SAY_TEXT_REQUESTED,
+    TTS_SET_LOCALE_REQUESTED,
+    TTS_SET_PITCH_REQUESTED,
+    TTS_SET_RATE_REQUESTED,
+} from 'src/constants/Actions';
 import {
     sayTextStarted,
     sayTextSucceeded,
@@ -13,6 +19,9 @@ import {
     setRateStarted,
     setRateSucceeded,
     setRateFailed,
+    initializeStarted,
+    initializeSucceeded,
+    initializeFailed,
 } from 'src/actions/TTSActions';
 import {TTS_SERVICE_KEY} from 'src/constants/ContextEffects';
 
@@ -27,50 +36,63 @@ import TTSService from 'types/TTSType';
 export function* sayText(action: SayTextAction) {
     try {
         let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
-        yield put(sayTextStarted());
+        yield put(sayTextStarted(action.payload));
         yield call(ttsService.speak, action.payload.text);
-        yield put(sayTextSucceeded());
+        yield put(sayTextSucceeded(action.payload));
     } catch (error) {
-        yield put(sayTextFailed(error));
+        yield put(sayTextFailed(action.payload, error));
     }
 }
 
 export function* setRate(action: SetRateAction) {
     try {
         let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
-        yield put(setRateStarted());
+        yield put(setRateStarted(action.payload));
         yield call(ttsService.setDefaultRate, action.payload.rate);
-        yield put(setRateSucceeded());
+        yield put(setRateSucceeded(action.payload));
     } catch (error) {
-        yield put(setRateFailed(error));
+        yield put(setRateFailed(action.payload, error));
     }
 }
 
 export function* setPitch(action: SetPitchAction) {
     try {
         let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
-        yield put(setPitchStarted());
+        yield put(setPitchStarted(action.payload));
         yield call(ttsService.setDefaultPitch, action.payload.pitch);
-        yield put(setPitchSucceeded());
+        yield put(setPitchSucceeded(action.payload));
     } catch (error) {
-        yield put(setPitchFailed(error));
+        yield put(setPitchFailed(action.payload, error));
     }
 }
 
 export function* setLocale(action: SetLocaleAction) {
     try {
         let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
-        yield put(setLocaleStarted());
+        yield put(setLocaleStarted(action.payload));
         yield call(ttsService.setDefaultLanguage, action.payload.locale);
-        yield put(setLocaleSucceeded());
+        yield put(setLocaleSucceeded(action.payload));
     } catch (error) {
-        yield put(setLocaleFailed(error));
+        yield put(setLocaleFailed(action.payload, error));
+    }
+}
+
+export function* initialize() {
+    try {
+        let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
+        yield put(initializeStarted());
+        let result = yield call(ttsService.initialize);
+        yield put(initializeSucceeded(result));
+    } catch (error) {
+        yield put(initializeFailed(error));
     }
 }
 
 export default function* rootSaga() {
-    yield takeLatest(actions.TTS_SAY_TEXT_REQUESTED, sayText);
-    yield takeLatest(actions.TTS_SET_LOCALE_REQUESTED, setLocale);
-    yield takeLatest(actions.TTS_SET_RATE_REQUESTED, setRate);
-    yield takeLatest(actions.TTS_SET_PITCH_REQUESTED, setPitch);
+    yield take(TTS_INIT_REQUESTED);
+    yield call(initialize);
+    yield takeLatest(TTS_SAY_TEXT_REQUESTED, sayText);
+    yield takeLatest(TTS_SET_LOCALE_REQUESTED, setLocale);
+    yield takeLatest(TTS_SET_RATE_REQUESTED, setRate);
+    yield takeLatest(TTS_SET_PITCH_REQUESTED, setPitch);
 }

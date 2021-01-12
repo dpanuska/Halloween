@@ -1,4 +1,6 @@
 import {
+    TTS_INIT_REQUESTED,
+    TTS_INIT_STATUS,
     TTS_SAY_TEXT_REQUESTED,
     TTS_SAY_TEXT_STATUS,
     TTS_SET_LOCALE_REQUESTED,
@@ -8,14 +10,54 @@ import {
     TTS_SET_RATE_REQUESTED,
     TTS_SET_RATE_STATUS,
 } from 'src/constants/Actions';
+
 import {
     SayTextAction,
     SetPitchAction,
     SetRateAction,
     SetLocaleAction,
+    SayTextRequestStatusAction,
+    SetLocaleRequestStatusAction,
+    SetPitchRequestStatusAction,
+    SetRateRequestStatusAction,
+    TextPayload,
+    PitchPayload,
+    RatePayload,
+    LocalePayload,
+    InitRequestStatusAction,
+    TTSInitPayload,
 } from 'types/TTSActionTypes';
-import {RequestStatusAction} from 'types/ActionTypes';
 import {RequestStates} from 'types/StateTypes';
+import {Action} from 'redux';
+
+export const initialize = (): Action => ({
+    type: TTS_INIT_REQUESTED,
+});
+
+export const initializeStarted = (): InitRequestStatusAction => ({
+    type: TTS_INIT_STATUS,
+    payload: {
+        status: RequestStates.STARTED,
+    },
+});
+
+export const initializeSucceeded = (
+    result: TTSInitPayload,
+): InitRequestStatusAction => ({
+    type: TTS_INIT_STATUS,
+    payload: {
+        status: RequestStates.SUCCESSFUL,
+        result: result,
+    },
+});
+
+export const initializeFailed = (error: Error): InitRequestStatusAction => ({
+    type: TTS_INIT_STATUS,
+    payload: {
+        status: RequestStates.FAILED,
+        error,
+    },
+});
 
 export const sayText = (text: string): SayTextAction => ({
     type: TTS_SAY_TEXT_REQUESTED,
@@ -24,24 +66,34 @@ export const sayText = (text: string): SayTextAction => ({
     },
 });
 
-export const sayTextStarted = (): RequestStatusAction => ({
+export const sayTextStarted = (
+    params: TextPayload,
+): SayTextRequestStatusAction => ({
     type: TTS_SAY_TEXT_STATUS,
     payload: {
         status: RequestStates.STARTED,
+        params,
     },
 });
 
-export const sayTextSucceeded = (): RequestStatusAction => ({
+export const sayTextSucceeded = (
+    params: TextPayload,
+): SayTextRequestStatusAction => ({
     type: TTS_SAY_TEXT_STATUS,
     payload: {
         status: RequestStates.SUCCESSFUL,
+        params,
     },
 });
 
-export const sayTextFailed = (error: Error): RequestStatusAction => ({
+export const sayTextFailed = (
+    params: TextPayload,
+    error: Error,
+): SayTextRequestStatusAction => ({
     type: TTS_SAY_TEXT_STATUS,
     payload: {
         status: RequestStates.FAILED,
+        params,
         error,
     },
 });
@@ -53,24 +105,34 @@ export const setSpeechPitch = (pitch: number): SetPitchAction => ({
     },
 });
 
-export const setPitchStarted = (): RequestStatusAction => ({
+export const setPitchStarted = (
+    params: PitchPayload,
+): SetPitchRequestStatusAction => ({
     type: TTS_SET_PITCH_STATUS,
     payload: {
         status: RequestStates.STARTED,
+        params,
     },
 });
 
-export const setPitchSucceeded = (): RequestStatusAction => ({
+export const setPitchSucceeded = (
+    params: PitchPayload,
+): SetPitchRequestStatusAction => ({
     type: TTS_SET_PITCH_STATUS,
     payload: {
         status: RequestStates.SUCCESSFUL,
+        params,
     },
 });
 
-export const setPitchFailed = (error: Error): RequestStatusAction => ({
+export const setPitchFailed = (
+    params: PitchPayload,
+    error: Error,
+): SetPitchRequestStatusAction => ({
     type: TTS_SET_PITCH_STATUS,
     payload: {
         status: RequestStates.FAILED,
+        params,
         error,
     },
 });
@@ -82,24 +144,34 @@ export const setSpeechRate = (rate: number): SetRateAction => ({
     },
 });
 
-export const setRateStarted = (): RequestStatusAction => ({
+export const setRateStarted = (
+    params: RatePayload,
+): SetRateRequestStatusAction => ({
     type: TTS_SET_RATE_STATUS,
     payload: {
         status: RequestStates.STARTED,
+        params,
     },
 });
 
-export const setRateSucceeded = (): RequestStatusAction => ({
+export const setRateSucceeded = (
+    params: RatePayload,
+): SetRateRequestStatusAction => ({
     type: TTS_SET_RATE_STATUS,
     payload: {
         status: RequestStates.SUCCESSFUL,
+        params,
     },
 });
 
-export const setRateFailed = (error: Error): RequestStatusAction => ({
+export const setRateFailed = (
+    params: RatePayload,
+    error: Error,
+): SetRateRequestStatusAction => ({
     type: TTS_SET_RATE_STATUS,
     payload: {
         status: RequestStates.FAILED,
+        params,
         error,
     },
 });
@@ -111,24 +183,34 @@ export const setSpeechLocale = (locale: string): SetLocaleAction => ({
     },
 });
 
-export const setLocaleStarted = (): RequestStatusAction => ({
+export const setLocaleStarted = (
+    params: LocalePayload,
+): SetLocaleRequestStatusAction => ({
     type: TTS_SET_LOCALE_STATUS,
     payload: {
         status: RequestStates.STARTED,
+        params,
     },
 });
 
-export const setLocaleSucceeded = (): RequestStatusAction => ({
+export const setLocaleSucceeded = (
+    params: LocalePayload,
+): SetLocaleRequestStatusAction => ({
     type: TTS_SET_LOCALE_STATUS,
     payload: {
         status: RequestStates.SUCCESSFUL,
+        params,
     },
 });
 
-export const setLocaleFailed = (error: Error): RequestStatusAction => ({
+export const setLocaleFailed = (
+    params: LocalePayload,
+    error: Error,
+): SetLocaleRequestStatusAction => ({
     type: TTS_SET_LOCALE_STATUS,
     payload: {
         status: RequestStates.FAILED,
+        params,
         error,
     },
 });

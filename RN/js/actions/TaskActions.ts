@@ -7,21 +7,26 @@ import {
 
 import {Action} from '@reduxjs/toolkit';
 import {RequestStates, TaskConfig} from 'types/StateTypes';
-import {RequestStatusAction} from 'types/ActionTypes';
+import {
+    FetchTasksRequestStatusAction,
+    FetchConfigRequestStatusAction,
+} from 'types/TaskActionTypes';
 import {TaskList} from 'types/TaskTypes';
 
 export const fetchTaskConfig = (): Action => ({
     type: TASK_FETCH_CONFIG_REQUESTED,
 });
 
-export const fetchConfigStarted = (): RequestStatusAction => ({
+export const fetchConfigStarted = (): FetchConfigRequestStatusAction => ({
     type: TASK_FETCH_CONFIG_STATUS,
     payload: {
         status: RequestStates.STARTED,
     },
 });
 
-export const fetchConfigFailed = (error: Error) => ({
+export const fetchConfigFailed = (
+    error: Error,
+): FetchConfigRequestStatusAction => ({
     type: TASK_FETCH_CONFIG_STATUS,
     payload: {
         status: RequestStates.FAILED,
@@ -31,7 +36,7 @@ export const fetchConfigFailed = (error: Error) => ({
 
 export const fetchConfigSuccess = (
     config: TaskConfig,
-): RequestStatusAction => ({
+): FetchConfigRequestStatusAction => ({
     type: TASK_FETCH_CONFIG_STATUS,
     payload: {
         status: RequestStates.SUCCESSFUL,
@@ -43,14 +48,16 @@ export const fetchTasks = (): Action => ({
     type: TASK_FETCH_TASKS_REQUESTED,
 });
 
-export const fetchTasksStarted = (): RequestStatusAction => ({
+export const fetchTasksStarted = (): FetchTasksRequestStatusAction => ({
     type: TASK_FETCH_TASKS_STATUS,
     payload: {
         status: RequestStates.STARTED,
     },
 });
 
-export const fetchTasksFailed = (error: Error): RequestStatusAction => ({
+export const fetchTasksFailed = (
+    error: Error,
+): FetchTasksRequestStatusAction => ({
     type: TASK_FETCH_TASKS_STATUS,
     payload: {
         status: RequestStates.FAILED,
@@ -58,7 +65,9 @@ export const fetchTasksFailed = (error: Error): RequestStatusAction => ({
     },
 });
 
-export const fetchTasksSuccess = (tasks: TaskList[]): RequestStatusAction => ({
+export const fetchTasksSuccess = (
+    tasks: TaskList[],
+): FetchTasksRequestStatusAction => ({
     type: TASK_FETCH_TASKS_STATUS,
     payload: {
         status: RequestStates.SUCCESSFUL,

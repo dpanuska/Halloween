@@ -1,7 +1,6 @@
 import {
     getAppState,
     getDetectionState,
-    getConfig,
     getDetectionClearDelay,
     getActivationDelay,
     getDetectionFrequency,
@@ -9,6 +8,7 @@ import {
     getIsAppConfigFetched,
     getAppConfigFetchStatus,
 } from 'src/selectors/AppSelectors';
+import {RequestStates} from 'src/types/StateTypes';
 import {mockAppState, mockRootState} from '../../__mocks__/MockState';
 
 describe('AppSelectors', () => {
@@ -22,31 +22,27 @@ describe('AppSelectors', () => {
         );
     });
 
-    it('should get configuration', () => {
-        expect(getConfig(mockRootState)).toEqual(mockAppState.config);
-    });
-
     it('should get config detection clear delay', () => {
         expect(getDetectionClearDelay(mockRootState)).toEqual(
-            mockAppState.config.detectionClearDelay,
+            mockAppState.configFetchStatus.result?.detectionClearDelay,
         );
     });
 
     it('should get config activation delay', () => {
         expect(getActivationDelay(mockRootState)).toEqual(
-            mockAppState.config.activationDelay,
+            mockAppState.configFetchStatus.result?.activationDelay,
         );
     });
 
     it('should get config detection frequency', () => {
         expect(getDetectionFrequency(mockRootState)).toEqual(
-            mockAppState.config.detectionFrequency,
+            mockAppState.configFetchStatus.result?.detectionFrequency,
         );
     });
 
     it('should get config deactivation delay', () => {
         expect(getDeactivationDelay(mockRootState)).toEqual(
-            mockAppState.config.deactivationDelay,
+            mockAppState.configFetchStatus.result?.deactivationDelay,
         );
     });
 
@@ -57,6 +53,8 @@ describe('AppSelectors', () => {
     });
 
     it('should get if config has been fetched', () => {
-        expect(getIsAppConfigFetched(mockRootState)).toEqual(false);
+        expect(getIsAppConfigFetched(mockRootState)).toEqual(
+            mockAppState.configFetchStatus.status === RequestStates.SUCCESSFUL,
+        );
     });
 });

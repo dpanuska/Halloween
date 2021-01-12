@@ -7,12 +7,14 @@ import {AppState, DetectionStates, RequestStates} from 'types/StateTypes';
 
 let initialState: AppState = {
     detectionState: DetectionStates.IDLE,
-    configFetchStatus: RequestStates.NOT_FETCHED,
-    config: {
-        detectionFrequency: 1,
-        deactivationDelay: 1,
-        activationDelay: 1,
-        detectionClearDelay: 1,
+    configFetchStatus: {
+        status: RequestStates.SUCCESSFUL,
+        result: {
+            detectionFrequency: 1,
+            deactivationDelay: 1,
+            activationDelay: 1,
+            detectionClearDelay: 1,
+        },
     },
 };
 
@@ -51,15 +53,21 @@ describe('AppReducer', () => {
             };
             let expectedState = {
                 ...initialState,
-                configFetchStatus: RequestStates.STARTED,
+                configFetchStatus: {
+                    status: RequestStates.STARTED,
+                    result: undefined,
+                },
             };
             expect(appReducer(initialState, action)).toEqual(expectedState);
         });
 
         it('should handle success', () => {
             let mockConfig = {
-                ...initialState.config,
-                detectionClearDelay: 10000,
+                ...initialState.configFetchStatus,
+                result: {
+                    ...initialState.configFetchStatus.result,
+                    detectionClearDelay: 10000,
+                },
             };
             let action = {
                 type: APP_FETCH_CONFIG_STATUS,
@@ -70,8 +78,10 @@ describe('AppReducer', () => {
             };
             let expectedState = {
                 ...initialState,
-                configFetchStatus: RequestStates.SUCCESSFUL,
-                config: mockConfig,
+                configFetchStatus: {
+                    status: RequestStates.SUCCESSFUL,
+                    result: mockConfig,
+                },
             };
             expect(appReducer(initialState, action)).toEqual(expectedState);
         });
@@ -87,7 +97,11 @@ describe('AppReducer', () => {
             };
             let expectedState = {
                 ...initialState,
-                configFetchStatus: RequestStates.FAILED,
+                configFetchStatus: {
+                    status: RequestStates.FAILED,
+                    error,
+                    result: undefined,
+                },
             };
             expect(appReducer(initialState, action)).toEqual(expectedState);
         });

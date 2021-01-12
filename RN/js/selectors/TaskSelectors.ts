@@ -10,16 +10,20 @@ export const getTaskFetchStatus = (state: RootState) =>
 
 export const getAreTasksFetched = createSelector(
     getTaskFetchStatus,
-    (status) => {
-        return status === RequestStates.SUCCESSFUL;
+    (tasks) => {
+        return tasks.status === RequestStates.SUCCESSFUL;
     },
 );
 
-export const getAllTasks = (state: RootState): TaskList[] =>
-    getTaskState(state).tasks;
+export const getAllTasks = createSelector(getTaskFetchStatus, (config) => {
+    return config.result;
+});
 
 export const getTasksByName = createSelector(getAllTasks, (tasks) => {
     let namedTasks = new Map<string, TaskList>();
+    if (tasks == null) {
+        return namedTasks;
+    }
     for (let task of tasks) {
         if (task.name != null) {
             namedTasks.set(task.name, task);
@@ -36,22 +40,20 @@ export const getNamedTask = createSelector(
     },
 );
 
-export const getTasksByTypes = createSelector(getAllTasks, (tasks) =>
-    filterTasksByType(tasks),
-);
-
-function filterTasksByType(tasks: TaskList[]) {
+export const getTasksByTypes = createSelector(getAllTasks, (tasks) => {
     let mapByTypes = new Map<string, TaskList[]>();
-    for (let task of tasks) {
-        let list = mapByTypes.get(task.type);
-        if (list == null) {
-            list = [];
-            mapByTypes.set(task.type, list);
+    if (tasks != null) {
+        for (let task of tasks) {
+            let list = mapByTypes.get(task.type);
+            if (list == null) {
+                list = [];
+                mapByTypes.set(task.type, list);
+            }
+            list.push(task);
         }
-        list.push(task);
     }
     return mapByTypes;
-}
+});
 
 export const getAllTasksOfType = createSelector(
     getTasksByTypes,
@@ -66,21 +68,41 @@ export const getConfigFetchStatus = (state: RootState) =>
 
 export const getIsTaskConfigFetched = createSelector(
     getConfigFetchStatus,
-    (status) => {
-        return status === RequestStates.SUCCESSFUL;
+    (config) => {
+        return config.status === RequestStates.SUCCESSFUL;
     },
 );
 
-export const getTaskConfig = (state: RootState) => getTaskState(state).config;
+export const getActivationEventType = createSelector(
+    getConfigFetchStatus,
+    (config) => {
+        return config.result?.activationEventType;
+    },
+);
 
-export const getActivationEventType = (state: RootState): string =>
-    getTaskConfig(state).activationEventType;
+export const getDeactivationEventType = createSelector(
+    getConfigFetchStatus,
+    (config) => {
+        return config.result?.deactivationEventType;
+    },
+);
+export const getIdleEventType = createSelector(
+    getConfigFetchStatus,
+    (config) => {
+        return config.result?.idleEventType;
+    },
+);
 
-export const getDeactivationEventType = (state: RootState): string =>
-    getTaskConfig(state).deactivationEventType;
+export const getActiveIdleEventType = createSelector(
+    getConfigFetchStatus,
+    (config) => {
+        return config.result?.activeIdleEventType;
+    },
+);
 
-export const getIdleEventType = (state: RootState): string =>
-    getTaskConfig(state).idleEventType;
-
-export const getActiveIdleEventType = (state: RootState): string =>
-    getTaskConfig(state).activeIdleEventType;
+export const getDefaultLanguage = createSelector(
+    getConfigFetchStatus,
+    (config) => {
+        return config.result?.defaultLanguage;
+    },
+);

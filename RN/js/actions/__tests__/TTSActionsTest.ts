@@ -5,15 +5,19 @@ import {RequestStates} from 'types/StateTypes';
 
 describe('TTSActions', () => {
     describe('Say Actions', () => {
+        let mockText = 'some text';
+        let mockTextPayload = {
+            text: mockText,
+        };
+
         it('should create an action to request say text', () => {
-            let text = 'something to say';
             let expectedAction = {
                 type: types.TTS_SAY_TEXT_REQUESTED,
                 payload: {
-                    text,
+                    text: mockText,
                 },
             };
-            expect(actions.sayText(text)).toEqual(expectedAction);
+            expect(actions.sayText(mockText)).toEqual(expectedAction);
         });
 
         it('should create an action to start saying text', () => {
@@ -21,9 +25,12 @@ describe('TTSActions', () => {
                 type: types.TTS_SAY_TEXT_STATUS,
                 payload: {
                     status: RequestStates.STARTED,
+                    params: mockTextPayload,
                 },
             };
-            expect(actions.sayTextStarted()).toEqual(expectedAction);
+            expect(actions.sayTextStarted(mockTextPayload)).toEqual(
+                expectedAction,
+            );
         });
 
         it('should create an action to complete saying text', () => {
@@ -31,9 +38,12 @@ describe('TTSActions', () => {
                 type: types.TTS_SAY_TEXT_STATUS,
                 payload: {
                     status: RequestStates.SUCCESSFUL,
+                    params: mockTextPayload,
                 },
             };
-            expect(actions.sayTextSucceeded()).toEqual(expectedAction);
+            expect(actions.sayTextSucceeded(mockTextPayload)).toEqual(
+                expectedAction,
+            );
         });
 
         it('should create an action to fail saying text', () => {
@@ -42,23 +52,30 @@ describe('TTSActions', () => {
                 type: types.TTS_SAY_TEXT_STATUS,
                 payload: {
                     status: RequestStates.FAILED,
+                    params: mockTextPayload,
                     error,
                 },
             };
-            expect(actions.sayTextFailed(error)).toEqual(expectedAction);
+            expect(actions.sayTextFailed(mockTextPayload, error)).toEqual(
+                expectedAction,
+            );
         });
     });
 
     describe('Rate Actions', () => {
+        let mockRate = 1;
+        let mockRatePayload = {
+            rate: mockRate,
+        };
+
         it('should create an action to request rate change', () => {
-            let rate = 0.5;
             let expectedAction = {
                 type: types.TTS_SET_RATE_REQUESTED,
                 payload: {
-                    rate,
+                    rate: mockRate,
                 },
             };
-            expect(actions.setSpeechRate(rate)).toEqual(expectedAction);
+            expect(actions.setSpeechRate(mockRate)).toEqual(expectedAction);
         });
 
         it('should create an action to start rate change', () => {
@@ -66,9 +83,12 @@ describe('TTSActions', () => {
                 type: types.TTS_SET_RATE_STATUS,
                 payload: {
                     status: RequestStates.STARTED,
+                    params: mockRatePayload,
                 },
             };
-            expect(actions.setRateStarted()).toEqual(expectedAction);
+            expect(actions.setRateStarted(mockRatePayload)).toEqual(
+                expectedAction,
+            );
         });
 
         it('should create an action to complete rate change', () => {
@@ -76,9 +96,12 @@ describe('TTSActions', () => {
                 type: types.TTS_SET_RATE_STATUS,
                 payload: {
                     status: RequestStates.SUCCESSFUL,
+                    params: mockRatePayload,
                 },
             };
-            expect(actions.setRateSucceeded()).toEqual(expectedAction);
+            expect(actions.setRateSucceeded(mockRatePayload)).toEqual(
+                expectedAction,
+            );
         });
 
         it('should create an action to fail rate change', () => {
@@ -87,23 +110,30 @@ describe('TTSActions', () => {
                 type: types.TTS_SET_RATE_STATUS,
                 payload: {
                     status: RequestStates.FAILED,
+                    params: mockRatePayload,
                     error,
                 },
             };
-            expect(actions.setRateFailed(error)).toEqual(expectedAction);
+            expect(actions.setRateFailed(mockRatePayload, error)).toEqual(
+                expectedAction,
+            );
         });
     });
 
     describe('Pitch Actions', () => {
+        let mockPitch = 1;
+        let mockPitchPayload = {
+            pitch: mockPitch,
+        };
+
         it('should create an action to request pitch change', () => {
-            let pitch = 0.5;
             const expectedAction = {
                 type: types.TTS_SET_PITCH_REQUESTED,
                 payload: {
-                    pitch,
+                    pitch: mockPitch,
                 },
             };
-            expect(actions.setSpeechPitch(pitch)).toEqual(expectedAction);
+            expect(actions.setSpeechPitch(mockPitch)).toEqual(expectedAction);
         });
 
         it('should create an action to start pitch change', () => {
@@ -111,9 +141,12 @@ describe('TTSActions', () => {
                 type: types.TTS_SET_PITCH_STATUS,
                 payload: {
                     status: RequestStates.STARTED,
+                    params: mockPitchPayload,
                 },
             };
-            expect(actions.setPitchStarted()).toEqual(expectedAction);
+            expect(actions.setPitchStarted(mockPitchPayload)).toEqual(
+                expectedAction,
+            );
         });
 
         it('should create an action to complete pitch change', () => {
@@ -121,9 +154,12 @@ describe('TTSActions', () => {
                 type: types.TTS_SET_PITCH_STATUS,
                 payload: {
                     status: RequestStates.SUCCESSFUL,
+                    params: mockPitchPayload,
                 },
             };
-            expect(actions.setPitchSucceeded()).toEqual(expectedAction);
+            expect(actions.setPitchSucceeded(mockPitchPayload)).toEqual(
+                expectedAction,
+            );
         });
 
         it('should create an action to fail pitch change', () => {
@@ -132,23 +168,30 @@ describe('TTSActions', () => {
                 type: types.TTS_SET_PITCH_STATUS,
                 payload: {
                     status: RequestStates.FAILED,
+                    params: mockPitchPayload,
                     error,
                 },
             };
-            expect(actions.setPitchFailed(error)).toEqual(expectedAction);
+            expect(actions.setPitchFailed(mockPitchPayload, error)).toEqual(
+                expectedAction,
+            );
         });
     });
 
     describe('Locale Actions', () => {
+        let mockLocale = 'locale';
+        let mockLocalePayload = {
+            locale: mockLocale,
+        };
+
         it('should create an action to request locale change', () => {
-            let locale = 'US';
             const expectedAction = {
                 type: types.TTS_SET_LOCALE_REQUESTED,
                 payload: {
-                    locale,
+                    locale: mockLocale,
                 },
             };
-            expect(actions.setSpeechLocale(locale)).toEqual(expectedAction);
+            expect(actions.setSpeechLocale(mockLocale)).toEqual(expectedAction);
         });
 
         it('should create an action to start locale change', () => {
@@ -156,9 +199,12 @@ describe('TTSActions', () => {
                 type: types.TTS_SET_LOCALE_STATUS,
                 payload: {
                     status: RequestStates.STARTED,
+                    params: mockLocalePayload,
                 },
             };
-            expect(actions.setLocaleStarted()).toEqual(expectedAction);
+            expect(actions.setLocaleStarted(mockLocalePayload)).toEqual(
+                expectedAction,
+            );
         });
 
         it('should create an action to complete locale change', () => {
@@ -166,9 +212,12 @@ describe('TTSActions', () => {
                 type: types.TTS_SET_LOCALE_STATUS,
                 payload: {
                     status: RequestStates.SUCCESSFUL,
+                    params: mockLocalePayload,
                 },
             };
-            expect(actions.setLocaleSucceeded()).toEqual(expectedAction);
+            expect(actions.setLocaleSucceeded(mockLocalePayload)).toEqual(
+                expectedAction,
+            );
         });
 
         it('should create an action to fail locale change', () => {
@@ -177,10 +226,13 @@ describe('TTSActions', () => {
                 type: types.TTS_SET_LOCALE_STATUS,
                 payload: {
                     status: RequestStates.FAILED,
+                    params: mockLocalePayload,
                     error,
                 },
             };
-            expect(actions.setLocaleFailed(error)).toEqual(expectedAction);
+            expect(actions.setLocaleFailed(mockLocalePayload, error)).toEqual(
+                expectedAction,
+            );
         });
     });
 });

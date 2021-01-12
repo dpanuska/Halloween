@@ -92,7 +92,6 @@ class CameraView extends PureComponent<Props, State> {
                     style={styles.camera}
                     type={cameraType}
                     ratio={aspectRatio}
-                    // TODO something wrong with android - Firebase not setup right
                     onFacesDetected={
                         isCameraReady ? this.handleDetections : undefined
                     }

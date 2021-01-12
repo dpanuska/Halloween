@@ -1,4 +1,5 @@
-import {TaskList} from 'src/types/TaskTypes';
+import {TaskList} from 'types/TaskTypes';
+import {TTSInitPayload} from 'types/TTSActionTypes';
 
 export enum DetectionStates {
     IDLE,
@@ -24,10 +25,16 @@ export interface AppConfig {
     detectionClearDelay: number;
 }
 
+export interface RequestActionStatus<P = void, R = void> {
+    status: RequestStates;
+    params?: P;
+    result?: R;
+    error?: Error;
+}
+
 export interface AppState {
     detectionState: DetectionStates;
-    configFetchStatus: RequestStates;
-    config: AppConfig;
+    configFetchStatus: RequestActionStatus<void, AppConfig>;
 }
 
 export interface TaskConfig {
@@ -35,26 +42,33 @@ export interface TaskConfig {
     deactivationEventType: string;
     idleEventType: string;
     activeIdleEventType: string;
+    defaultLanguage: string;
 }
 
 export interface TaskState {
-    tasks: TaskList[];
-    configFetchStatus: RequestStates;
-    taskFetchStatus: RequestStates;
-    config: TaskConfig;
+    configFetchStatus: RequestActionStatus<void, TaskConfig>;
+    taskFetchStatus: RequestActionStatus<void, TaskList[]>;
+}
+
+export interface TTSConfig {
+    defaultLanguage: string;
 }
 
 export interface SpeechState {
+    initStatus: RequestActionStatus<void, TTSInitPayload>;
     isSpeaking: boolean;
     isSettingLocale: boolean;
     isSettingPitch: boolean;
     isSettingRate: boolean;
+    currentLanguage?: string;
+    currentPitch?: number;
+    currentRate?: number | null;
 }
 
 export interface CameraState {
     aspectRatio: string;
     useFrontCamera: boolean;
-    isTakingPicture: boolean;
+    isTakingPicture: boolean; // TODO - use request pattern
     isPictureRequested: boolean;
     trackedObject: any;
 }

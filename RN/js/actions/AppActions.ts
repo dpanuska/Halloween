@@ -5,8 +5,10 @@ import {
 } from 'src/constants/Actions';
 
 import {AppConfig, DetectionStates, RequestStates} from 'types/StateTypes';
-import {RequestStatusAction} from 'types/ActionTypes';
-import {DetectionStateAction} from 'types/AppActionTypes';
+import {
+    DetectionStateAction,
+    FetchConfigRequestStatusAction,
+} from 'types/AppActionTypes';
 import {Action} from '@reduxjs/toolkit';
 
 export const setDetectionState = (
@@ -22,14 +24,16 @@ export const fetchAppConfig = (): Action => ({
     type: APP_FETCH_CONFIG_REQUESTED,
 });
 
-export const fetchConfigStarted = (): RequestStatusAction => ({
+export const fetchConfigStarted = (): FetchConfigRequestStatusAction => ({
     type: APP_FETCH_CONFIG_STATUS,
     payload: {
         status: RequestStates.STARTED,
     },
 });
 
-export const fetchConfigFailed = (error: Error): RequestStatusAction => ({
+export const fetchConfigFailed = (
+    error: Error,
+): FetchConfigRequestStatusAction => ({
     type: APP_FETCH_CONFIG_STATUS,
     payload: {
         status: RequestStates.FAILED,
@@ -37,7 +41,9 @@ export const fetchConfigFailed = (error: Error): RequestStatusAction => ({
     },
 });
 
-export const fetchConfigSuccess = (config: AppConfig): RequestStatusAction => ({
+export const fetchConfigSuccess = (
+    config: AppConfig,
+): FetchConfigRequestStatusAction => ({
     type: APP_FETCH_CONFIG_STATUS,
     payload: {
         status: RequestStates.SUCCESSFUL,

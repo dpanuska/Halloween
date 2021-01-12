@@ -12,20 +12,28 @@ import {
     VisualState,
 } from 'types/StateTypes';
 
-export const mockAppConfig: AppConfig = {
-    detectionFrequency: 1,
-    deactivationDelay: 1,
-    activationDelay: 1,
-    detectionClearDelay: 1,
+export const mockAppState: AppState = {
+    configFetchStatus: {
+        status: RequestStates.SUCCESSFUL,
+        result: {
+            detectionFrequency: 1,
+            deactivationDelay: 1,
+            activationDelay: 1,
+            detectionClearDelay: 1,
+        },
+    },
+    detectionState: DetectionStates.ACTIVE,
 };
 
-export const mockAppState: AppState = {
-    configFetchStatus: RequestStates.NOT_FETCHED,
-    detectionState: DetectionStates.ACTIVE,
-    config: mockAppConfig,
+export const mockTaskInit = {
+    availableLanguages: [],
 };
 
 export const mockSpeechState: SpeechState = {
+    initStatus: {
+        status: RequestStates.SUCCESSFUL,
+        result: mockTaskInit,
+    },
     isSpeaking: false,
     isSettingRate: true,
     isSettingPitch: false,
@@ -46,14 +54,19 @@ export const mockCameraState: CameraState = {
 };
 
 export const mockTaskState: TaskState = {
-    tasks: [],
-    taskFetchStatus: RequestStates.NOT_FETCHED,
-    configFetchStatus: RequestStates.NOT_FETCHED,
-    config: {
-        activeIdleEventType: 'TYPE',
-        activationEventType: 'TYPE',
-        idleEventType: 'TYPE',
-        deactivationEventType: 'TYPE',
+    taskFetchStatus: {
+        status: RequestStates.SUCCESSFUL,
+        result: [],
+    },
+    configFetchStatus: {
+        status: RequestStates.SUCCESSFUL,
+        result: {
+            activeIdleEventType: 'TYPE',
+            activationEventType: 'TYPE',
+            idleEventType: 'TYPE',
+            deactivationEventType: 'TYPE',
+            defaultLanguage: 'language',
+        },
     },
 };
 
