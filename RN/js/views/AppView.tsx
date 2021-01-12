@@ -10,21 +10,21 @@ import {
 import CameraView from 'src/views/CameraView';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
-import {fetchAppConfig} from 'src/actions/AppActions';
-import {fetchTaskConfig, fetchTasks} from 'src/actions/TaskActions';
-import {setSpeechLocale} from 'src/actions/TTSActions';
-import {initialize} from 'src/actions/TTSActions';
+import {fetchAppConfig} from 'src/redux/actions/AppActions';
+import {fetchTaskConfig, fetchTasks} from 'src/redux/actions/TaskActions';
+import {setSpeechLocale} from 'src/redux/actions/TTSActions';
+import {initialize} from 'src/redux/actions/TTSActions';
 import BackgroundView from 'src/views/OverlayView';
-import {getIsAppConfigFetched} from 'src/selectors/AppSelectors';
+import {getIsAppConfigFetched} from 'src/redux/selectors/AppSelectors';
 import {
     getIsTaskConfigFetched,
     getAreTasksFetched,
     getDefaultLanguage,
-} from 'src/selectors/TaskSelectors';
-import {getIsInitialized} from 'src/selectors/TTSSelectors';
+} from 'src/redux/selectors/TaskSelectors';
+import {getIsInitialized} from 'src/redux/selectors/TTSSelectors';
 
 import {RootState} from 'types/StateTypes';
-import {sayText} from 'src/actions/TTSActions';
+import {sayText} from 'src/redux/actions/TTSActions';
 
 export interface Props {
     isEverythingFetched: boolean;

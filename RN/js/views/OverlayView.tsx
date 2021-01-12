@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Image, View, StyleSheet, Text} from 'react-native';
 import {connect} from 'react-redux';
-import * as visualSelectors from 'src/selectors/VisualSelectors';
+import * as visualSelectors from 'src/redux/selectors/VisualSelectors';
 
 import {RootState} from 'types/StateTypes';
 

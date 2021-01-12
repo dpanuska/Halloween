@@ -2,12 +2,12 @@ import React from 'react';
 import {compose, createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import {Provider} from 'react-redux';
-import rootSaga from 'src/sagas/RootSagas';
-import reducer from 'src/reducers/Reducers';
+import rootSaga from 'src/redux/sagas/RootSagas';
+import reducer from 'src/redux/reducers/Reducers';
 import AppView from 'src/views/AppView';
 import {TTS_SERVICE_KEY} from 'src/constants/ContextEffects';
 import TTSService from 'src/services/TTSService';
-import logger from 'src/middleware/logger';
+import logger from 'src/redux/middleware/logger';
 
 const ttsService = new TTSService();
 const sagaMiddleware = createSagaMiddleware({
