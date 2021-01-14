@@ -1,5 +1,4 @@
-import {PayloadAction} from "@reduxjs/toolkit";
-
+import {PayloadAction} from '@reduxjs/toolkit';
 
 export interface DelayPayload {
     duration: number;

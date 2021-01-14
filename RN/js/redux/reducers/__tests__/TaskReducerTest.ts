@@ -19,6 +19,8 @@ let initialState: TaskState = {
             idleEventType: 'idle',
             activeIdleEventType: 'active-idle',
             defaultLanguage: 'language',
+            defaultPitch: 1.0,
+            defaultRate: 1.0,
         },
     },
 };

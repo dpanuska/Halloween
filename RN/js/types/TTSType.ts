@@ -6,4 +6,5 @@ export default interface TTSService {
     setDefaultLanguage(locale: string): Promise<any>;
     setDefaultPitch(pitch: number): Promise<any>;
     setDefaultRate(rate: number): Promise<any>;
+    stop(): Promise<any>;
 }

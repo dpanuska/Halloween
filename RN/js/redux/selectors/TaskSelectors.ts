@@ -115,3 +115,17 @@ export const getDefaultLanguage = createSelector(
         return config.result?.defaultLanguage;
     },
 );
+
+export const getDefaultSpeechRate = createSelector(
+    getConfigFetchStatus,
+    (config) => {
+        return config.result?.defaultRate;
+    },
+);
+
+export const getDefaultSpeechPitch = createSelector(
+    getConfigFetchStatus,
+    (config) => {
+        return config.result?.defaultPitch;
+    },
+);

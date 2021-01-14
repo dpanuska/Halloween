@@ -42,6 +42,8 @@ describe('TaskActions', () => {
                 idleEventType: 'idle',
                 activeIdleEventType: 'active-idle',
                 defaultLanguage: 'language',
+                defaultPitch: 1.0,
+                defaultRate: 1.0,
             };
             let expectedAction = {
                 type: TASK_FETCH_CONFIG_STATUS,

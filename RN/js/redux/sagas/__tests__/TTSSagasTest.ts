@@ -22,7 +22,6 @@ import {TTS_SERVICE_KEY} from 'src/constants/ContextEffects';
 
 import TTSService from 'src/types/TTSType';
 import {RequestStates} from 'src/types/StateTypes';
-import { mockAppState } from 'src/__mocks__/MockState';
 
 let mockTTSService: TTSService = {
     initialize: jest.fn(),
@@ -30,6 +29,7 @@ let mockTTSService: TTSService = {
     setDefaultLanguage: jest.fn(),
     setDefaultPitch: jest.fn(),
     setDefaultRate: jest.fn(),
+    stop: jest.fn(),
 };
 
 describe('TTSSagas', () => {

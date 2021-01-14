@@ -45,6 +45,9 @@ export default class TextToSpeechService {
     }
 
     async initialize(): Promise<TTSInitPayload> {
+        // Make sure TTS is ready
+        await Tts.getInitStatus();
+
         const voices = await Tts.voices();
         let languages: any[] = [];
         const availableLanguages: any[] = voices
@@ -73,6 +76,14 @@ export default class TextToSpeechService {
                     reject(e);
                 });
         });
+    }
+
+    async stop() {
+        try {
+            return await Tts.stop();
+        } catch (e) {
+            throw new TTSError('TTS failed to stop', e);
+        }
     }
 
     async setDefaultLanguage(locale: string) {

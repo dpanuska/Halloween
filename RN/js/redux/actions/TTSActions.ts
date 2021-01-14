@@ -1,6 +1,8 @@
 import {
     TTS_INIT_REQUESTED,
     TTS_INIT_STATUS,
+    TTS_RESET_REQUESTED,
+    TTS_RESET_STATUS,
     TTS_SAY_TEXT_REQUESTED,
     TTS_SAY_TEXT_STATUS,
     TTS_SET_LOCALE_REQUESTED,
@@ -29,6 +31,7 @@ import {
 } from 'types/TTSActionTypes';
 import {RequestStates} from 'types/StateTypes';
 import {Action} from 'redux';
+import {RequestStatusAction} from 'src/types/ActionTypes';
 
 export const initialize = (): Action => ({
     type: TTS_INIT_REQUESTED,
@@ -211,6 +214,32 @@ export const setLocaleFailed = (
     payload: {
         status: RequestStates.FAILED,
         params,
+        error,
+    },
+});
+
+export const reset = (): Action => ({
+    type: TTS_RESET_REQUESTED,
+});
+
+export const resetStarted = (): RequestStatusAction => ({
+    type: TTS_RESET_STATUS,
+    payload: {
+        status: RequestStates.STARTED,
+    },
+});
+
+export const resetSuccess = (): RequestStatusAction => ({
+    type: TTS_RESET_STATUS,
+    payload: {
+        status: RequestStates.SUCCESSFUL,
+    },
+});
+
+export const resetFailed = (error: Error): RequestStatusAction => ({
+    type: TTS_RESET_STATUS,
+    payload: {
+        status: RequestStates.FAILED,
         error,
     },
 });

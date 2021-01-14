@@ -75,7 +75,7 @@
         },
         {
           "type": "SPEECH_LOCALE",
-          "locale": "JAPAN",
+          "locale": "ja-JP",
           "suspend": true
         },
         {

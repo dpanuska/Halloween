@@ -3,5 +3,7 @@
   "deactivationEventType": "GOODBYE",
   "idleEventType": "IDLE",
   "activeIdleEventType": "ACTIVE_IDLE",
-  "defaultLanguage": "en-US"
+  "defaultLanguage": "en-US",
+  "defaultPitch": 1.0,
+  "defaultRate": 1.0
 }

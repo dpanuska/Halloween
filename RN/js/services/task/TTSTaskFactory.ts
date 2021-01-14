@@ -1,5 +1,11 @@
 import * as ttsActions from 'src/redux/actions/TTSActions';
-import {sayText, setLocale, setPitch, setRate} from 'src/redux/sagas/TTSSagas';
+import {
+    resetDefaults,
+    sayText,
+    setLocale,
+    setPitch,
+    setRate,
+} from 'src/redux/sagas/TTSSagas';
 import {TaskGenerator, TaskGeneratorMap} from 'src/types/TaskFactoryTypes';
 import {
     Task,
@@ -22,7 +28,7 @@ export const FactoryForTypes: TaskGeneratorMap = {
     [TTSTasks.SetLocale]: getLocaleGenerator,
     [TTSTasks.SetPitch]: getPitchGenerator,
     [TTSTasks.SetRate]: getRateGenerator,
-    // [TTSTasks.TTSReset]: getResetGenerator,
+    [TTSTasks.TTSReset]: getResetGenerator,
 };
 
 function getSayGenerator(task: Task): TaskGenerator | null {
@@ -63,6 +69,13 @@ function getRateGenerator(task: Task): TaskGenerator | null {
         };
     }
     return null;
+}
+
+function getResetGenerator(): TaskGenerator | null {
+    return {
+        generator: resetDefaults,
+        action: ttsActions.reset(),
+    };
 }
 
 function isSayTask(task: any): task is TTSSayTextTask {

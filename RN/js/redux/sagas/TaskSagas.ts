@@ -1,11 +1,9 @@
 import {
     call,
-    cancel,
     cancelled,
     fork,
     put,
     select,
-    take,
     takeEvery,
     takeLatest,
 } from 'redux-saga/effects';

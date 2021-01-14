@@ -12,14 +12,12 @@ import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {fetchAppConfig} from 'src/redux/actions/AppActions';
 import {fetchTaskConfig, fetchTasks} from 'src/redux/actions/TaskActions';
-import {setSpeechLocale} from 'src/redux/actions/TTSActions';
-import {initialize} from 'src/redux/actions/TTSActions';
+import {initialize, reset} from 'src/redux/actions/TTSActions';
 import BackgroundView from 'src/views/OverlayView';
 import {getIsAppConfigFetched} from 'src/redux/selectors/AppSelectors';
 import {
     getIsTaskConfigFetched,
     getAreTasksFetched,
-    getDefaultLanguage,
 } from 'src/redux/selectors/TaskSelectors';
 import {getIsInitialized} from 'src/redux/selectors/TTSSelectors';
 
@@ -28,13 +26,11 @@ import {sayText} from 'src/redux/actions/TTSActions';
 
 export interface Props {
     isEverythingFetched: boolean;
-    defaultLanguage?: string;
     requestFetchAppConfig: () => void;
     requestFetchTaskConfig: () => void;
     requestFetchTasks: () => void;
     requestInitTTS: () => void;
-    setTTSLanguage: (locale: string) => void;
-
+    requestSetTTSDefaults: () => void;
     onButtonPressed: () => void;
 }
 
@@ -58,13 +54,8 @@ class AppView extends PureComponent<Props> {
     }
 
     componentDidUpdate(prevProps: Props) {
-        let {isEverythingFetched, defaultLanguage} = this.props;
-        if (
-            defaultLanguage != null &&
-            !prevProps.isEverythingFetched &&
-            isEverythingFetched
-        ) {
-            this.props.setTTSLanguage(defaultLanguage);
+        if (!prevProps.isEverythingFetched && this.props.isEverythingFetched) {
+            this.props.requestSetTTSDefaults();
         }
     }
 
@@ -121,7 +112,6 @@ const mapStateToProps = (state: RootState) => {
     let isTaskConfigFetched = getIsTaskConfigFetched(state);
     let areTasksFetched = getAreTasksFetched(state);
     let isTTSInited = getIsInitialized(state);
-    let defaultLanguage = getDefaultLanguage(state);
     let isEverythingFetched =
         isConfigFetched &&
         isTaskConfigFetched &&
@@ -129,7 +119,6 @@ const mapStateToProps = (state: RootState) => {
         isTTSInited;
     return {
         isEverythingFetched,
-        defaultLanguage,
     };
 };
 
@@ -139,7 +128,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         requestFetchTaskConfig: () => dispatch(fetchTaskConfig()),
         requestFetchTasks: () => dispatch(fetchTasks()),
         requestInitTTS: () => dispatch(initialize()),
-        setTTSLanguage: (locale: string) => dispatch(setSpeechLocale(locale)),
+        requestSetTTSDefaults: () => dispatch(reset()),
         onButtonPressed: () => dispatch(sayText('dylan')),
     };
 };

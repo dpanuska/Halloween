@@ -1,7 +1,6 @@
 // TODO try moving this somewhere or removing completely
 
 import {
-    AppConfig,
     AppState,
     CameraState,
     DetectionStates,
@@ -66,6 +65,8 @@ export const mockTaskState: TaskState = {
             idleEventType: 'TYPE',
             deactivationEventType: 'TYPE',
             defaultLanguage: 'language',
+            defaultPitch: 1.0,
+            defaultRate: 1.0,
         },
     },
 };

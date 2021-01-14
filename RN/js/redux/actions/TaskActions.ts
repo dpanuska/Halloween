@@ -224,7 +224,7 @@ export const dispatchNamedTaskListFailed = (
 });
 
 export const dispatchTypedTask = (type: string): DispatchTypedTaskAction => ({
-    type: TASK_DISPATCH_NAMED_TASK,
+    type: TASK_DISPATCH_TYPED_TASK,
     payload: {
         type,
     },

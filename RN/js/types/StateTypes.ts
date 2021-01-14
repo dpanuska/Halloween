@@ -43,15 +43,13 @@ export interface TaskConfig {
     idleEventType: string;
     activeIdleEventType: string;
     defaultLanguage: string;
+    defaultPitch: number;
+    defaultRate: number;
 }
 
 export interface TaskState {
     configFetchStatus: RequestActionStatus<void, TaskConfig>;
     taskFetchStatus: RequestActionStatus<void, TaskList[]>;
-}
-
-export interface TTSConfig {
-    defaultLanguage: string;
 }
 
 export interface SpeechState {

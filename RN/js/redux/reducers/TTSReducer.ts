@@ -23,6 +23,7 @@ const initialState: SpeechState = {
     isSettingLocale: false,
     isSettingPitch: false,
     isSettingRate: false,
+
     currentLanguage: undefined,
     currentPitch: undefined,
     currentRate: undefined,
