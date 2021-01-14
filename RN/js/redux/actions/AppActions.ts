@@ -9,7 +9,7 @@ import {
     DetectionStateAction,
     FetchConfigRequestStatusAction,
 } from 'types/AppActionTypes';
-import {Action} from '@reduxjs/toolkit';
+import {Action} from 'redux';
 
 export const setDetectionState = (
     detectionState: DetectionStates,

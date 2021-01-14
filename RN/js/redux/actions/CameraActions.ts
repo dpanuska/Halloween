@@ -5,7 +5,7 @@ import {
     CAMERA_SET_TRACKING_OBJECT,
 } from 'src/constants/Actions';
 
-import {Action} from '@reduxjs/toolkit';
+import {Action} from 'redux';
 import {RequestStates} from 'types/StateTypes';
 import {
     ObjectDetectedActon,

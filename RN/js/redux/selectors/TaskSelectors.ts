@@ -63,6 +63,15 @@ export const getAllTasksOfType = createSelector(
     },
 );
 
+export const getRandomTaskOfType = (state: RootState, type: string) => {
+    let tasks = getAllTasksOfType(state, type);
+    if (tasks == null) {
+        return tasks;
+    }
+    let rand = Math.floor(Math.random() * tasks.length);
+    return tasks[rand];
+};
+
 export const getConfigFetchStatus = (state: RootState) =>
     getTaskState(state).configFetchStatus;
 
