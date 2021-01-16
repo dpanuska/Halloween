@@ -5,6 +5,7 @@ import {
     getContext,
     take,
     select,
+    all,
 } from 'redux-saga/effects';
 import {
     TTS_INIT_REQUESTED,
@@ -139,9 +140,11 @@ export function* resetDefaults() {
         let defaultPitch = yield select(getDefaultSpeechPitch);
         let defaultRate = yield select(getDefaultSpeechRate);
 
-        yield put(setSpeechLocale(defaultLanguage));
-        yield put(setSpeechPitch(defaultPitch));
-        yield put(setSpeechRate(defaultRate));
+        yield all([
+            call(setLocale, setSpeechLocale(defaultLanguage)),
+            call(setPitch, setSpeechPitch(defaultPitch)),
+            call(setRate, setSpeechRate(defaultRate)),
+        ]);
 
         yield put(resetSuccess());
     } catch (error) {

@@ -97,7 +97,6 @@ export const fetchTasksSuccess = (
     },
 });
 
-// TODO task list..
 export const dispatchTask = (task: Task): DispatchTaskAction => ({
     type: TASK_DISPATCH_TASK_REQUESTED,
     payload: {

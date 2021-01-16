@@ -19,6 +19,7 @@ import {
     TTS_SET_RATE_STATUS,
 } from 'src/constants/Actions';
 import {TTS_SERVICE_KEY} from 'src/constants/ContextEffects';
+import {getAvailableLanguages} from 'src/redux/selectors/TTSSelectors';
 
 import TTSService from 'src/types/TTSType';
 import {RequestStates} from 'src/types/StateTypes';
@@ -139,7 +140,7 @@ describe('TTSSagas', () => {
 
     describe('setLocale', () => {
         it('should handle successful set locale request', () => {
-            let mockLocale = 'US';
+            let mockLocale = 'en-US';
             let mockAction = {
                 type: TTS_SET_LOCALE_REQUESTED,
                 payload: {
@@ -152,6 +153,12 @@ describe('TTSSagas', () => {
                     getContext(key, next) {
                         if (key === TTS_SERVICE_KEY) {
                             return mockTTSService;
+                        }
+                        return next();
+                    },
+                    select({selector}, next) {
+                        if (selector === getAvailableLanguages) {
+                            return [mockLocale];
                         }
                         return next();
                     },
@@ -178,7 +185,7 @@ describe('TTSSagas', () => {
         });
 
         it('should handle failed set locale request', () => {
-            let mockLocale = 'US';
+            let mockLocale = 'en-US';
             let mockAction = {
                 type: TTS_SET_LOCALE_REQUESTED,
                 payload: {
@@ -192,6 +199,12 @@ describe('TTSSagas', () => {
                     getContext(key, next) {
                         if (key === TTS_SERVICE_KEY) {
                             return mockTTSService;
+                        }
+                        return next();
+                    },
+                    select({selector}, next) {
+                        if (selector === getAvailableLanguages) {
+                            return [mockLocale];
                         }
                         return next();
                     },

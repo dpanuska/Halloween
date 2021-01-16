@@ -175,7 +175,6 @@ export function* runTypedTask(action: DispatchTypedTaskAction) {
         action.payload.type,
     );
     if (tasksList != null) {
-        // TODO Randomize!
         let result = yield call(
             runTaskList,
             taskActions.dispatchTaskList(tasksList),
