@@ -1,6 +1,6 @@
 export interface Task {
     type: string;
-    suspend: boolean;
+    suspend?: boolean;
     [x: string]: any;
 }
 

@@ -112,10 +112,11 @@ export function* runTaskList(action: DispatchTaskListAction) {
         let prevResult: TaskResult;
         for (let task of taskList.subTasks) {
             let subAction = taskActions.dispatchTask(task);
-            if (task.suspend) {
-                prevResult = yield call(runSubTask, subAction, prevResult);
-            } else {
+            // Suspending by default since many tasks are async
+            if (task.suspend === false) {
                 yield fork(runSubTask, subAction);
+            } else {
+                prevResult = yield call(runSubTask, subAction, prevResult);
             }
         }
         yield put(
