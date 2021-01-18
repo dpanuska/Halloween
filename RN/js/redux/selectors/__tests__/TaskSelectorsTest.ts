@@ -13,10 +13,15 @@ import {
     getAllTasksOfType,
     getTasksByName,
     getNamedTask,
+    getDefaultLanguage,
+    getDefaultSpeechPitch,
+    getDefaultSpeechRate,
+    getRandomTaskOfType,
 } from 'src/redux/selectors/TaskSelectors';
 import {mockRootState, mockTaskState} from '../../../__mocks__/MockState';
 
 import {RequestStates} from 'types/StateTypes';
+import { TaskList } from 'src/types/TaskTypes';
 
 describe('TaskSelectors', () => {
     it('should get task slice of state', () => {
@@ -56,6 +61,24 @@ describe('TaskSelectors', () => {
     it('should get active idle event type', () => {
         expect(getActiveIdleEventType(mockRootState)).toEqual(
             mockTaskState.configFetchStatus.result?.activeIdleEventType,
+        );
+    });
+
+    it('should get default language', () => {
+        expect(getDefaultLanguage(mockRootState)).toEqual(
+            mockTaskState.configFetchStatus.result?.defaultLanguage,
+        );
+    });
+
+    it('should get default pitch', () => {
+        expect(getDefaultSpeechPitch(mockRootState)).toEqual(
+            mockTaskState.configFetchStatus.result?.defaultPitch,
+        );
+    });
+
+    it('should get default rate', () => {
+        expect(getDefaultSpeechRate(mockRootState)).toEqual(
+            mockTaskState.configFetchStatus.result?.defaultRate,
         );
     });
 
@@ -127,6 +150,41 @@ describe('TaskSelectors', () => {
         expect(getAllTasksOfType(rootState, 'null')).toBeNull();
     });
 
+    it('should get a random task of type', () => {
+        let mock1 = {type: 'type1', subTasks: []};
+        let mock2 = {type: 'type1', subTasks: []};
+        let mockTasks = [mock1, mock2, {type: 'type2', subTasks: []}];
+        let taskState = {
+            ...mockTaskState,
+            taskFetchStatus: {
+                status: RequestStates.SUCCESSFUL,
+                result: mockTasks,
+            },
+        };
+        let rootState = {
+            ...mockRootState,
+            task: taskState,
+        };
+        let type1Task = getRandomTaskOfType(rootState, 'type1');
+        expect([mock1, mock2]).toContain(type1Task);
+    });
+
+    it('should return null if no tasks of type present', () => {
+        let mockTasks = [{type: 'type1', subTasks: []}];
+        let taskState = {
+            ...mockTaskState,
+            taskFetchStatus: {
+                status: RequestStates.SUCCESSFUL,
+                result: mockTasks,
+            },
+        };
+        let rootState = {
+            ...mockRootState,
+            task: taskState,
+        };
+        expect(getRandomTaskOfType(rootState, 'none')).toBeNull();
+    });
+
     it('should get tasks by name', () => {
         let mockTasks = [
             {type: 'type1', name: 'name1', subTasks: []},
@@ -153,6 +211,22 @@ describe('TaskSelectors', () => {
         expect(tasks.has('name3')).toEqual(true);
         expect(tasks.get('name3')).toEqual(mockTasks[2]);
         expect(tasks.has('null')).toEqual(false);
+    });
+
+    it('should return empty map if no tasks', () => {
+        let mockTasks: TaskList[] = [];
+        let taskState = {
+            ...mockTaskState,
+            taskFetchStatus: {
+                status: RequestStates.SUCCESSFUL,
+                result: mockTasks,
+            },
+        };
+        let rootState = {
+            ...mockRootState,
+            task: taskState,
+        };
+        expect(getTasksByName(rootState).size).toEqual(0);
     });
 
     it('should get a named task', () => {

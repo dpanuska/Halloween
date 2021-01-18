@@ -78,15 +78,15 @@ function getResetGenerator(): TaskGenerator | null {
     };
 }
 
-function isSayTask(task: any): task is TTSSayTextTask {
+function isSayTask(task: Task): task is TTSSayTextTask {
     return typeof task.text === 'string';
 }
 
-function isSetLocaleTask(task: any): task is TTSLocaleTask {
+function isSetLocaleTask(task: Task): task is TTSLocaleTask {
     return typeof task.locale === 'string';
 }
 
-function isSetPitchTask(task: any): task is TTSPitchTask {
+function isSetPitchTask(task: Task): task is TTSPitchTask {
     return typeof task.pitch === 'number';
 }
 

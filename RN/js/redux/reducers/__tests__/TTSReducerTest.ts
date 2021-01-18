@@ -4,6 +4,7 @@ import {
     TTS_SET_RATE_STATUS,
     TTS_SET_PITCH_STATUS,
     TTS_SET_LOCALE_STATUS,
+    TTS_INIT_STATUS,
 } from 'src/constants/Actions';
 
 import {SpeechState, RequestStates} from 'types/StateTypes';
@@ -26,6 +27,59 @@ describe('TTSReducer', () => {
         expect(speechReducer(initialState, {type: 'INVALID'})).toEqual(
             initialState,
         );
+    });
+
+    describe('Init Actions', () => {
+        it('should handle TTS_INIT_STATUS STARTED', () => {
+            let mockPayload = {
+                status: RequestStates.STARTED,
+            };
+            let action = {
+                type: TTS_INIT_STATUS,
+                payload: mockPayload,
+            };
+            let expectedState = {
+                ...initialState,
+                initStatus: mockPayload,
+            };
+            expect(speechReducer(initialState, action)).toEqual(expectedState);
+        });
+
+        it('should handle TTS_INIT_STATUS SUCCESSFUL', () => {
+            let mockResult = {
+                availableLanguages: ['en-US'],
+            };
+            let mockPayload = {
+                status: RequestStates.SUCCESSFUL,
+                result: mockResult,
+            };
+            let action = {
+                type: TTS_INIT_STATUS,
+                payload: mockPayload,
+            };
+            let expectedState = {
+                ...initialState,
+                initStatus: mockPayload,
+            };
+            expect(speechReducer(initialState, action)).toEqual(expectedState);
+        });
+
+        it('should handle TTS_INIT_STATUS FAILED', () => {
+            let error = new Error('some error');
+            let mockPayload = {
+                status: RequestStates.FAILED,
+                error,
+            };
+            let action = {
+                type: TTS_INIT_STATUS,
+                payload: mockPayload,
+            };
+            let expectedState = {
+                ...initialState,
+                initStatus: mockPayload,
+            };
+            expect(speechReducer(initialState, action)).toEqual(expectedState);
+        });
     });
 
     describe('Say Actions', () => {

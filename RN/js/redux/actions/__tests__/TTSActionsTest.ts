@@ -2,8 +2,56 @@ import * as actions from 'src/redux/actions/TTSActions';
 import * as types from 'src/constants/Actions';
 
 import {RequestStates} from 'types/StateTypes';
+import {TTSInitPayload} from 'src/types/TTSActionTypes';
 
 describe('TTSActions', () => {
+    describe('Init actions', () => {
+        it('should create an action to request init', () => {
+            let expectedAction = {
+                type: types.TTS_INIT_REQUESTED,
+            };
+            expect(actions.initialize()).toEqual(expectedAction);
+        });
+
+        it('should create an action to start Init', () => {
+            let expectedAction = {
+                type: types.TTS_INIT_STATUS,
+                payload: {
+                    status: RequestStates.STARTED,
+                },
+            };
+            expect(actions.initializeStarted()).toEqual(expectedAction);
+        });
+
+        it('should create an action to complete init', () => {
+            let mockPayload: TTSInitPayload = {
+                availableLanguages: ['en-US'],
+            };
+            let expectedAction = {
+                type: types.TTS_INIT_STATUS,
+                payload: {
+                    status: RequestStates.SUCCESSFUL,
+                    result: mockPayload,
+                },
+            };
+            expect(actions.initializeSucceeded(mockPayload)).toEqual(
+                expectedAction,
+            );
+        });
+
+        it('should create an action to fail init', () => {
+            let error = Error('some error message');
+            let expectedAction = {
+                type: types.TTS_INIT_STATUS,
+                payload: {
+                    status: RequestStates.FAILED,
+                    error,
+                },
+            };
+            expect(actions.initializeFailed(error)).toEqual(expectedAction);
+        });
+    });
+
     describe('Say Actions', () => {
         let mockText = 'some text';
         let mockTextPayload = {
@@ -233,6 +281,47 @@ describe('TTSActions', () => {
             expect(actions.setLocaleFailed(mockLocalePayload, error)).toEqual(
                 expectedAction,
             );
+        });
+    });
+
+    describe('Reset Actions', () => {
+        it('should create an action to request reset', () => {
+            let expectedAction = {
+                type: types.TTS_RESET_REQUESTED,
+            };
+            expect(actions.reset()).toEqual(expectedAction);
+        });
+
+        it('should create an action to start reset', () => {
+            let expectedAction = {
+                type: types.TTS_RESET_STATUS,
+                payload: {
+                    status: RequestStates.STARTED,
+                },
+            };
+            expect(actions.resetStarted()).toEqual(expectedAction);
+        });
+
+        it('should create an action to complete reset', () => {
+            let expectedAction = {
+                type: types.TTS_RESET_STATUS,
+                payload: {
+                    status: RequestStates.SUCCESSFUL,
+                },
+            };
+            expect(actions.resetSuccess()).toEqual(expectedAction);
+        });
+
+        it('should create an action to fail reset', () => {
+            let error = Error('some error message');
+            let expectedAction = {
+                type: types.TTS_RESET_STATUS,
+                payload: {
+                    status: RequestStates.FAILED,
+                    error,
+                },
+            };
+            expect(actions.resetFailed(error)).toEqual(expectedAction);
         });
     });
 });
