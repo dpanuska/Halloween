@@ -35,7 +35,7 @@ function getNamedGenerator(task: Task): TaskGenerator | null {
     if (isNamedTask(task)) {
         return {
             generator: runNamedTask,
-            action: taskActions.dispatchNamedTask(task.taskName),
+            action: taskActions.dispatchNamedTask(task.name),
         };
     }
     return null;
@@ -56,7 +56,7 @@ function isDelayTask(task: Task): task is DelayTask {
 }
 
 function isNamedTask(task: Task): task is NamedTask {
-    return typeof task.taskName === 'string';
+    return typeof task.name === 'string';
 }
 
 function isTypedTask(task: Task): task is TypedTask {

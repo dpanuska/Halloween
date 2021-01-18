@@ -20,7 +20,9 @@ describe('Utility Sagas', () => {
                     duration,
                 },
             };
-            return expectSaga(delayTask, mockAction).delay(duration).run();
+            return expectSaga(delayTask, mockAction)
+                .delay(duration * 1000)
+                .silentRun();
         });
     });
 });

@@ -3,7 +3,7 @@ import {UTILITY_DELAY} from 'src/constants/Actions';
 import {DelayAction} from 'src/types/UtilityActionTypes';
 
 export function* delayTask(action: DelayAction) {
-    delay(action.payload.duration);
+    yield delay(action.payload.duration * 1000);
 }
 
 export default function* rootSaga() {

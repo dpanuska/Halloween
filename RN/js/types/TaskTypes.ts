@@ -22,7 +22,7 @@ export interface DelayTask extends Task {
 }
 
 export interface NamedTask extends Task {
-    taskName: string;
+    name: string;
 }
 
 export interface TypedTask extends Task {

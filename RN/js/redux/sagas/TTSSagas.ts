@@ -53,7 +53,6 @@ import {
     getDefaultSpeechRate,
 } from 'src/redux/selectors/TaskSelectors';
 import {getAvailableLanguages} from '../selectors/TTSSelectors';
-import {normalizePitch, normalizeRate} from 'src/util/normalizeTTSValues';
 
 export function* sayText(action: SayTextAction) {
     try {
@@ -73,8 +72,7 @@ export function* setRate(action: SetRateAction) {
         yield put(setRateStarted(action.payload));
 
         let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
-        let normRate = normalizeRate(action.payload.rate);
-        yield call(ttsService.setDefaultRate, normRate);
+        yield call(ttsService.setDefaultRate, action.payload.rate);
 
         yield put(setRateSucceeded(action.payload));
     } catch (error) {
@@ -87,8 +85,7 @@ export function* setPitch(action: SetPitchAction) {
         yield put(setPitchStarted(action.payload));
 
         let ttsService: TTSService = yield getContext(TTS_SERVICE_KEY);
-        let normPitch = normalizePitch(action.payload.pitch);
-        yield call(ttsService.setDefaultPitch, normPitch);
+        yield call(ttsService.setDefaultPitch, action.payload.pitch);
 
         yield put(setPitchSucceeded(action.payload));
     } catch (error) {

@@ -96,7 +96,8 @@ export default class TextToSpeechService {
 
     async setDefaultPitch(pitch: number) {
         try {
-            return await Tts.setDefaultPitch(pitch);
+            let normPitch = normalizePitch(pitch);
+            return await Tts.setDefaultPitch(normPitch);
         } catch (e) {
             throw new TTSError('Set Default Pitch Failed', e);
         }
@@ -104,9 +105,30 @@ export default class TextToSpeechService {
 
     async setDefaultRate(rate: number) {
         try {
-            return await Tts.setDefaultRate(rate);
+            let normRate = normalizeRate(rate);
+            return await Tts.setDefaultRate(normRate);
         } catch (e) {
             throw new TTSError('Set Default Rate Failed', e);
         }
     }
+}
+
+// https://github.com/ak1394/react-native-tts
+const MIN_PITCH = 0.5;
+const MAX_PITCH = 2.0;
+const PITCH_MULTIPLIER = 1.0;
+
+const MIN_RATE = 0.01;
+const MAX_RATE = 0.99;
+const RATE_MULTIPLIER = 0.5;
+
+// react-native-tts will ignore invalid values
+// For now we will just set to a valid value.
+// This could potentially scale based on platform differences
+function normalizePitch(pitch: number): number {
+    return Math.min(Math.max(MIN_PITCH, pitch * PITCH_MULTIPLIER), MAX_PITCH);
+}
+
+function normalizeRate(rate: number): number {
+    return Math.min(Math.max(MIN_RATE, rate * RATE_MULTIPLIER), MAX_RATE);
 }
