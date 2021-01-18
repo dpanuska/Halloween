@@ -13,9 +13,11 @@ export interface TaskGenerator {
     generator?: (...args: any) => any;
 }
 
+export type TaskGeneratorFunction = (
+    task: Task,
+    previousResult?: TaskResult,
+) => TaskGenerator | null;
+
 export interface TaskGeneratorMap {
-    [x: string]: (
-        task: Task,
-        previousResult?: TaskResult,
-    ) => TaskGenerator | null;
+    [x: string]: TaskGeneratorFunction;
 }

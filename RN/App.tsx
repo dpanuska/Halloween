@@ -9,6 +9,9 @@ import {TTS_SERVICE_KEY} from 'src/constants/ContextEffects';
 import TTSService from 'src/services/TTSService';
 import logger from 'src/redux/middleware/logger';
 
+import {initializeTaskGenerators} from 'src/services/AppService';
+
+initializeTaskGenerators();
 const ttsService = new TTSService();
 const sagaMiddleware = createSagaMiddleware({
     context: {
