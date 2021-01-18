@@ -32,6 +32,7 @@ describe('AppSagas', () => {
                 deactivationDelay: 1,
                 detectionClearDelay: 1,
                 detectionFrequency: 1,
+                activeIdleDelay: 1,
             };
             mocked(fetchConfiguration).mockImplementation(() => {
                 return Promise.resolve(mockConfig);

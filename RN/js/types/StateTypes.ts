@@ -23,6 +23,7 @@ export interface AppConfig {
     deactivationDelay: number;
     detectionFrequency: number;
     detectionClearDelay: number;
+    activeIdleDelay: number;
 }
 
 export interface RequestActionStatus<P = void, R = void> {

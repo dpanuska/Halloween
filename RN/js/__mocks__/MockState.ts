@@ -19,6 +19,7 @@ export const mockAppState: AppState = {
             deactivationDelay: 1,
             activationDelay: 1,
             detectionClearDelay: 1,
+            activeIdleDelay: 1,
         },
     },
     detectionState: DetectionStates.ACTIVE,

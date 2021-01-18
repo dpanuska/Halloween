@@ -1,6 +1,7 @@
 import {
     call,
     cancelled,
+    delay,
     fork,
     put,
     select,
@@ -16,6 +17,7 @@ import {
     TASK_DISPATCH_TYPED_TASK,
     TASK_FETCH_CONFIG_REQUESTED,
     TASK_FETCH_TASKS_REQUESTED,
+    TASK_DISPATCH_ROOT_TASK_STATUS,
 } from 'src/constants/Actions';
 import * as taskActions from 'src/redux/actions/TaskActions';
 import {fetchTasks, fetchConfiguration} from 'src/services/TaskService';
@@ -24,33 +26,33 @@ import {
     getRandomTaskOfType,
     getActivationEventType,
     getDeactivationEventType,
+    getActiveIdleEventType,
 } from 'src/redux/selectors/TaskSelectors';
 import {getGeneratorForTask} from 'src/services/task/TaskFactory';
 
 import {DetectionStateAction} from 'types/AppActionTypes';
-import {DetectionStates} from 'types/StateTypes';
+import {DetectionStates, RequestStates} from 'types/StateTypes';
 import {
     DispatchNamedTaskAction,
     DispatchTaskAction,
     DispatchTaskListAction,
+    DispatchTaskListRequestStatusAction,
     DispatchTypedTaskAction,
 } from 'src/types/TaskActionTypes';
 import {TaskList, TaskResult} from 'src/types/TaskTypes';
+import {getActiveIdleDelay, getDetectionState} from '../selectors/AppSelectors';
 
 export function* handleDetectionStateChange(action: DetectionStateAction) {
     let state = action.payload.detectionState;
-    if (state === DetectionStates.ACTIVE) {
-        let type = yield select(getActivationEventType);
-        let taskList = yield select(getRandomTaskOfType, type);
-        if (taskList != null) {
-            yield put(taskActions.dispatchRootTaskList(taskList));
-        }
+    let type =
+        state === DetectionStates.ACTIVE
+            ? yield select(getActivationEventType)
+            : yield select(getDeactivationEventType);
+    let taskList = yield select(getRandomTaskOfType, type);
+    if (taskList != null) {
+        yield put(taskActions.dispatchRootTaskList(taskList));
     } else {
-        let type = yield select(getDeactivationEventType);
-        let taskList = yield select(getRandomTaskOfType, type);
-        if (taskList != null) {
-            yield put(taskActions.dispatchRootTaskList(taskList));
-        }
+        console.error('Failed to state change task with type', type);
     }
 }
 
@@ -191,6 +193,30 @@ export function* runTypedTask(action: DispatchTypedTaskAction) {
     }
 }
 
+export function* activeIdleActionHandler(
+    action: DispatchTaskListRequestStatusAction,
+) {
+    let detectionState = yield select(getDetectionState);
+    if (
+        detectionState === DetectionStates.ACTIVE &&
+        action.payload.status === RequestStates.SUCCESSFUL
+    ) {
+        // Start active idle task timer
+        let wait = yield select(getActiveIdleDelay);
+        yield delay(wait);
+        let taskType = yield select(getActiveIdleEventType);
+        let activeIdleTask = yield select(getRandomTaskOfType, taskType);
+        if (activeIdleTask != null) {
+            yield put(taskActions.dispatchRootTaskList(activeIdleTask));
+        } else {
+            console.error(
+                'Could not find active idle task with type',
+                taskType,
+            );
+        }
+    }
+}
+
 export default function* rootSaga() {
     yield takeLatest(TASK_FETCH_CONFIG_REQUESTED, fetchTaskConfig);
     yield takeLatest(TASK_FETCH_TASKS_REQUESTED, fetchAllTasks);
@@ -202,4 +228,6 @@ export default function* rootSaga() {
     yield takeEvery(TASK_DISPATCH_TYPED_TASK, runTypedTask);
 
     yield takeLatest(TASK_DISPATCH_ROOT_TASK_LIST, queueRootTaskList);
+
+    yield takeLatest(TASK_DISPATCH_ROOT_TASK_STATUS, activeIdleActionHandler);
 }

@@ -2,5 +2,6 @@
   "activationDelay": 500,
   "deactivationDelay": 1500,
   "detectionFrequency": 100,
-  "detectionClearDelay": 500
+  "detectionClearDelay": 500,
+  "activeIdleDelay": 3000
 }

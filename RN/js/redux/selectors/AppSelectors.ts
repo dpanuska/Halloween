@@ -37,15 +37,24 @@ export const getDeactivationDelay = createSelector(
         return config.result?.deactivationDelay;
     },
 );
+
 export const getDetectionFrequency = createSelector(
     getAppConfigFetchStatus,
     (config) => {
         return config.result?.detectionFrequency;
     },
 );
+
 export const getDetectionClearDelay = createSelector(
     getAppConfigFetchStatus,
     (config) => {
         return config.result?.detectionClearDelay;
+    },
+);
+
+export const getActiveIdleDelay = createSelector(
+    getAppConfigFetchStatus,
+    (config) => {
+        return config.result?.activeIdleDelay;
     },
 );
