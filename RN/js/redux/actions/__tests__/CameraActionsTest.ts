@@ -64,14 +64,20 @@ describe('CameraActions', () => {
 
         it('should create an action for taking a picture success', () => {
             let uri = 'some file uri';
+            let mockResult = {
+                uri,
+                width: 1,
+                height: 1,
+                base64: undefined,
+            };
             let expectedAction = {
                 type: CAMERA_TAKE_PICTURE_STATUS,
                 payload: {
                     status: RequestStates.SUCCESSFUL,
-                    result: uri,
+                    result: mockResult,
                 },
             };
-            expect(takePictureSucceeded(uri)).toEqual(expectedAction);
+            expect(takePictureSucceeded(mockResult)).toEqual(expectedAction);
         });
 
         it('should create an action for taking a picture failure', () => {

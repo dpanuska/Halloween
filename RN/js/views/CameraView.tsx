@@ -8,7 +8,10 @@ import {
     getUseFrontCamera,
     getIsPictureRequested,
 } from 'src/redux/selectors/CameraSelectors';
-import {getDetectionFrequency} from 'src/redux/selectors/AppSelectors';
+import {
+    getDetectionFrequency,
+    getImageQuality,
+} from 'src/redux/selectors/AppSelectors';
 import {
     takePictureStarted,
     takePictureSucceeded,
@@ -18,15 +21,17 @@ import {
 
 import {RootState} from 'types/StateTypes';
 import {Dispatch} from 'redux';
+import {PictureTakenPayload} from 'src/types/CameraActionTypes';
 
 interface Props {
     aspectRatio: string;
     useFrontCamera: boolean;
     shouldTakePicture: boolean;
     detectionSettings: any;
+    imageQuality?: number;
     onTakePictureStart: () => void;
     onTakePictureFailed: (error: Error) => void;
-    onTakePictureComplete: (uri: string) => void;
+    onTakePictureComplete: (result: PictureTakenPayload) => void;
     onObjectDetected: (data: any) => void;
 }
 
@@ -63,8 +68,13 @@ class CameraView extends PureComponent<Props, State> {
             onTakePictureFailed(new Error('Camera ref isnt set'));
         } else {
             try {
-                let result = await this.cameraRef.takePictureAsync();
-                onTakePictureComplete(result.uri);
+                let imageQuality = this.props.imageQuality || 0.75;
+                let result = await this.cameraRef.takePictureAsync({
+                    quality: imageQuality,
+                    base64: true,
+                    exif: true,
+                });
+                onTakePictureComplete(result);
             } catch (error) {
                 onTakePictureFailed(error);
             }
@@ -125,6 +135,7 @@ const mapStateToProps = (state: RootState) => {
         aspectRatio: getAspectRatio(state),
         useFrontCamera: getUseFrontCamera(state),
         shouldTakePicture: getIsPictureRequested(state),
+        imageQuality: getImageQuality(state),
         detectionSettings,
     };
 };
@@ -134,8 +145,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         onTakePictureStart: () => dispatch(takePictureStarted()),
         onTakePictureFailed: (error: Error) =>
             dispatch(takePictureFailed(error)),
-        onTakePictureComplete: (uri: string) =>
-            dispatch(takePictureSucceeded(uri)),
+        onTakePictureComplete: (payload: PictureTakenPayload) =>
+            dispatch(takePictureSucceeded(payload)),
         onObjectDetected: (data: any) => dispatch(objectDetected(data)),
     };
 };

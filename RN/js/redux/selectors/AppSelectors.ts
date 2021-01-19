@@ -58,3 +58,10 @@ export const getActiveIdleDelay = createSelector(
         return config.result?.activeIdleDelay;
     },
 );
+
+export const getImageQuality = createSelector(
+    getAppConfigFetchStatus,
+    (config) => {
+        return config.result?.imageQuality;
+    },
+);

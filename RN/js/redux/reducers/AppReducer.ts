@@ -13,7 +13,7 @@ import {
 const initialState: AppState = {
     detectionState: DetectionStates.IDLE,
     configFetchStatus: {
-        status: RequestStates.NOT_FETCHED,
+        status: RequestStates.NOT_STARTED,
     },
 };
 

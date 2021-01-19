@@ -1,5 +1,6 @@
 import {TaskList} from 'types/TaskTypes';
 import {TTSInitPayload} from 'types/TTSActionTypes';
+import {PictureSavedPayload, PictureTakenPayload} from './CameraActionTypes';
 
 export enum DetectionStates {
     IDLE,
@@ -10,7 +11,7 @@ export enum RequestStates {
     STARTED = 0,
     SUCCESSFUL,
     FAILED,
-    NOT_FETCHED = -1,
+    NOT_STARTED = -1,
 }
 
 export interface VisualState {
@@ -24,6 +25,7 @@ export interface AppConfig {
     detectionFrequency: number;
     detectionClearDelay: number;
     activeIdleDelay: number;
+    imageQuality: number;
 }
 
 export interface RequestActionStatus<P = void, R = void> {
@@ -67,9 +69,10 @@ export interface SpeechState {
 export interface CameraState {
     aspectRatio: string;
     useFrontCamera: boolean;
-    isTakingPicture: boolean; // TODO - use request pattern
     isPictureRequested: boolean;
     trackedObject: any;
+    takePictureStatus: RequestActionStatus<void, PictureTakenPayload>;
+    savePictureStatus: RequestActionStatus<void, PictureSavedPayload>;
 }
 
 export interface RootState {

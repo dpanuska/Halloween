@@ -17,7 +17,7 @@ import {
 
 const initialState: SpeechState = {
     initStatus: {
-        status: RequestStates.NOT_FETCHED,
+        status: RequestStates.NOT_STARTED,
     },
     isSpeaking: false,
     isSettingLocale: false,

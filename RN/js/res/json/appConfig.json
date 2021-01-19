@@ -3,5 +3,6 @@
   "deactivationDelay": 1500,
   "detectionFrequency": 100,
   "detectionClearDelay": 500,
-  "activeIdleDelay": 3000
+  "activeIdleDelay": 3000,
+  "imageQuality": 0.7
 }

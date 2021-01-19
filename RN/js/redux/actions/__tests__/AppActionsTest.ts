@@ -48,6 +48,7 @@ describe('AppActions', () => {
             activationDelay: 1,
             detectionFrequency: 1,
             activeIdleDelay: 1,
+            imageQuality: 1,
         };
         let expectedAction = {
             type: APP_FETCH_CONFIG_STATUS,

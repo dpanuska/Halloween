@@ -15,6 +15,7 @@ let initialState: AppState = {
             activationDelay: 1,
             detectionClearDelay: 1,
             activeIdleDelay: 1,
+            imageQuality: 1,
         },
     },
 };

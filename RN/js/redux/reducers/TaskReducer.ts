@@ -12,10 +12,10 @@ import {
 
 const initialState: TaskState = {
     configFetchStatus: {
-        status: RequestStates.NOT_FETCHED,
+        status: RequestStates.NOT_STARTED,
     },
     taskFetchStatus: {
-        status: RequestStates.NOT_FETCHED,
+        status: RequestStates.NOT_STARTED,
     },
 };
 

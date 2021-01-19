@@ -3,18 +3,27 @@ import {
     CAMERA_TAKE_PICTURE_REQUESTED,
     CAMERA_TAKE_PICTURE_STATUS,
     CAMERA_SET_TRACKING_OBJECT,
+    CAMERA_SAVE_PICTURE_STATUS,
 } from 'src/constants/Actions';
 
 import {CameraState, RequestStates} from 'types/StateTypes';
-import {RequestStatusAction} from 'types/ActionTypes';
-import {SetTrackingObjectAction} from 'types/CameraActionTypes';
+import {
+    PictureRequstStatusAction,
+    SaveRequestStatusAction,
+    SetTrackingObjectAction,
+} from 'types/CameraActionTypes';
 
 const initialState: CameraState = {
     aspectRatio: '16:9',
     useFrontCamera: true,
-    isTakingPicture: false,
     isPictureRequested: false,
     trackedObject: {},
+    takePictureStatus: {
+        status: RequestStates.NOT_STARTED,
+    },
+    savePictureStatus: {
+        status: RequestStates.NOT_STARTED,
+    },
 };
 
 function takePictureRequested(state: CameraState): CameraState {
@@ -26,14 +35,22 @@ function takePictureRequested(state: CameraState): CameraState {
 
 function updateTakePictureStatus(
     state: CameraState,
-    action: RequestStatusAction,
+    action: PictureRequstStatusAction,
 ): CameraState {
-    let {status} = action.payload;
-    var isTakingPicture = status === RequestStates.STARTED;
     return {
         ...state,
-        isTakingPicture,
+        takePictureStatus: action.payload,
         isPictureRequested: false,
+    };
+}
+
+function updateSavePictureStatus(
+    state: CameraState,
+    action: SaveRequestStatusAction,
+): CameraState {
+    return {
+        ...state,
+        savePictureStatus: action.payload,
     };
 }
 
@@ -53,8 +70,12 @@ const reducer = createReducer(initialState, {
         takePictureRequested(state),
     [CAMERA_TAKE_PICTURE_STATUS]: (
         state: CameraState,
-        action: RequestStatusAction,
+        action: PictureRequstStatusAction,
     ) => updateTakePictureStatus(state, action),
+    [CAMERA_SAVE_PICTURE_STATUS]: (
+        state: CameraState,
+        action: SaveRequestStatusAction,
+    ) => updateSavePictureStatus(state, action),
     [CAMERA_SET_TRACKING_OBJECT]: (
         state: CameraState,
         action: SetTrackingObjectAction,
