@@ -5,6 +5,8 @@ import {
     CAMERA_SET_TRACKING_OBJECT,
     CAMERA_SAVE_PICTURE_REQUESTED,
     CAMERA_SAVE_PICTURE_STATUS,
+    CAMERA_PREVIEW_PICTURE_REQUESTED,
+    CAMERA_PREVIEW_PICTURE_STATUS,
 } from 'src/constants/Actions';
 
 import {Action} from 'redux';
@@ -16,6 +18,7 @@ import {
     PictureSavedPayload,
     SaveRequestStatusAction,
     SetTrackingObjectAction,
+    PreviewPictureStatusAction,
 } from 'types/CameraActionTypes';
 
 export const takePicture = (): Action => ({
@@ -72,6 +75,34 @@ export const savePictureFailed = (error: Error): SaveRequestStatusAction => ({
     type: CAMERA_SAVE_PICTURE_STATUS,
     payload: {
         status: RequestStates.FAILED,
+        error,
+    },
+});
+
+export const previewPicture = (): Action => ({
+    type: CAMERA_PREVIEW_PICTURE_REQUESTED,
+});
+
+export const previewPictureStarted = (): PreviewPictureStatusAction => ({
+    type: CAMERA_PREVIEW_PICTURE_STATUS,
+    payload: {
+        status: RequestStates.STARTED,
+    },
+});
+
+export const previewPictureSuccess = (): PreviewPictureStatusAction => ({
+    type: CAMERA_PREVIEW_PICTURE_STATUS,
+    payload: {
+        status: RequestStates.SUCCESSFUL,
+    },
+});
+
+export const previewPictureFailed = (
+    error: Error,
+): PreviewPictureStatusAction => ({
+    type: CAMERA_PREVIEW_PICTURE_STATUS,
+    payload: {
+        status: RequestStates.STARTED,
         error,
     },
 });

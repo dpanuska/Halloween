@@ -29,7 +29,7 @@ export const getTakePictureStatus = (
 export const getIsTakingPicture = createSelector(
     getTakePictureStatus,
     (pic) => {
-        return pic.status === RequestStates.SUCCESSFUL;
+        return pic.status === RequestStates.STARTED;
     },
 );
 

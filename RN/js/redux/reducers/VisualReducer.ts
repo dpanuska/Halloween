@@ -1,26 +1,42 @@
 import {
-    VISUAL_SET_BACKGROUND_FILE,
+    VISUAL_SET_BACKGROUND_RESOURCE,
     VISUAL_RESET,
     VISUAL_SET_TEXT,
+    VISUAL_SET_BACKGROUND_IMAGE,
 } from 'src/constants/Actions';
 import {createReducer} from '@reduxjs/toolkit';
 
 import {VisualState} from 'types/StateTypes';
-import {SetBackgroundAction, SetTextAction} from 'types/VisualActionTypes';
+import {
+    SetBackgroundImageAction,
+    SetBackgroundResourceAction,
+    SetTextAction,
+} from 'types/VisualActionTypes';
 
 const initialState: VisualState = {
-    backgroundFile: null,
+    backgroundResource: null,
+    backgroundImage: null,
     text: null,
 };
 
-function setBackgroundFile(
+function setBackgroundResource(
     state: VisualState,
-    action: SetBackgroundAction,
+    action: SetBackgroundResourceAction,
 ): VisualState {
-    let {filePath} = action.payload;
+    let {resource} = action.payload;
     return {
         ...state,
-        backgroundFile: filePath,
+        backgroundResource: resource,
+    };
+}
+
+function setBackgroundImage(
+    state: VisualState,
+    action: SetBackgroundImageAction,
+): VisualState {
+    return {
+        ...state,
+        backgroundImage: action.payload,
     };
 }
 
@@ -33,14 +49,20 @@ function setVisualText(state: VisualState, action: SetTextAction): VisualState {
 }
 
 function resetVisuals() {
-    return initialState;
+    return {
+        ...initialState,
+    };
 }
 
 const reducer = createReducer(initialState, {
-    [VISUAL_SET_BACKGROUND_FILE]: (
+    [VISUAL_SET_BACKGROUND_RESOURCE]: (
         state: VisualState,
-        action: SetBackgroundAction,
-    ) => setBackgroundFile(state, action),
+        action: SetBackgroundResourceAction,
+    ) => setBackgroundResource(state, action),
+    [VISUAL_SET_BACKGROUND_IMAGE]: (
+        state: VisualState,
+        action: SetBackgroundImageAction,
+    ) => setBackgroundImage(state, action),
     [VISUAL_SET_TEXT]: (state: VisualState, action: SetTextAction) =>
         setVisualText(state, action),
     [VISUAL_RESET]: () => resetVisuals(),

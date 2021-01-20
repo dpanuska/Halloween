@@ -22,7 +22,7 @@ export const FactoryForTypes: TaskGeneratorMap = {
 function getBackgroundGenerator(task: Task): TaskGenerator | null {
     if (isSetBackgroundTask(task)) {
         return {
-            action: visualActions.setBackgroundFile(task.resource),
+            action: visualActions.setBackgroundResource(task.resource),
         };
     }
     return null;

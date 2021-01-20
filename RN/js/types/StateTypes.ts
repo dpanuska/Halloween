@@ -15,7 +15,8 @@ export enum RequestStates {
 }
 
 export interface VisualState {
-    backgroundFile: string | null;
+    backgroundResource: string | null;
+    backgroundImage: {base64: any} | null;
     text: string | null;
 }
 

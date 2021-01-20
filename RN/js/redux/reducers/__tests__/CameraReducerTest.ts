@@ -9,7 +9,12 @@ import {CameraState, RequestStates} from 'types/StateTypes';
 
 let initialState: CameraState = {
     isPictureRequested: false,
-    isTakingPicture: false,
+    takePictureStatus: {
+        status: RequestStates.NOT_STARTED,
+    },
+    savePictureStatus: {
+        status: RequestStates.NOT_STARTED,
+    },
     trackedObject: null,
     useFrontCamera: true,
     aspectRatio: '16:9',
@@ -34,57 +39,52 @@ describe('AppReducer', () => {
     });
 
     it('should handle CAMERA_TAKE_PICTURE_STATUS Start', () => {
-        let mockState = {
-            ...initialState,
-            isTakingPicture: false,
+        let mockStatus = {
+            status: RequestStates.STARTED,
         };
         let action = {
             type: CAMERA_TAKE_PICTURE_STATUS,
-            payload: {
-                status: RequestStates.STARTED,
-            },
+            payload: mockStatus,
         };
         let expectedState = {
             ...initialState,
-            isTakingPicture: true,
+            takePictureStatus: mockStatus,
         };
-        expect(cameraReducer(mockState, action)).toEqual(expectedState);
+        expect(cameraReducer(initialState, action)).toEqual(expectedState);
     });
 
     it('should handle CAMERA_TAKE_PICTURE_STATUS Success', () => {
-        let mockState = {
-            ...initialState,
-            isTakingPicture: true,
+        let mockStatus = {
+            status: RequestStates.SUCCESSFUL,
+            result: {
+                uri: 'some file location',
+            },
         };
         let action = {
             type: CAMERA_TAKE_PICTURE_STATUS,
-            payload: {
-                status: RequestStates.SUCCESSFUL,
-            },
+            payload: mockStatus,
         };
         let expectedState = {
-            ...mockState,
-            isTakingPicture: false,
+            ...initialState,
+            takePictureStatus: mockStatus,
         };
-        expect(cameraReducer(mockState, action)).toEqual(expectedState);
+        expect(cameraReducer(initialState, action)).toEqual(expectedState);
     });
 
     it('should handle CAMERA_TAKE_PICTURE_STATUS Failure', () => {
-        let mockState = {
-            ...initialState,
-            isTakingPicture: true,
+        let mockStatus = {
+            status: RequestStates.FAILED,
+            error: new Error('some error'),
         };
         let action = {
             type: CAMERA_TAKE_PICTURE_STATUS,
-            payload: {
-                status: RequestStates.FAILED,
-            },
+            payload: mockStatus,
         };
         let expectedState = {
-            ...mockState,
-            isTakingPicture: false,
+            ...initialState,
+            takePictureStatus: mockStatus,
         };
-        expect(cameraReducer(mockState, action)).toEqual(expectedState);
+        expect(cameraReducer(initialState, action)).toEqual(expectedState);
     });
 
     it('should handle CAMERA_SET_TRACKING_OBJECT', () => {

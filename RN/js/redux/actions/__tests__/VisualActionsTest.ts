@@ -1,11 +1,11 @@
 import {
     VISUAL_RESET,
-    VISUAL_SET_BACKGROUND_FILE,
+    VISUAL_SET_BACKGROUND_RESOURCE,
     VISUAL_SET_TEXT,
 } from 'src/constants/Actions';
 import {
     resetVisuals,
-    setBackgroundFile,
+    setBackgroundResource,
     setText,
 } from 'src/redux/actions/VisualActions';
 
@@ -17,15 +17,15 @@ describe('VisualActions', () => {
         expect(resetVisuals()).toEqual(expectedAction);
     });
 
-    it('should create an action to set background file', () => {
-        let filePath = 'someFile';
+    it('should create an action to set background resource', () => {
+        let resource = 'some resouce';
         let expectedAction = {
-            type: VISUAL_SET_BACKGROUND_FILE,
+            type: VISUAL_SET_BACKGROUND_RESOURCE,
             payload: {
-                filePath,
+                resource,
             },
         };
-        expect(setBackgroundFile(filePath)).toEqual(expectedAction);
+        expect(setBackgroundResource(resource)).toEqual(expectedAction);
     });
 
     it('should create an action to set text', () => {

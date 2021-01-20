@@ -1,12 +1,12 @@
-const {defaults: tsjPreset} = require('ts-jest/presets');
+const {defaults: jsWithTs} = require('ts-jest/presets');
 const {pathsToModuleNameMapper} = require('ts-jest/utils');
 const {compilerOptions} = require('./tsconfig.json');
 
 module.exports = {
-    ...tsjPreset,
-    preset: 'react-native',
+    ...jsWithTs,
+    preset: 'jest-expo',
     transform: {
-        ...tsjPreset.transform,
+        ...jsWithTs.transform,
         '\\.js$': '<rootDir>/node_modules/react-native/jest/preprocessor.js',
     },
     globals: {

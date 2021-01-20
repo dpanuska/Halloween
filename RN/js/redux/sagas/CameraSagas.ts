@@ -10,11 +10,14 @@ import {
 } from 'redux-saga/effects';
 import {
     CAMERA_OBJECT_DETECTED,
+    CAMERA_PREVIEW_PICTURE_REQUESTED,
     CAMERA_SAVE_PICTURE_REQUESTED,
-    CAMERA_TAKE_PICTURE_REQUESTED,
     CAMERA_TAKE_PICTURE_STATUS,
 } from 'src/constants/Actions';
 import {
+    previewPictureFailed,
+    previewPictureStarted,
+    previewPictureSuccess,
     savePictureFailed,
     savePictureStarted,
     savePictureSuccess,
@@ -22,10 +25,14 @@ import {
     takePicture,
 } from 'src/redux/actions/CameraActions';
 import {getDetectionClearDelay} from 'src/redux/selectors/AppSelectors';
-import {getTakePictureStatus} from '../selectors/CameraSelectors';
+import {
+    getPictureBase64,
+    getTakePictureStatus,
+} from '../selectors/CameraSelectors';
 import {saveImageFile} from 'src/services/FileService';
 import {call} from 'redux-saga-test-plan/matchers';
 import {RequestStates} from 'src/types/StateTypes';
+import {setBackgroundImage} from '../actions/VisualActions';
 
 export function* endObjectDetection() {
     let endDelay = yield select(getDetectionClearDelay);
@@ -82,7 +89,20 @@ export function* savePictureFlow() {
     }
 }
 
+export function* previewCameraPicture() {
+    let base64 = yield select(getPictureBase64);
+    yield put(previewPictureStarted());
+    if (base64 == null) {
+        let error = new Error('No picture data found. Take a picture first!');
+        yield put(previewPictureFailed(error));
+    } else {
+        yield put(setBackgroundImage(base64));
+        yield put(previewPictureSuccess());
+    }
+}
+
 export default function* rootSaga() {
     takeLatest(CAMERA_SAVE_PICTURE_REQUESTED, savePictureFlow);
+    takeLatest(CAMERA_PREVIEW_PICTURE_REQUESTED, previewCameraPicture);
     yield fork(objectDetectionFlow);
 }

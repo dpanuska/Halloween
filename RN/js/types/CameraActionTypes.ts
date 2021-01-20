@@ -27,5 +27,7 @@ export type SaveRequestStatusAction = RequestStatusAction<
     PictureSavedPayload
 >;
 
+export type PreviewPictureStatusAction = RequestStatusAction<void, void>;
+
 export type ObjectDetectedActon = PayloadAction<ObjectDetectedPayload>;
 export type SetTrackingObjectAction = ObjectDetectedActon;

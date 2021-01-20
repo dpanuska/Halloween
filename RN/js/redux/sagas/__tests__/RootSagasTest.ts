@@ -2,6 +2,7 @@ jest.mock('src/redux/sagas/AppSagas');
 jest.mock('src/redux/sagas/TTSSagas');
 jest.mock('src/redux/sagas/CameraSagas');
 jest.mock('src/redux/sagas/TaskSagas');
+jest.mock('src/services/FileService');
 
 import {testSaga} from 'redux-saga-test-plan';
 import rootSagas from 'src/redux/sagas/RootSagas';

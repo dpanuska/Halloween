@@ -1,7 +1,11 @@
 jest.mock('src/redux/selectors/CameraSelectors');
+jest.mock('src/services/FileService');
 
 import {testSaga} from 'redux-saga-test-plan';
-import cameraSagas, {endObjectDetection} from 'src/redux/sagas/CameraSagas';
+import cameraSagas, {
+    endObjectDetection,
+    objectDetectionFlow,
+} from 'src/redux/sagas/CameraSagas';
 import {
     CAMERA_OBJECT_DETECTED,
     CAMERA_SET_TRACKING_OBJECT,
@@ -45,7 +49,7 @@ describe('AppSagas', () => {
         });
     });
 
-    describe('cameraSagas', () => {
+    describe('objectDetectionFlow', () => {
         it('should check for CAMERA_OBJECT_DETECTED', () => {
             let mockObj = {thing: 'stuff'};
             let mockAction = {
@@ -54,7 +58,7 @@ describe('AppSagas', () => {
                     data: mockObj,
                 },
             };
-            testSaga(cameraSagas)
+            testSaga(objectDetectionFlow)
                 .next()
                 .take(CAMERA_OBJECT_DETECTED)
                 .next(mockAction)
@@ -77,7 +81,7 @@ describe('AppSagas', () => {
                 },
             };
             let mockTask = createMockTask();
-            testSaga(cameraSagas)
+            testSaga(objectDetectionFlow)
                 .next()
                 .take(CAMERA_OBJECT_DETECTED)
                 .next(mockAction)

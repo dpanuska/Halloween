@@ -15,11 +15,14 @@ const imageMap: ResourceMap = {
 
 export const getVisualState = (state: RootState): VisualState => state.visual;
 
-export const getBackgroundFile = (state: RootState): string | null =>
-    getVisualState(state).backgroundFile;
+export const getBackgroundResource = (state: RootState): string | null =>
+    getVisualState(state).backgroundResource;
 
-export const getBackgroundResource = createSelector(
-    getBackgroundFile,
+export const getBackgroundImageBase64 = (state: RootState): any =>
+    getVisualState(state).backgroundImage?.base64;
+
+export const getBGResourceRequire = createSelector(
+    getBackgroundResource,
     (backgroundFile) => {
         if (backgroundFile == null) {
             return null;

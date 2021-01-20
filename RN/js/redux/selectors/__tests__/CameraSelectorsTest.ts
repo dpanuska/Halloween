@@ -6,6 +6,7 @@ import {
     getAspectRatio,
     getUseFrontCamera,
 } from 'src/redux/selectors/CameraSelectors';
+import {RequestStates} from 'src/types/StateTypes';
 import {mockCameraState, mockRootState} from '../../../__mocks__/MockState';
 
 describe('CameraSelectors', () => {
@@ -27,7 +28,7 @@ describe('CameraSelectors', () => {
 
     it('should get if picture is being taken', () => {
         expect(getIsTakingPicture(mockRootState)).toEqual(
-            mockCameraState.isTakingPicture,
+            mockCameraState.takePictureStatus.status === RequestStates.STARTED,
         );
     });
 

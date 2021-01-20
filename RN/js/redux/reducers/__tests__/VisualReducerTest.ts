@@ -1,14 +1,15 @@
 import visualReducer from 'src/redux/reducers/VisualReducer';
 import {
     VISUAL_RESET,
-    VISUAL_SET_BACKGROUND_FILE,
+    VISUAL_SET_BACKGROUND_RESOURCE,
     VISUAL_SET_TEXT,
 } from 'src/constants/Actions';
 
 import {VisualState} from 'types/StateTypes';
 
 let initialState: VisualState = {
-    backgroundFile: null,
+    backgroundResource: null,
+    backgroundImage: null,
     text: null,
 };
 
@@ -21,7 +22,8 @@ describe('VisualReducer', () => {
 
     it('should handle VISUAL_RESET', () => {
         let testState = {
-            backgroundFile: 'some file',
+            ...initialState,
+            backgroundResource: 'some resource',
             text: 'some text',
         };
         let action = {
@@ -32,16 +34,16 @@ describe('VisualReducer', () => {
     });
 
     it('should handle VISUAL_SET_BACKGROUND_FILE', () => {
-        let filePath = 'some file';
+        let resource = 'some resource';
         let action = {
-            type: VISUAL_SET_BACKGROUND_FILE,
+            type: VISUAL_SET_BACKGROUND_RESOURCE,
             payload: {
-                filePath,
+                resource,
             },
         };
         let expectedState = {
             ...initialState,
-            backgroundFile: filePath,
+            backgroundResource: resource,
         };
         expect(visualReducer(initialState, action)).toEqual(expectedState);
     });

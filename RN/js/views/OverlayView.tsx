@@ -6,7 +6,8 @@ import * as visualSelectors from 'src/redux/selectors/VisualSelectors';
 import {RootState} from 'types/StateTypes';
 
 export interface Props {
-    backgroundImage: any;
+    backgroundResource: any;
+    backgroundBase64: any;
     text: string | null;
 }
 
@@ -16,15 +17,22 @@ class OverlayView extends PureComponent<Props> {
     }
 
     render() {
-        let {backgroundImage, text} = this.props;
+        let {backgroundBase64, backgroundResource, text} = this.props;
+        let imageSource;
+        if (backgroundBase64) {
+            imageSource = {uri: `data:image/jpg;base64,${backgroundBase64}`};
+        } else if (backgroundResource) {
+            imageSource = backgroundResource;
+        }
+
         var style = styles.container;
-        if (backgroundImage != null) {
+        if (imageSource != null) {
             style = {...style, ...styles.containerImage};
         }
         return (
             <View style={style}>
-                {backgroundImage && (
-                    <Image style={styles.image} source={backgroundImage} />
+                {imageSource && (
+                    <Image style={styles.image} source={imageSource} />
                 )}
                 {text && <Text style={styles.text}>{text}</Text>}
             </View>
@@ -38,7 +46,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     containerImage: {
-        backgroundColor: 'black',
+        backgroundColor: 'transparent',
     },
     image: {
         flex: 1,
@@ -56,7 +64,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: RootState) => {
     return {
-        backgroundImage: visualSelectors.getBackgroundResource(state),
+        backgroundResource: visualSelectors.getBGResourceRequire(state),
+        backgroundBase64: visualSelectors.getBackgroundImageBase64(state),
         text: visualSelectors.getText(state),
     };
 };

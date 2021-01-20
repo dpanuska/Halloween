@@ -42,13 +42,19 @@ export const mockSpeechState: SpeechState = {
 };
 
 export const mockVisualState: VisualState = {
-    backgroundFile: null,
+    backgroundResource: null,
+    backgroundImage: null,
     text: 'some text',
 };
 
 export const mockCameraState: CameraState = {
     isPictureRequested: false,
-    isTakingPicture: false,
+    takePictureStatus: {
+        status: RequestStates.SUCCESSFUL,
+    },
+    savePictureStatus: {
+        status: RequestStates.SUCCESSFUL,
+    },
     trackedObject: null,
     useFrontCamera: true,
     aspectRatio: '16:9',
