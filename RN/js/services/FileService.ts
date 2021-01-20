@@ -1,7 +1,7 @@
 import * as FileSystem from 'expo-file-system';
 
 export async function saveImageFile(uri: string) {
-    let imageDir = getImageDirectory();
+    let imageDir = await getImageDirectory();
     let fileName = imageDir + Date.now().toString();
 
     await FileSystem.copyAsync({from: uri, to: fileName});

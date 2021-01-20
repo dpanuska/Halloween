@@ -32,7 +32,11 @@ class OverlayView extends PureComponent<Props> {
         return (
             <View style={style}>
                 {imageSource && (
-                    <Image style={styles.image} source={imageSource} />
+                    <Image
+                        resizeMode={'contain'}
+                        style={styles.image}
+                        source={imageSource}
+                    />
                 )}
                 {text && <Text style={styles.text}>{text}</Text>}
             </View>
@@ -46,11 +50,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     containerImage: {
-        backgroundColor: 'transparent',
+        backgroundColor: 'black',
     },
     image: {
         flex: 1,
         alignSelf: 'center',
+        width: '100%',
     },
     text: {
         flex: 1,

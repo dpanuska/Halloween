@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react';
 import {
     ActivityIndicator,
-    Button,
     SafeAreaView,
     View,
     StatusBar,
@@ -13,7 +12,7 @@ import {Dispatch} from 'redux';
 import {fetchAppConfig} from 'src/redux/actions/AppActions';
 import {fetchTaskConfig, fetchTasks} from 'src/redux/actions/TaskActions';
 import {initialize, reset} from 'src/redux/actions/TTSActions';
-import BackgroundView from 'src/views/OverlayView';
+import OverlayView from 'src/views/OverlayView';
 import {getIsAppConfigFetched} from 'src/redux/selectors/AppSelectors';
 import {
     getIsTaskConfigFetched,
@@ -31,13 +30,11 @@ export interface Props {
     requestFetchTasks: () => void;
     requestInitTTS: () => void;
     requestSetTTSDefaults: () => void;
-    onButtonPressed: () => void;
 }
 
 class AppView extends PureComponent<Props> {
     constructor(props: Props) {
         super(props);
-        this.onButtonPress = this.onButtonPress.bind(this);
     }
 
     componentDidMount() {
@@ -70,11 +67,7 @@ class AppView extends PureComponent<Props> {
                             <CameraView />
                         </View>
                         <View style={styles.overlay}>
-                            <Button
-                                title="Touch me"
-                                onPress={this.onButtonPress}
-                            />
-                            <BackgroundView />
+                            <OverlayView />
                         </View>
                     </View>
                 ) : (
@@ -82,10 +75,6 @@ class AppView extends PureComponent<Props> {
                 )}
             </SafeAreaView>
         );
-    }
-
-    onButtonPress() {
-        this.props.onButtonPressed();
     }
 }
 
@@ -129,7 +118,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         requestFetchTasks: () => dispatch(fetchTasks()),
         requestInitTTS: () => dispatch(initialize()),
         requestSetTTSDefaults: () => dispatch(reset()),
-        onButtonPressed: () => dispatch(sayText('dylan')),
     };
 };
 
