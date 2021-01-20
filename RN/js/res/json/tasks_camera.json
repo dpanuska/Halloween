@@ -9,7 +9,22 @@
           "suspend": true
         },
         {
-          "type": "SAVE_PICTURE"
+          "type": "PREVIEW_PICTURE"
+        },
+        {
+          "type": "SPEECH_TEXT",
+          "text": "Here is the picture I just took. I'm going to save it now. I will remove the preview in 3 seconds."
+        },
+        {
+          "type": "SAVE_PICTURE",
+          "suspend": false
+        },
+        {
+          "type": "DELAY",
+          "duration": 3
+        },
+        {
+          "type": "VISUAL_RESET"
         }
       ]
     },
