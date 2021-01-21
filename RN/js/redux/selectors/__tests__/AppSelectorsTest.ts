@@ -7,6 +7,8 @@ import {
     getDeactivationDelay,
     getIsAppConfigFetched,
     getAppConfigFetchStatus,
+    getActiveIdleDelay,
+    getImageQuality,
 } from 'src/redux/selectors/AppSelectors';
 import {RequestStates} from 'src/types/StateTypes';
 import {mockAppState, mockRootState} from '../../../__mocks__/MockState';
@@ -55,6 +57,18 @@ describe('AppSelectors', () => {
     it('should get if config has been fetched', () => {
         expect(getIsAppConfigFetched(mockRootState)).toEqual(
             mockAppState.configFetchStatus.status === RequestStates.SUCCESSFUL,
+        );
+    });
+
+    it('should get active idle delay', () => {
+        expect(getActiveIdleDelay(mockRootState)).toEqual(
+            mockAppState.configFetchStatus.result?.activeIdleDelay,
+        );
+    });
+
+    it('should get image quality', () => {
+        expect(getImageQuality(mockRootState)).toEqual(
+            mockAppState.configFetchStatus.result?.imageQuality,
         );
     });
 });

@@ -2,6 +2,7 @@ import {
     getVisualState,
     getBackgroundResource,
     getText,
+    getBackgroundImageBase64,
 } from 'src/redux/selectors/VisualSelectors';
 import {mockVisualState, mockRootState} from '../../../__mocks__/MockState';
 
@@ -10,9 +11,15 @@ describe('VisualSelectors', () => {
         expect(getVisualState(mockRootState)).toEqual(mockVisualState);
     });
 
-    it('should get background file', () => {
+    it('should get background resource', () => {
         expect(getBackgroundResource(mockRootState)).toEqual(
             mockVisualState.backgroundResource,
+        );
+    });
+
+    it('should get background image base64', () => {
+        expect(getBackgroundImageBase64(mockRootState)).toEqual(
+            mockVisualState.backgroundImage?.base64,
         );
     });
 

@@ -3,6 +3,7 @@ import {
     CAMERA_TAKE_PICTURE_REQUESTED,
     CAMERA_TAKE_PICTURE_STATUS,
     CAMERA_SET_TRACKING_OBJECT,
+    CAMERA_SAVE_PICTURE_STATUS,
 } from 'src/constants/Actions';
 
 import {CameraState, RequestStates} from 'types/StateTypes';
@@ -20,7 +21,7 @@ let initialState: CameraState = {
     aspectRatio: '16:9',
 };
 
-describe('AppReducer', () => {
+describe('CameraReducer', () => {
     it('should return initial state', () => {
         expect(cameraReducer(initialState, {type: 'INVALID'})).toEqual(
             initialState,
@@ -101,6 +102,55 @@ describe('AppReducer', () => {
         let expectedState = {
             ...initialState,
             trackedObject: mockObj,
+        };
+        expect(cameraReducer(initialState, action)).toEqual(expectedState);
+    });
+
+    it('should handle CAMERA_SAVE_PICTURE_STATUS Start', () => {
+        let mockStatus = {
+            status: RequestStates.STARTED,
+        };
+        let action = {
+            type: CAMERA_SAVE_PICTURE_STATUS,
+            payload: mockStatus,
+        };
+        let expectedState = {
+            ...initialState,
+            savePictureStatus: mockStatus,
+        };
+        expect(cameraReducer(initialState, action)).toEqual(expectedState);
+    });
+
+    it('should handle CAMERA_SAVE_PICTURE_STATUS Success', () => {
+        let mockStatus = {
+            status: RequestStates.SUCCESSFUL,
+            result: {
+                uri: 'some file location',
+            },
+        };
+        let action = {
+            type: CAMERA_SAVE_PICTURE_STATUS,
+            payload: mockStatus,
+        };
+        let expectedState = {
+            ...initialState,
+            savePictureStatus: mockStatus,
+        };
+        expect(cameraReducer(initialState, action)).toEqual(expectedState);
+    });
+
+    it('should handle CAMERA_SAVE_PICTURE_STATUS Failure', () => {
+        let mockStatus = {
+            status: RequestStates.FAILED,
+            error: new Error('some error'),
+        };
+        let action = {
+            type: CAMERA_SAVE_PICTURE_STATUS,
+            payload: mockStatus,
+        };
+        let expectedState = {
+            ...initialState,
+            savePictureStatus: mockStatus,
         };
         expect(cameraReducer(initialState, action)).toEqual(expectedState);
     });

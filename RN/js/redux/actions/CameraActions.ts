@@ -102,7 +102,7 @@ export const previewPictureFailed = (
 ): PreviewPictureStatusAction => ({
     type: CAMERA_PREVIEW_PICTURE_STATUS,
     payload: {
-        status: RequestStates.STARTED,
+        status: RequestStates.FAILED,
         error,
     },
 });

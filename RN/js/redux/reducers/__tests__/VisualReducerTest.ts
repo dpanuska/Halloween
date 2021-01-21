@@ -3,6 +3,7 @@ import {
     VISUAL_RESET,
     VISUAL_SET_BACKGROUND_RESOURCE,
     VISUAL_SET_TEXT,
+    VISUAL_SET_BACKGROUND_IMAGE,
 } from 'src/constants/Actions';
 
 import {VisualState} from 'types/StateTypes';
@@ -44,6 +45,19 @@ describe('VisualReducer', () => {
         let expectedState = {
             ...initialState,
             backgroundResource: resource,
+        };
+        expect(visualReducer(initialState, action)).toEqual(expectedState);
+    });
+
+    it('should handle VISUAL_SET_BACKGROUND_IMAGE', () => {
+        let image = {base64: 'data'};
+        let action = {
+            type: VISUAL_SET_BACKGROUND_IMAGE,
+            payload: image,
+        };
+        let expectedState = {
+            ...initialState,
+            backgroundImage: image,
         };
         expect(visualReducer(initialState, action)).toEqual(expectedState);
     });

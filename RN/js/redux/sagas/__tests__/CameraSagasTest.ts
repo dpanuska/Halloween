@@ -13,7 +13,7 @@ import {
 import {getDetectionClearDelay} from 'src/redux/selectors/AppSelectors';
 import {createMockTask} from '@redux-saga/testing-utils';
 
-describe('AppSagas', () => {
+describe('CameraSagas', () => {
     describe('endObjectDetection', () => {
         it('should delay then set detection object', () => {
             let delay = 1;
@@ -108,4 +108,12 @@ describe('AppSagas', () => {
                 .fork(endObjectDetection);
         });
     });
+
+    // TODO redux-saga + typescript detecting only Generator result, not SagaType
+    // so testSaga and expectSaga cause errors
+    describe('takePictureFlow', () => {});
+
+    describe('savePictureFlow', () => {});
+
+    describe('previewCameraPicture', () => {});
 });
