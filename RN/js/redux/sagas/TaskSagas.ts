@@ -38,8 +38,8 @@ import {
     DispatchTaskListAction,
     DispatchTaskListRequestStatusAction,
     DispatchTypedTaskAction,
-} from 'src/types/TaskActionTypes';
-import {TaskList, TaskResult} from 'src/types/TaskTypes';
+} from 'types/TaskActionTypes';
+import {TaskList, TaskResult} from 'types/TaskTypes';
 import {getActiveIdleDelay, getDetectionState} from '../selectors/AppSelectors';
 
 export function* handleDetectionStateChange(action: DetectionStateAction) {

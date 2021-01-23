@@ -31,7 +31,7 @@ import {
 } from 'types/TTSActionTypes';
 import {RequestStates} from 'types/StateTypes';
 import {Action} from 'redux';
-import {RequestStatusAction} from 'src/types/ActionTypes';
+import {RequestStatusAction} from 'types/ActionTypes';
 
 export const initialize = (): Action => ({
     type: TTS_INIT_REQUESTED,

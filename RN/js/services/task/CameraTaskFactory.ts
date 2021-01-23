@@ -5,7 +5,7 @@ import {
     takePictureFlow,
 } from 'src/redux/sagas/CameraSagas';
 
-import {TaskGenerator, TaskGeneratorMap} from 'src/types/TaskFactoryTypes';
+import {TaskGenerator, TaskGeneratorMap} from 'types/TaskFactoryTypes';
 
 const CameraTasks = {
     TakePicture: 'TAKE_PICTURE',

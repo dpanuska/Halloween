@@ -4,7 +4,7 @@ import * as taskActions from 'src/redux/actions/TaskActions';
 import {runNamedTask, runTypedTask} from 'src/redux/sagas/TaskSagas';
 
 import {TaskGenerator, TaskGeneratorMap} from 'types/TaskFactoryTypes';
-import {DelayTask, NamedTask, Task, TypedTask} from 'src/types/TaskTypes';
+import {DelayTask, NamedTask, Task, TypedTask} from 'types/TaskTypes';
 
 const UtilityTasks = {
     Delay: 'DELAY',

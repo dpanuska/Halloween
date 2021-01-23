@@ -44,8 +44,8 @@ import {
     dispatchTypedTaskListSuccess,
     dispatchTypedTaskListFailed,
 } from 'src/redux/actions/TaskActions';
-import {TaskListPayload, TaskPayload} from 'src/types/TaskActionTypes';
-import {Task, TaskList} from 'src/types/TaskTypes';
+import {TaskListPayload, TaskPayload} from 'types/TaskActionTypes';
+import {Task, TaskList} from 'types/TaskTypes';
 import {RequestStates} from 'types/StateTypes';
 
 describe('TaskActions', () => {

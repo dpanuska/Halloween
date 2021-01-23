@@ -2,8 +2,8 @@ import {
     TaskGenerator,
     TaskGeneratorFunction,
     TaskGeneratorMap,
-} from 'src/types/TaskFactoryTypes';
-import {Task, TaskResult} from 'src/types/TaskTypes';
+} from 'types/TaskFactoryTypes';
+import {Task, TaskResult} from 'types/TaskTypes';
 
 const taskTypeGeneratorMap = new Map<string, TaskGeneratorFunction>();
 

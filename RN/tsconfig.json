@@ -11,6 +11,10 @@
       "strict": true,
       "target": "esnext",
       "baseUrl": "./",
+      "typeRoots": [
+        "./js/types",
+        "./node_modules/@types"
+      ],
       "paths": {
         "src/*": ["js/*"],
         "res/*": ["js/res/*"],

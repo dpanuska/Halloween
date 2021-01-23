@@ -6,14 +6,14 @@ import {
     setPitch,
     setRate,
 } from 'src/redux/sagas/TTSSagas';
-import {TaskGenerator, TaskGeneratorMap} from 'src/types/TaskFactoryTypes';
+import {TaskGenerator, TaskGeneratorMap} from 'types/TaskFactoryTypes';
 import {
     Task,
     TTSLocaleTask,
     TTSPitchTask,
     TTSRateTask,
     TTSSayTextTask,
-} from 'src/types/TaskTypes';
+} from 'types/TaskTypes';
 
 const TTSTasks = {
     SayText: 'SPEECH_TEXT',

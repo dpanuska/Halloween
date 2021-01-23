@@ -8,7 +8,7 @@ import {
     getIsInitialized,
     getAvailableLanguages,
 } from 'src/redux/selectors/TTSSelectors';
-import {RequestStates} from 'src/types/StateTypes';
+import {RequestStates} from 'types/StateTypes';
 import {mockSpeechState, mockRootState} from '../../../__mocks__/MockState';
 
 describe('TTSSelectors', () => {

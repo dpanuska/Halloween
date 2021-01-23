@@ -8,7 +8,7 @@ import {RequestStates, TaskState} from 'types/StateTypes';
 import {
     FetchConfigRequestStatusAction,
     FetchTasksRequestStatusAction,
-} from 'src/types/TaskActionTypes';
+} from 'types/TaskActionTypes';
 
 const initialState: TaskState = {
     configFetchStatus: {

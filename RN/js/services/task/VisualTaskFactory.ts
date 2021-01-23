@@ -1,6 +1,6 @@
 import * as visualActions from 'src/redux/actions/VisualActions';
 
-import {TaskGenerator, TaskGeneratorMap} from 'src/types/TaskFactoryTypes';
+import {TaskGenerator, TaskGeneratorMap} from 'types/TaskFactoryTypes';
 import {VisualBackgroundTask, VisualTextTask, Task} from 'types/TaskTypes';
 
 const VisualTasks = {

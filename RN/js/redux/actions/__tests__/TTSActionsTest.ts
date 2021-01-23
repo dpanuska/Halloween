@@ -2,7 +2,7 @@ import * as actions from 'src/redux/actions/TTSActions';
 import * as types from 'src/constants/Actions';
 
 import {RequestStates} from 'types/StateTypes';
-import {TTSInitPayload} from 'src/types/TTSActionTypes';
+import {TTSInitPayload} from 'types/TTSActionTypes';
 
 describe('TTSActions', () => {
     describe('Init actions', () => {

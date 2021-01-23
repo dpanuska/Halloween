@@ -8,7 +8,7 @@ import {
     getPictureURI,
     getPictureBase64,
 } from 'src/redux/selectors/CameraSelectors';
-import {RequestStates} from 'src/types/StateTypes';
+import {RequestStates} from 'types/StateTypes';
 import {mockCameraState, mockRootState} from '../../../__mocks__/MockState';
 
 describe('CameraSelectors', () => {

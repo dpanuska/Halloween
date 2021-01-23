@@ -14,8 +14,8 @@ import taskSagas, {
     handleDetectionStateChange,
 } from 'src/redux/sagas/TaskSagas';
 import {fetchTasks, fetchConfiguration} from 'src/services/TaskService';
-import {RequestStates, TaskConfig} from 'src/types/StateTypes';
-import {TaskList} from 'src/types/TaskTypes';
+import {RequestStates, TaskConfig} from 'types/StateTypes';
+import {TaskList} from 'types/TaskTypes';
 import {mocked} from 'ts-jest/utils';
 
 describe('TaskSagas', () => {

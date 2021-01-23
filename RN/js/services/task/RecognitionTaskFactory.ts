@@ -1,5 +1,5 @@
-import {TaskGenerator, TaskGeneratorMap} from 'src/types/TaskFactoryTypes';
-import {SetRecognitionTask, Task} from 'src/types/TaskTypes';
+import {TaskGenerator, TaskGeneratorMap} from 'types/TaskFactoryTypes';
+import {SetRecognitionTask, Task} from 'types/TaskTypes';
 
 const RecognitionTasks = {
     SetRecognition: 'SET_RECOGNITION',

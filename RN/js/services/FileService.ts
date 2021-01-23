@@ -1,5 +1,7 @@
 import * as FileSystem from 'expo-file-system';
 
+export const PICTURE_FOLDER = 'pictures/';
+
 export async function saveImageFile(uri: string) {
     let imageDir = await getImageDirectory();
     let fileName = imageDir + Date.now().toString();
@@ -10,7 +12,7 @@ export async function saveImageFile(uri: string) {
 }
 
 async function getImageDirectory() {
-    let directory = FileSystem.documentDirectory + 'pictures/';
+    let directory = FileSystem.documentDirectory + PICTURE_FOLDER;
 
     // Making sure directory exists
     // TODO Possilbe performance improvement - move to an init.

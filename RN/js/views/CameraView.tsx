@@ -21,7 +21,7 @@ import {
 
 import {RootState} from 'types/StateTypes';
 import {Dispatch} from 'redux';
-import {PictureTakenPayload} from 'src/types/CameraActionTypes';
+import {PictureTakenPayload} from 'types/CameraActionTypes';
 
 interface Props {
     aspectRatio: string;

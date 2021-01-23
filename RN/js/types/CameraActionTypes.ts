@@ -1,5 +1,5 @@
 import {PayloadAction} from '@reduxjs/toolkit';
-import {RequestStatusAction} from 'types/ActionTypes';
+import {RequestStatusAction} from 'src/@types/ActionTypes';
 
 export interface PictureTakenPayload {
     uri: string;

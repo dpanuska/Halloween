@@ -1,5 +1,5 @@
 import {Action, AnyAction, Dispatch} from 'redux';
-import {RequestStatusAction} from 'src/types/ActionTypes';
+import {RequestStatusAction} from 'src/@types/ActionTypes';
 import {RequestStates} from 'src/types/StateTypes';
 
 const requestErrorLogger = () => (next: Dispatch<AnyAction>) => (

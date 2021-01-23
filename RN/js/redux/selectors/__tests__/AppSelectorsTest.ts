@@ -10,7 +10,7 @@ import {
     getActiveIdleDelay,
     getImageQuality,
 } from 'src/redux/selectors/AppSelectors';
-import {RequestStates} from 'src/types/StateTypes';
+import {RequestStates} from 'types/StateTypes';
 import {mockAppState, mockRootState} from '../../../__mocks__/MockState';
 
 describe('AppSelectors', () => {

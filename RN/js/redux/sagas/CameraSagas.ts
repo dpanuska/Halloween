@@ -31,7 +31,7 @@ import {
 } from '../selectors/CameraSelectors';
 import {saveImageFile} from 'src/services/FileService';
 import {call} from 'redux-saga-test-plan/matchers';
-import {RequestStates} from 'src/types/StateTypes';
+import {RequestStates} from 'types/StateTypes';
 import {setBackgroundImage} from '../actions/VisualActions';
 
 export function* endObjectDetection() {

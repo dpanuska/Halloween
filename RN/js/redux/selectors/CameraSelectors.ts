@@ -1,5 +1,5 @@
 import {createSelector} from '@reduxjs/toolkit';
-import {PictureTakenPayload} from 'src/types/CameraActionTypes';
+import {PictureTakenPayload} from 'types/CameraActionTypes';
 import {
     RootState,
     CameraState,

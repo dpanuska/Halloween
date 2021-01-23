@@ -21,7 +21,7 @@ import {
 import {mockRootState, mockTaskState} from '../../../__mocks__/MockState';
 
 import {RequestStates} from 'types/StateTypes';
-import { TaskList } from 'src/types/TaskTypes';
+import { TaskList } from 'types/TaskTypes';
 
 describe('TaskSelectors', () => {
     it('should get task slice of state', () => {

@@ -1,5 +1,5 @@
-import Tts from 'react-native-tts';
-import {TTSInitPayload} from 'src/types/TTSActionTypes';
+import Tts, {TTSEvent} from 'react-native-tts';
+import {TTSInitPayload} from 'types/TTSActionTypes';
 
 export class TTSError extends Error {
     innerError?: Error;
@@ -24,7 +24,7 @@ export default class TextToSpeechService {
         });
     }
 
-    private onTtsFinish(event: any) {
+    private onTtsFinish(event: TTSEvent) {
         let {utteranceId} = event;
         let resolver = this.utteranceIds.get(utteranceId);
         if (resolver != null) {
@@ -34,7 +34,7 @@ export default class TextToSpeechService {
         }
     }
 
-    private onTtsCancel(event: any) {
+    private onTtsCancel(event: TTSEvent) {
         let {utteranceId} = event;
         let resolver = this.utteranceIds.get(utteranceId);
         if (resolver != null) {
