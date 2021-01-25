@@ -5,17 +5,20 @@ import {Provider} from 'react-redux';
 import rootSaga from 'src/redux/sagas/RootSagas';
 import reducer from 'src/redux/reducers/Reducers';
 import AppView from 'src/views/AppView';
-import {TTS_SERVICE_KEY} from 'src/constants/ContextEffects';
+import {TTS_SERVICE_KEY, VOICE_SERVICE_KEY} from 'src/constants/ContextEffects';
 import TTSService from 'src/services/TTSService';
 import logger from 'src/redux/middleware/logger';
 
 import {initializeTaskGenerators} from 'src/services/AppService';
+import VoiceRecognitionService from 'src/services/VoiceRecognitionService';
 
 initializeTaskGenerators();
 const ttsService = new TTSService();
+const voiceService = new VoiceRecognitionService();
 const sagaMiddleware = createSagaMiddleware({
     context: {
         [TTS_SERVICE_KEY]: ttsService,
+        [VOICE_SERVICE_KEY]: voiceService,
     },
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

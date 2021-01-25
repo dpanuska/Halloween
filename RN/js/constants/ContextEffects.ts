@@ -1,1 +1,2 @@
 export const TTS_SERVICE_KEY = 'TTS_SERVICE_KEY';
+export const VOICE_SERVICE_KEY = 'VOICE_SERVICE_KEY';

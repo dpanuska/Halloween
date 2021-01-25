@@ -11,10 +11,4 @@
 
 @interface VoiceRecognition : RCTEventEmitter <RCTBridgeModule>
 
-@property (nonatomic, strong) OEEventsObserver *openEarsEventsObserver;
-@property (nonatomic, strong) OELanguageModelGenerator *lmGenerator;
-@property (nonatomic, strong) NSString *modelPath;
-@property (nonatomic, strong) NSString *dictionaryPath;
-@property (nonatomic, strong) OEPocketsphinxController *sphinxController;
-
 @end

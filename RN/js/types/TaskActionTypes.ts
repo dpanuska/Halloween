@@ -1,6 +1,6 @@
 import {PayloadAction} from '@reduxjs/toolkit';
-import {RequestStatusAction} from 'src/@types/ActionTypes';
-import {TaskConfig} from 'src/types/StateTypes';
+import {RequestStatusAction} from 'types/ActionTypes';
+import {TaskConfig} from 'types/StateTypes';
 import {Task, TaskList, TaskResult} from './TaskTypes';
 
 export interface TaskPayload {

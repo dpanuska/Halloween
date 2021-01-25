@@ -31,6 +31,11 @@ NSString *const SUSPENDED_EVENT = @"Suspended";
 NSString *const RESUMED_EVENT = @"Resumed";
 
 @interface VoiceRecognition () <OEEventsObserverDelegate>
+@property (nonatomic, strong) OEEventsObserver *openEarsEventsObserver;
+@property (nonatomic, strong) OELanguageModelGenerator *lmGenerator;
+@property (nonatomic, strong) NSString *modelPath;
+@property (nonatomic, strong) NSString *dictionaryPath;
+@property (nonatomic, strong) OEPocketsphinxController *sphinxController;
 @property BOOL hasListeners;
 @end
 
@@ -68,7 +73,7 @@ RCT_EXPORT_MODULE()
   self.hasListeners = NO;
 }
 
-RCT_EXPORT_METHOD(setWords:(NSArray<NSString *> *)words
+RCT_EXPORT_METHOD(setRecognitionWords:(NSArray<NSString *> *)words
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject) {
   NSError *error = [self.lmGenerator generateLanguageModelFromArray:words withFilesNamed:LANGUAGE_MODEL_FILE forAcousticModelAtPath:[OEAcousticModel pathToModel:@"AcousticModelEnglish"]];
