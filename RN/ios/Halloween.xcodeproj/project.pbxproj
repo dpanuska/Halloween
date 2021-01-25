@@ -12,6 +12,12 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3722C79E25A14E9F00E3ABDD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3722C79D25A14E9F00E3ABDD /* GoogleService-Info.plist */; };
+		37CCFAA625BF318E00DEFB73 /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CCFAA325BF318E00DEFB73 /* Slt.framework */; };
+		37CCFAA725BF318E00DEFB73 /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CCFAA425BF318E00DEFB73 /* OpenEars.framework */; };
+		37CCFAA825BF318E00DEFB73 /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 37CCFAA525BF318E00DEFB73 /* AcousticModelEnglish.bundle */; };
+		37CCFAB125BF329700DEFB73 /* VoiceRecognition.m in Sources */ = {isa = PBXBuildFile; fileRef = 37CCFAB025BF329700DEFB73 /* VoiceRecognition.m */; };
+		37CCFAB525BF341B00DEFB73 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CCFAB325BF341B00DEFB73 /* AudioToolbox.framework */; };
+		37CCFAB625BF341B00DEFB73 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CCFAB425BF341B00DEFB73 /* AVFoundation.framework */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		96905EF65AED1B983A6B3ABC /* libPods-Halloween.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-Halloween.a */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
@@ -27,6 +33,13 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Halloween/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Halloween/main.m; sourceTree = "<group>"; };
 		3722C79D25A14E9F00E3ABDD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Halloween/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		37CCFAA325BF318E00DEFB73 /* Slt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Slt.framework; sourceTree = "<group>"; };
+		37CCFAA425BF318E00DEFB73 /* OpenEars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenEars.framework; sourceTree = "<group>"; };
+		37CCFAA525BF318E00DEFB73 /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
+		37CCFAAF25BF329700DEFB73 /* VoiceRecognition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoiceRecognition.h; sourceTree = "<group>"; };
+		37CCFAB025BF329700DEFB73 /* VoiceRecognition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoiceRecognition.m; sourceTree = "<group>"; };
+		37CCFAB325BF341B00DEFB73 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		37CCFAB425BF341B00DEFB73 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-Halloween.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Halloween.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2E3173556A471DD304B334 /* Pods-Halloween.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Halloween.debug.xcconfig"; path = "Target Support Files/Pods-Halloween/Pods-Halloween.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-Halloween.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Halloween.release.xcconfig"; path = "Target Support Files/Pods-Halloween/Pods-Halloween.release.xcconfig"; sourceTree = "<group>"; };
@@ -41,7 +54,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37CCFAA625BF318E00DEFB73 /* Slt.framework in Frameworks */,
 				96905EF65AED1B983A6B3ABC /* libPods-Halloween.a in Frameworks */,
+				37CCFAB625BF341B00DEFB73 /* AVFoundation.framework in Frameworks */,
+				37CCFAA725BF318E00DEFB73 /* OpenEars.framework in Frameworks */,
+				37CCFAB525BF341B00DEFB73 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +68,7 @@
 		13B07FAE1A68108700A75B9A /* Halloween */ = {
 			isa = PBXGroup;
 			children = (
+				37CCFAAA25BF322900DEFB73 /* NativeModules */,
 				BB2F792B24A3F905000567C9 /* Supporting */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -68,11 +86,32 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				37CCFAB325BF341B00DEFB73 /* AudioToolbox.framework */,
+				37CCFAB425BF341B00DEFB73 /* AVFoundation.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-Halloween.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		37CCFAA225BF318E00DEFB73 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				37CCFAA325BF318E00DEFB73 /* Slt.framework */,
+				37CCFAA425BF318E00DEFB73 /* OpenEars.framework */,
+				37CCFAA525BF318E00DEFB73 /* AcousticModelEnglish.bundle */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		37CCFAAA25BF322900DEFB73 /* NativeModules */ = {
+			isa = PBXGroup;
+			children = (
+				37CCFAAF25BF329700DEFB73 /* VoiceRecognition.h */,
+				37CCFAB025BF329700DEFB73 /* VoiceRecognition.m */,
+			);
+			path = NativeModules;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -85,6 +124,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				37CCFAA225BF318E00DEFB73 /* Framework */,
 				13B07FAE1A68108700A75B9A /* Halloween */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -186,6 +226,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3722C79E25A14E9F00E3ABDD /* GoogleService-Info.plist in Resources */,
+				37CCFAA825BF318E00DEFB73 /* AcousticModelEnglish.bundle in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
 			);
@@ -277,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				37CCFAB125BF329700DEFB73 /* VoiceRecognition.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,6 +348,10 @@
 				DEVELOPMENT_TEAM = VC57G859YW;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Framework",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FB_SONARKIT_ENABLED=1",
@@ -335,6 +381,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VC57G859YW;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Framework",
+				);
 				INFOPLIST_FILE = Halloween/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
