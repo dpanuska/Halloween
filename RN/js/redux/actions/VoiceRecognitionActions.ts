@@ -15,14 +15,18 @@ import {Hypothesis} from 'src/types/VoiceRecogitionTypes';
 import {
     HypothesisAction,
     RecognitionPayload,
+    RecognitionStartAction,
 } from 'src/types/VoiceRecognitionActionTypes';
 import {RequestStates} from 'src/types/StateTypes';
 import {RequestStatusAction} from 'src/types/ActionTypes';
+import {RecognitionConfig} from 'src/types/TaskTypes';
 
-export const startRecognition = (words: string[]) => ({
+export const startRecognition = (
+    configurations: RecognitionConfig[],
+): RecognitionStartAction => ({
     type: VOICE_START_RECOGNITION,
     payload: {
-        words,
+        configurations,
     },
 });
 
@@ -39,6 +43,7 @@ export const startRecognitionSuccess = (params: RecognitionPayload) => ({
     payload: {
         status: RequestStates.SUCCESSFUL,
         params,
+        result: params,
     },
 });
 

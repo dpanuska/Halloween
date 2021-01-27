@@ -5,6 +5,7 @@ import {
     View,
     StatusBar,
     StyleSheet,
+    Button,
 } from 'react-native';
 import CameraView from 'src/views/CameraView';
 import {connect} from 'react-redux';
@@ -21,7 +22,7 @@ import {
 import {getIsInitialized} from 'src/redux/selectors/TTSSelectors';
 
 import {RootState} from 'types/StateTypes';
-import {sayText} from 'src/redux/actions/TTSActions';
+import {startRecognition} from 'src/redux/actions/VoiceRecognitionActions';
 
 export interface Props {
     isEverythingFetched: boolean;
@@ -30,11 +31,14 @@ export interface Props {
     requestFetchTasks: () => void;
     requestInitTTS: () => void;
     requestSetTTSDefaults: () => void;
+
+    onButtonPressed: () => void;
 }
 
 class AppView extends PureComponent<Props> {
     constructor(props: Props) {
         super(props);
+        this.onButtonPress = this.onButtonPress.bind(this);
     }
 
     componentDidMount() {
@@ -68,6 +72,10 @@ class AppView extends PureComponent<Props> {
                         </View>
                         <View style={styles.overlay}>
                             <OverlayView />
+                            <Button
+                                title="Touch me"
+                                onPress={this.onButtonPress}
+                            />
                         </View>
                     </View>
                 ) : (
@@ -75,6 +83,10 @@ class AppView extends PureComponent<Props> {
                 )}
             </SafeAreaView>
         );
+    }
+
+    onButtonPress() {
+        this.props.onButtonPressed();
     }
 }
 
@@ -118,6 +130,14 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         requestFetchTasks: () => dispatch(fetchTasks()),
         requestInitTTS: () => dispatch(initialize()),
         requestSetTTSDefaults: () => dispatch(reset()),
+
+        onButtonPressed: () =>
+            dispatch(
+                startRecognition([
+                    {words: ['yes'], taskType: 'Test'},
+                    {words: ['no'], taskType: 'Test2'},
+                ]),
+            ),
     };
 };
 

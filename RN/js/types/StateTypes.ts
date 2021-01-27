@@ -1,6 +1,8 @@
 import {TaskList} from 'types/TaskTypes';
 import {TTSInitPayload} from 'types/TTSActionTypes';
 import {PictureSavedPayload, PictureTakenPayload} from './CameraActionTypes';
+import {Hypothesis} from './VoiceRecogitionTypes';
+import {RecognitionPayload} from './VoiceRecognitionActionTypes';
 
 export enum DetectionStates {
     IDLE,
@@ -76,10 +78,22 @@ export interface CameraState {
     savePictureStatus: RequestActionStatus<void, PictureSavedPayload>;
 }
 
+export interface VoiceState {
+    startListeningStatus: RequestActionStatus<
+        RecognitionPayload,
+        RecognitionPayload
+    >;
+    stopListeningStatus: RequestActionStatus;
+    resumeListeningStatus: RequestActionStatus;
+    suspendListeningStatus: RequestActionStatus;
+    lastHypothesis?: Hypothesis;
+}
+
 export interface RootState {
     app: AppState;
     camera: CameraState;
     visual: VisualState;
     tts: SpeechState;
     task: TaskState;
+    voice: VoiceState;
 }

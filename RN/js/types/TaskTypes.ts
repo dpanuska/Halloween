@@ -67,6 +67,12 @@ export type TakePictureTask = Task;
 export type SavePictureTask = Task;
 
 // VOICE
-export interface SetRecognitionTask extends Task {
-    recognition: string;
+export interface RecognitionConfig {
+    words: string[];
+    taskType: string;
 }
+export interface SetRecognitionTask extends Task {
+    configurations: RecognitionConfig[];
+}
+
+export type StopRecognitionTask = Task;

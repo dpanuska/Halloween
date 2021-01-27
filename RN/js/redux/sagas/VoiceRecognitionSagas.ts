@@ -55,7 +55,7 @@ export function* voiceCallbackSaga() {
     const channel = yield call(createVoiceCallbackChannel, voiceService);
 
     while (true) {
-        const hypothesis = yield take(channel);
+        const hypothesis: Hypothesis = yield take(channel);
         yield put(setRecognitionHypothesis(hypothesis));
     }
 }
@@ -65,7 +65,13 @@ export function* startRecognitionSaga(action: RecognitionStartAction) {
         yield put(startRecognitionStarted(action.payload));
 
         const voiceService: VoiceService = yield getContext(VOICE_SERVICE_KEY);
-        yield call(voiceService.setRecognitionWords, action.payload.words);
+        let words: string[] = [];
+        let allWords: string[] = action.payload.configurations.reduce(
+            (accumulator, currentValue) =>
+                accumulator.concat(currentValue.words),
+            words,
+        );
+        yield call(voiceService.setRecognitionWords, allWords);
         yield call(voiceService.startListening);
 
         yield fork(voiceCallbackSaga);
