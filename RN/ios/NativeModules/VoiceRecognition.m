@@ -59,6 +59,7 @@ RCT_EXPORT_MODULE()
       [self.sphinxController setActive:YES error:nil];
       self.openEarsEventsObserver = [[OEEventsObserver alloc] init];
       [self.openEarsEventsObserver setDelegate:self];
+      self.lmGenerator = [[OELanguageModelGenerator alloc] init];
     }
     return self;
 }
@@ -119,6 +120,8 @@ RCT_EXPORT_METHOD(suspend:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseReje
   if (!self.sphinxController.isSuspended) {
     [self.sphinxController suspendRecognition];
     resolve([NSNumber numberWithBool:YES]);
+  } else if(!self.sphinxController.isListening) {
+    reject(NOT_LISTENING_ERROR, @"Recognition is not listenening and can't be suspended", nil);
   } else {
     reject(ALREADY_SUSPENDED_ERROR, @"Recognition is already suspended", nil);
   }

@@ -4,9 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
 
+import com.dpanuska.halloween.modules.VoiceRecognitionPackage;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import net.no_mad.tts.TextToSpeechPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -44,6 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       List<ReactPackage> packages = new PackageList(this).getPackages();
       packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
+      packages.add(new VoiceRecognitionPackage());
       return packages;
     }
 
