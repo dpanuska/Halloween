@@ -8,6 +8,7 @@ import {
     VOICE_STOP_RECOGNITION_STATUS,
     VOICE_SUSPEND_RECOGNITION_STATUS,
     VOICE_RESUME_RECOGNITION_STATUS,
+    VOICE_HYPOTHESIS_PROCESSING_STATUS,
 } from 'src/constants/Actions';
 
 import {Action} from 'redux';
@@ -144,6 +145,34 @@ export const setRecognitionHypothesis = (
 ): HypothesisAction => ({
     type: VOICE_HYPOTHESIS_RECIEVED,
     payload: {
-        hypothesis: hypothesisData,
+        hypothesisData,
+    },
+});
+
+export const hypothesisProcessingStarted = (hypothesis: Hypothesis) => ({
+    type: VOICE_HYPOTHESIS_PROCESSING_STATUS,
+    payload: {
+        status: RequestStates.STARTED,
+        params: hypothesis,
+    },
+});
+
+export const hypothesisProcessingSuccess = (hypothesis: Hypothesis) => ({
+    type: VOICE_HYPOTHESIS_PROCESSING_STATUS,
+    payload: {
+        status: RequestStates.SUCCESSFUL,
+        params: hypothesis,
+    },
+});
+
+export const hypothesisProcessingFailed = (
+    hypothesis: Hypothesis,
+    error: Error,
+) => ({
+    type: VOICE_HYPOTHESIS_PROCESSING_STATUS,
+    payload: {
+        status: RequestStates.STARTED,
+        params: hypothesis,
+        error,
     },
 });

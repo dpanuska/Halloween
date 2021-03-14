@@ -18,6 +18,7 @@ import {
     TASK_FETCH_CONFIG_REQUESTED,
     TASK_FETCH_TASKS_REQUESTED,
     TASK_DISPATCH_ROOT_TASK_STATUS,
+    VOICE_HYPOTHESIS_RECIEVED,
 } from 'src/constants/Actions';
 import * as taskActions from 'src/redux/actions/TaskActions';
 import {fetchTasks, fetchConfiguration} from 'src/services/TaskService';
@@ -39,8 +40,15 @@ import {
     DispatchTaskListRequestStatusAction,
     DispatchTypedTaskAction,
 } from 'types/TaskActionTypes';
-import {TaskList, TaskResult} from 'types/TaskTypes';
+import {RecognitionConfig, TaskList, TaskResult} from 'types/TaskTypes';
 import {getActiveIdleDelay, getDetectionState} from '../selectors/AppSelectors';
+import {HypothesisAction} from 'src/types/VoiceRecognitionActionTypes';
+import {getRecognitionConfigForWord} from '../selectors/VoiceRecognitionSelectors';
+import {
+    hypothesisProcessingFailed,
+    hypothesisProcessingStarted,
+    hypothesisProcessingSuccess,
+} from '../actions/VoiceRecognitionActions';
 
 export function* handleDetectionStateChange(action: DetectionStateAction) {
     let state = action.payload.detectionState;
@@ -217,6 +225,44 @@ export function* activeIdleActionHandler(
     }
 }
 
+export function* voiceHypothesisSaga(action: HypothesisAction) {
+    yield put(hypothesisProcessingStarted(action.payload.hypothesis));
+
+    // TODO might want to look through all words
+    let hypothesis = action.payload.hypothesisData.hypothesis;
+    let words = hypothesis.split(' ');
+    let firstWord = words[0];
+
+    let config: RecognitionConfig = yield select(
+        getRecognitionConfigForWord,
+        firstWord,
+    );
+
+    if (config != null) {
+        let typedTask = yield select(getRandomTaskOfType, config.taskType);
+        if (typedTask != null) {
+            yield put(taskActions.dispatchRootTaskList(typedTask));
+            yield put(hypothesisProcessingSuccess(action.payload.hypothesis));
+        } else {
+            yield put(
+                hypothesisProcessingFailed(
+                    action.payload.hypothesis,
+                    new Error(`No task found for task type ${config.taskType}`),
+                ),
+            );
+        }
+    } else {
+        yield put(
+            hypothesisProcessingFailed(
+                action.payload.hypothesis,
+                new Error(
+                    `Could not fing recognition for detected word ${firstWord}`,
+                ),
+            ),
+        );
+    }
+}
+
 export default function* rootSaga() {
     yield takeLatest(TASK_FETCH_CONFIG_REQUESTED, fetchTaskConfig);
     yield takeLatest(TASK_FETCH_TASKS_REQUESTED, fetchAllTasks);
@@ -230,4 +276,6 @@ export default function* rootSaga() {
     yield takeLatest(TASK_DISPATCH_ROOT_TASK_LIST, queueRootTaskList);
 
     yield takeLatest(TASK_DISPATCH_ROOT_TASK_STATUS, activeIdleActionHandler);
+
+    yield takeLatest(VOICE_HYPOTHESIS_RECIEVED, voiceHypothesisSaga);
 }

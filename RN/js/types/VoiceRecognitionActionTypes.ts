@@ -4,7 +4,7 @@ import {RecognitionConfig} from 'types/TaskTypes';
 import {RequestStatusAction} from './ActionTypes';
 
 export type HypothesisPayload = {
-    hypothesis: Hypothesis;
+    hypothesisData: Hypothesis;
 };
 
 export type RecognitionPayload = {
